@@ -9,17 +9,19 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Tan Peng Kiang
 
-<img src="images/thepeekayy.png" width="200px">
+
+### Ashmita Haldar
+
+<img src="images/ashmitahaldar.png" width="200px">
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/ThePeeKayy)]
-[[portfolio](team/thepeekayy.md)]
+[[github](https://github.com/ashmitahaldar)]
+[[portfolio](team/ashmitahaldar.md)]
 
 * Role: Wannabe Project Advisor
 
-### Mun Hin
+### Kulkarni Venugopal Vasant
 
 <img src="images/johndoe.png" width="200px">
 
@@ -29,7 +31,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Ivan
+### Kho Wei Fong
 
 <img src="images/johndoe.png" width="200px">
 
@@ -38,11 +40,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Ashmita
+### Peng Kiang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/thepeekayy.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/ThePeeKayy)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
