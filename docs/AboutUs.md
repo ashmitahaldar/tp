@@ -9,41 +9,41 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Ivan 
+### Tan Peng Kiang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/thepeekayy.png" width="200px">
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/ThePeeKayy)]
+[[portfolio](team/thepeekayy.md)]
 
-* Role: Project Advisor
+* Role: Wannabe Project Advisor
 
 ### Mun Hin
 
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/thepeekayy.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
 
-### Ashmita
+### Ivan
 
-<img src="images/thepeekayy.png" width="200px">
+<img src="images/johndoe.png" width="200px">
 
-[[github](http://github.com/ThePeeKayy)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/johndoe)] [[portfolio](team/thepeekayy.md)]
 
 * Role: Developer
 * Responsibilities: Data
 
-### Tan Peng Kiang
+### Ashmita
 
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/thepeekayy.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
@@ -53,7 +53,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/thepeekayy.md)]
 
 * Role: Developer
 * Responsibilities: UI
