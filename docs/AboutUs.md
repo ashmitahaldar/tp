@@ -9,15 +9,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Ashmita Haldar
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ashmitahaldar.png" width="200px">
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/ashmitahaldar)]
+[[portfolio](team/ashmitahaldar.md)]
 
-* Role: Project Advisor
+* Role: Wannabe Project Advisor
 
 ### Jane Doe
 
