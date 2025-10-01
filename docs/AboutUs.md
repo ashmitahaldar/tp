@@ -9,8 +9,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-
-
 ### Ashmita Haldar
 
 <img src="images/ashmitahaldar.png" width="200px">
@@ -23,19 +21,19 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Kulkarni Venugopal Vasant
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/vorld.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/Vorld/tp/tree/master)]
+[[portfolio](https://www.venugopal.net)]
 
 * Role: Team Lead
 * Responsibilities: UI
 
 ### Kho Wei Fong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ivorkhan.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/ivorkhan)] [[portfolio](team/johndoe.md)]
 
 * Role: Developer
 * Responsibilities: Data
@@ -50,12 +48,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### Venu
+### Ng Mun Hin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ngmhprogramming.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/ngmhprogramming/)]
+[[portfolio](https://ngmunhin.com/)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Coding
