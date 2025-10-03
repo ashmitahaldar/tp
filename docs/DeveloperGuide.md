@@ -262,71 +262,386 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+![John Computing Himself](https://i.ytimg.com/vi/yU3PgVgUU9E/hq720.jpg?sqp=-oaymwEXCK4FEIIDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDEdsHMDVOS_9y7Pv-b4qcTiuTBrA)
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+* Student leaders planning events
+* Has a need to manage a significant number of vendor and stakeholder contacts
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing to mouse interactions
+* Is reasonably comfortable using CLI apps
+* Spends significant time sourcing or recalling important contacts for space vendors and NUS staff
 
+**Value proposition**: LinkedUp contact tracking application helps student leaders build and maintain professional networks while keeping vendor and stakeholder contacts organized. Manage contacts faster than a typical mouse/GUI driven app, with features designed specifically for event planning needs.
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a …​ | I want to …​                                                                    | So that I can…​                                                                      |
+|----------|---------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| `* * *`  | user    | add a new contact                                                               | use it for future reference                                                          |
+| `* * *`  | user    | delete a contact                                                                | remove unneeded contacts or contacts with wrong details                              |
+| `* * *`  | user    | view all my saved contacts                                                      | refer to my saved contact details in a convenient manner                             |
+| `* * *`  | user    | find contacts by keyword                                                        | locate contacts without going through the entire list                                |
+| `* * *`  | user    | tag contacts                                                                    | spend less time and effort looking for contact details                               |
+| `* *`    | user    | update phone numbers in my contacts                                             | stay in touch even when they change their number                                     |
+| `* *`    | user    | update emails in my contacts                                                    | stay in touch even when they change their email                                      |
+| `* *`    | user    | sort contacts by fields                                                         | make easy comparisons and faster decisions                                           |
+| `* *`    | user    | filter contacts tagged with a specific keyword                                  | quickly find relevant suppliers for specific needs                                   |
+| `* *`    | user    | search contacts dynamically                                                     | find them even if I do not remember their full details                               |
+| `* *`    | user    | view the app preloaded with sample contacts                                     | understand how the system works                                                      |
+| `* *`    | user    | export my contacts in a viewable format                                         | share vendor information with other organizers                                       |
+| `* *`    | user    | import my contacts from a common format such as JSON                            | focus on organizing events rather than spend time collating contacts                 |
+| `* *`    | user    | share my database file with other organizers                                    | they can use the same vendor information                                             |
+| `*`      | user    | update telegram handles in my contacts                                          | stay in touch even when they change their handle                                     |
+| `*`      | user    | record notes for each contact                                                   | refer to details about past experiences with them                                    |
+| `*`      | user    | view an intuitive visualization of vendors with key information                 | get information at a glance                                                          |
+| `*`      | user    | group multiple vendors under a specific event                                   | review which vendors were used for the event                                         |
+| `*`      | user    | store my contacts in organized software                                         | easily find the same required contacts used by seniors                               |
+| `*`      | user    | undo and redo commands                                                          | recover from mistakes                                                                |
+| `*`      | user    | pin the contacts of vendors I need                                              | have these contacts always available at the top                                      |
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `LinkedUp` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: U1 - Starting the app**
+
+**Preconditions:** User has downloaded the jar file and has Java 17 configured.
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User runs the jar file.
+2. System converts storage json file into contacts.
+3. System displays all stored contacts.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. No stored contacts list found.
+    * 2a1. System creates new save file.
+    * Use case resumes from step 3.
 
-  Use case ends.
+**Use case: U2 - Adding a contact**
 
-* 3a. The given index is invalid.
+**Preconditions:** User has started the app.
 
-    * 3a1. AddressBook shows an error message.
+**MSS**
 
-      Use case resumes at step 2.
+1. User provides details in the command line for new contact.
+2. System internalizes details to create a new contact object.
+3. System adds the contact and displays the updated list of contacts.
 
-*{More to be added}*
+   Use case ends.
+
+**Extensions**
+
+* 1a. System detects an invalid input.
+    * 1a1. System informs the user of the error.
+    * 1a2. User fixes and resubmits their request.
+    * Steps 1a1-1a2 are repeated until the data entered is correct.
+    * Use case resumes from step 2.
+
+**Use case: U3 - Listing contacts**
+
+**Preconditions:** User has started the app.
+
+**MSS**
+
+1. User requests a list of contacts.
+2. System displays all contacts.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. System does not find any contacts available.
+    * 2a1. System displays a message communicating the empty contact list.
+    * Use case ends.
+
+**Use case: U4 - Deleting a contact**
+
+**Preconditions:** The contact to be deleted is already in the contact list.
+
+**MSS**
+
+1. User lists contacts (U3).
+2. User requests to delete a contact specified by index.
+3. System deletes the contact from its storage.
+4. System displays the new contact list.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. System detects an invalid input.
+    * 2a1. System informs the user of the error.
+    * 2a2. User fixes and resubmits their request.
+    * Steps 2a1-2a2 are repeated until the data entered is correct.
+    * Use case resumes from step 3.
+
+**Use case: U5 - Tagging a contact**
+
+**Preconditions:** User has started the app and the contact to be tagged is already in the contact list.
+
+**MSS**
+
+1. User lists contacts (U3).
+2. User requests to tag a specific contact from the list by index.
+3. System adds tag to the list of tags in the chosen contact.
+4. System displays message conveying the successful addition of tag.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. System detects an invalid input.
+    * 2a1. System informs the user of the error.
+    * 2a2. User fixes and resubmits their request.
+    * Steps 2a1-2a2 are repeated until the data entered is correct.
+    * Use case resumes from step 3.
+* 3a. Tag already exists on the contact (case-insensitive).
+    * 3a1. System ignores the duplicate tag and informs user.
+    * Use case ends.
+* 3b. Contact has reached maximum number of tags (20).
+    * 3b1. System rejects the tag and informs user.
+    * Use case ends.
+
+**Use case: U6 - Deleting a tag**
+
+**Preconditions:** The tag exists on the target contact.
+
+**MSS**
+
+1. User lists contacts (U3).
+2. User requests to delete a tag from a contact by index.
+3. System deletes the tag and displays the new list of contacts.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. System detects an invalid input.
+    * 2a1. System informs the user of the error.
+    * 2a2. User fixes and resubmits their request.
+    * Steps 2a1-2a2 are repeated until the data entered is correct.
+    * Use case resumes from step 3.
+* 2b. Specified tag does not exist on the contact.
+    * 2b1. System informs user that tag is not found.
+    * Use case ends.
+
+**Use case: U7 - Finding contacts**
+
+**Preconditions:** User has started the app.
+
+**MSS**
+
+1. User searches for a contact based on a keyword.
+2. System displays the list of contacts filtered by keywords.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User specifies invalid search parameters.
+    * 1a1. System informs user of the error.
+    * Use case ends.
+* 2a. No contacts match the search criteria.
+    * 2a1. System displays empty result set.
+    * Use case ends.
+
+**Use case: U8 - Sorting contacts**
+
+**Preconditions:** User has a list of contacts.
+
+**MSS**
+
+1. User requests to sort the contact based on a parameter (name, email, phone number or address).
+2. System displays the sorted contact list.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User specifies invalid field.
+    * 1a1. System informs user of valid field options.
+    * Use case ends.
+* 1b. User specifies invalid sort order.
+    * 1b1. System informs user of valid sort order options.
+    * Use case ends.
+
+**Use case: U9 - Exiting the app**
+
+**Preconditions:** User has started the app.
+
+**MSS**
+
+1. User requests to exit the application.
+2. System saves updated contact data.
+3. System exits the app.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. System cannot save data to storage.
+    * 2a1. System informs user of save failure.
+    * 2a2. User chooses to exit anyway or cancel.
+    * Use case ends or resumes from step 2.
+
+**Use case: U10 - Exporting contacts**
+
+**Preconditions:** User has started the app.
+
+**MSS**
+
+1. User requests to export contacts.
+2. System converts contacts to JSON format.
+3. System saves JSON file to designated location.
+4. System informs user of successful export.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. System cannot write to storage location.
+    * 3a1. System informs user of the error.
+    * Use case ends.
+
+**Use case: U11 - Importing contacts**
+
+**Preconditions:** User has started the app and has a valid JSON contacts file.
+
+**MSS**
+
+1. User provides path to JSON file containing contacts.
+2. System validates and parses the JSON file.
+3. System adds valid, non-duplicate contacts to storage.
+4. System displays updated contact list.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. File format is invalid or file cannot be read.
+    * 2a1. System informs user of the error.
+    * Use case ends.
+* 3a. Some contacts have invalid data.
+    * 3a1. System skips invalid contacts.
+    * 3a2. System continues with valid contacts.
+    * Use case resumes from step 4.
+* 3b. All contacts are duplicates.
+    * 3b1. System informs user no new contacts were imported.
+    * Use case ends.
+
+**Use case: U12 - Adding notes to a contact**
+
+**Preconditions:** The contact exists in the contact list.
+
+**MSS**
+
+1. User lists contacts (U3).
+2. User requests to add notes to a specific contact by index.
+3. System adds the notes to the contact.
+4. System displays confirmation message.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. System detects an invalid index.
+    * 2a1. System informs the user of the error.
+    * 2a2. User fixes and resubmits their request.
+    * Steps 2a1-2a2 are repeated until valid index is entered.
+    * Use case resumes from step 3.
+
+**Use case: U13 - Pinning a contact**
+
+**Preconditions:** The contact to be pinned exists in the contact list.
+
+**MSS**
+
+1. User lists contacts (U3).
+2. User requests to pin a specific contact by index.
+3. System marks the contact as pinned.
+4. System displays the contact at the top of the list.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. System detects an invalid index.
+    * 2a1. System informs the user of the error.
+    * Use case ends.
+
+**Use case: U14 - Unpinning a contact**
+
+**Preconditions:** The contact is currently pinned.
+
+**MSS**
+
+1. User lists contacts (U3).
+2. User requests to unpin a specific contact by index.
+3. System removes the pinned status from the contact.
+4. System displays the contact in its normal sorted position.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. System detects an invalid index.
+    * 2a1. System informs the user of the error.
+    * Use case ends.
+
+**Use case: U15 - Updating contact information**
+
+**Preconditions:** The contact to be updated exists in the contact list.
+
+**MSS**
+
+1. User lists contacts (U3).
+2. User requests to update specific fields (phone, email, or telegram handle) of a contact by index.
+3. System validates the new information.
+4. System updates the contact with new information.
+5. System displays the updated contact list.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. System detects an invalid index.
+    * 2a1. System informs the user of the error.
+    * 2a2. User fixes and resubmits their request.
+    * Steps 2a1-2a2 are repeated until valid index is entered.
+    * Use case resumes from step 3.
+* 3a. New information format is invalid.
+    * 3a1. System informs user of the error.
+    * 3a2. User fixes and resubmits their request.
+    * Steps 3a1-3a2 are repeated until valid information is entered.
+    * Use case resumes from step 4.
+* 3b. New phone number or email already exists in another contact.
+    * 3b1. System rejects the update.
+    * Use case ends.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+1. Should work on any _mainstream OS_ (Windows, Linux, MacOS) as long as it has Java `17` or above installed.
+2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Should display all contacts within 2 seconds after initial load.
+5. Commands should execute within 2 seconds under normal load.
+6. Import/export operations should process files up to 5MB within 5 seconds.
+7. Should be able to retrieve 100 contacts without noticeable sluggishness.
+8. Should be able to store at least 100 contacts for every user.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Student Leader**: A student in NUS directly involved in supporting or organizing an event
+* **Contact**: A data structure representing a person's contact information. It consists of a name, email address, phone number, address, and any tags associated with that contact.
+* **Tag**: A string input by the user to characterize contacts for organizational and filtering purposes
 
 --------------------------------------------------------------------------------------------------------------------
 
