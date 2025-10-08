@@ -53,7 +53,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
-    private static boolean isInitiatingEdit;
+    private final boolean isInitiatingEdit;
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
@@ -140,7 +140,7 @@ public class EditCommand extends Command {
 
         EditCommand otherEditCommand = (EditCommand) other;
         return index.equals(otherEditCommand.index)
-                && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
+                && Objects.equals(editPersonDescriptor, otherEditCommand.editPersonDescriptor);
     }
 
     @Override
@@ -230,10 +230,6 @@ public class EditCommand extends Command {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        public boolean getIsInitiatingEdit() {
-            return isInitiatingEdit;
         }
 
         @Override
