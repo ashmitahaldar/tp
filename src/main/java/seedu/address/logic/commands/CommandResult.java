@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the result of a command execution.
@@ -19,6 +21,45 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private final boolean isInlineEdit;
+    private final String editData;
+
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean isInlineEdit, String editData) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.isInlineEdit = isInlineEdit;
+        this.editData = editData;
+    }
+
+    public static CommandResult forInlineEdit(Person person, int index) {
+        String editData = formatPersonForEdit(person, index);
+        return new CommandResult("", false, false, true, editData);
+    }
+
+
+    private static String formatPersonForEdit(Person person, int index) {
+        StringBuilder tagsString = new StringBuilder();
+        for (Tag tag : person.getTags()) {
+            tagsString.append(" t/").append(tag.tagName);
+        }
+
+        return String.format("edit " + index + " n/%s p/%s e/%s a/%s%s",
+                person.getName(),
+                person.getPhone(),
+                person.getEmail(),
+                person.getAddress(),
+                tagsString.toString());
+    }
+
+    public boolean isInlineEdit() {
+        return isInlineEdit;
+    }
+
+    public String getEditData() {
+        return editData;
+    }
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -26,6 +67,8 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.isInlineEdit = false;
+        this.editData = "";
     }
 
     /**

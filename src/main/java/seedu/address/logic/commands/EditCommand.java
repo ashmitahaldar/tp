@@ -34,6 +34,7 @@ import seedu.address.model.tag.Tag;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
+    public static boolean isInitiatingEdit;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
@@ -56,6 +57,18 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
+     * Initiates editing logic directly after user input.
+     *
+     * @param index of the person in the filtered person list to edit
+     */
+    public EditCommand(Index index) {
+        requireNonNull(index);
+        this.index = index;
+        this.editPersonDescriptor = null;
+        this.isInitiatingEdit = true;
+    }
+
+    /**
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
@@ -65,6 +78,7 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.isInitiatingEdit = false;
     }
 
     @Override
@@ -74,6 +88,11 @@ public class EditCommand extends Command {
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        if (isInitiatingEdit) {
+            Person personToEdit = lastShownList.get(index.getZeroBased());
+            return CommandResult.forInlineEdit(personToEdit, index.getOneBased()); // New CommandResult type
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
