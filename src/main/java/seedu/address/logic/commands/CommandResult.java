@@ -24,44 +24,8 @@ public class CommandResult {
     private final boolean isInlineEdit;
     private final String editData;
 
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean isInlineEdit, String editData) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.isInlineEdit = isInlineEdit;
-        this.editData = editData;
-    }
-
-    public static CommandResult forInlineEdit(Person person, int index) {
-        String editData = formatPersonForEdit(person, index);
-        return new CommandResult("", false, false, true, editData);
-    }
-
-
-    private static String formatPersonForEdit(Person person, int index) {
-        StringBuilder tagsString = new StringBuilder();
-        for (Tag tag : person.getTags()) {
-            tagsString.append(" t/").append(tag.tagName);
-        }
-
-        return String.format("edit " + index + " n/%s p/%s e/%s a/%s%s",
-                person.getName(),
-                person.getPhone(),
-                person.getEmail(),
-                person.getAddress(),
-                tagsString.toString());
-    }
-
-    public boolean isInlineEdit() {
-        return isInlineEdit;
-    }
-
-    public String getEditData() {
-        return editData;
-    }
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified fields with inline edit disabled.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -78,6 +42,51 @@ public class CommandResult {
     public CommandResult(String feedbackToUser) {
         this(feedbackToUser, false, false);
     }
+
+    /**
+     * Constructs a {@code CommandResult} with the fields with inline edit and selected person as input,
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean isInlineEdit, String editData) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.isInlineEdit = isInlineEdit;
+        this.editData = editData;
+    }
+
+    private static String formatPersonForEdit(Person person, int index) {
+        StringBuilder tagsString = new StringBuilder();
+        for (Tag tag : person.getTags()) {
+            tagsString.append(" t/").append(tag.tagName);
+        }
+
+        return String.format("edit " + index + " n/%s p/%s e/%s a/%s%s",
+                person.getName(),
+                person.getPhone(),
+                person.getEmail(),
+                person.getAddress(),
+                tagsString.toString());
+    }
+
+    /** The method for creating inline edit without person object. */
+    public static CommandResult forInlineEdit(Person person, int index) {
+        String editData = formatPersonForEdit(person, index);
+        return new CommandResult("", false, false, true, editData);
+    }
+
+
+
+
+    public boolean isInlineEdit() {
+        return isInlineEdit;
+    }
+
+    public String getEditData() {
+        return editData;
+    }
+
 
     public String getFeedbackToUser() {
         return feedbackToUser;
