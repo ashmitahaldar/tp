@@ -65,4 +65,46 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if the Levenshtein distance between {@code source} and {@code keyword}
+     * is less than or equal to the specified {@code threshold}.
+     * Matching is case-insensitive.
+     *
+     * @param source the source string to compare
+     * @param keyword the keyword to compare against
+     * @param threshold the maximum allowed Levenshtein distance for a match
+     * @return true if the distance is within the threshold, false otherwise
+     */
+    public static boolean fuzzyMatch(String source, String keyword, int threshold) {
+        source = source.toLowerCase();
+        keyword = keyword.toLowerCase();
+        int distance = levenshteinDistance(source, keyword);
+        return distance <= threshold;
+    }
+
+    /**
+     * Computes the Levenshtein distance between two strings.
+     * The distance is the minimum number of single-character edits
+     * (insertions, deletions, or substitutions) required to change one string into the other.
+     *
+     * @param a the first string
+     * @param b the second string
+     * @return the Levenshtein distance between {@code s1} and {@code s2}
+     */
+    private static int levenshteinDistance(String a, String b) {
+        int[] costs = new int[b.length() + 1];
+        for (int j = 0; j < costs.length; j++)
+            costs[j] = j;
+        for (int i = 1; i <= a.length(); i++) {
+            costs[0] = i;
+            int nw = i - 1;
+            for (int j = 1; j <= b.length(); j++) {
+                int cj = Math.min(1 + Math.min(costs[j], costs[j - 1]), a.charAt(i - 1) == b.charAt(j - 1) ? nw : nw + 1);
+                nw = costs[j];
+                costs[j] = cj;
+            }
+        }
+        return costs[b.length()];
+    }
 }
