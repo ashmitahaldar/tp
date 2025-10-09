@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 
 import java.nio.file.Path;
 import java.util.NoSuchElementException;
@@ -13,7 +13,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.StorageManager;
 
 /**
  * Adds a person to the address book.
@@ -56,7 +55,7 @@ public class ImportCommand extends Command {
             throw new CommandException(ImportCommand.MESSAGE_INVALID_FILE);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, filepath));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, filepath.toString().replace('\\', '/')));
     }
 
     @Override
@@ -77,7 +76,7 @@ public class ImportCommand extends Command {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("filepath", filepath)
+                .add("filepath", filepath.toString().replace('\\', '/'))
                 .toString();
     }
 }
