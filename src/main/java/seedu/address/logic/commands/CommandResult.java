@@ -76,9 +76,6 @@ public class CommandResult {
         return new CommandResult("", false, false, true, editData);
     }
 
-
-
-
     public boolean isInlineEdit() {
         return isInlineEdit;
     }
@@ -86,7 +83,6 @@ public class CommandResult {
     public String getEditData() {
         return editData;
     }
-
 
     public String getFeedbackToUser() {
         return feedbackToUser;
