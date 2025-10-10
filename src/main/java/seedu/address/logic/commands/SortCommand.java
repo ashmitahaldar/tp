@@ -42,9 +42,8 @@ public class SortCommand extends Command {
         // build and apply comparator
         Comparator<Person> comparator = buildComparator();
         model.sortFilteredPersonList(comparator);
-        return new CommandResult(MESSAGE_SUCCESS);
 
-        // return new CommandResult(MESSAGE_SUCCESS + " by " + field.toString() + " (" + order + ")");
+        return new CommandResult(MESSAGE_SUCCESS + " by " + field.toString() + " in " + order.toString() + " order");
     }
 
     /**

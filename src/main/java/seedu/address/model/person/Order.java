@@ -50,6 +50,18 @@ public class Order {
     }
 
     @Override
+    public String toString() {
+        switch (value) {
+        case ASC:
+            return "ascending";
+        case DESC:
+            return "descending";
+        default:
+            return "[invalid field]";
+        }
+    }
+
+    @Override
     public int hashCode() {
         return value.hashCode();
     }

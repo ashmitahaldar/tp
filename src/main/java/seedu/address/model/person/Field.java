@@ -56,6 +56,22 @@ public class Field {
     }
 
     @Override
+    public String toString() {
+        switch (value) {
+        case NAME:
+            return "name";
+        case PHONE:
+            return "phone";
+        case EMAIL:
+            return "email";
+        case ADDRESS:
+            return "address";
+        default:
+            return "[invalid field]";
+        }
+    }
+
+    @Override
     public int hashCode() {
         return value.hashCode();
     }
