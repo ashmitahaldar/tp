@@ -19,8 +19,8 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Sorted all persons";
 
-    private Field field;
-    private Order order;
+    private final Field field;
+    private final Order order;
 
     public SortCommand(Field field, Order order) {
         this.field = requireNonNull(field);
