@@ -15,7 +15,9 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Field;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Order;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -97,6 +99,34 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String field} into a {@code Field}.
+     * Field is case-insensitive.
+     *
+     * @throws ParseException if the given {@code field} is invalid.
+     */
+    public static Field parseField(String fieldString) throws ParseException {
+        Field field = new Field(fieldString.toLowerCase());
+        if (field.isInvalid()) {
+            throw new ParseException(Field.MESSAGE_CONSTRAINTS);
+        }
+        return field;
+    }
+
+    /**
+     * Parses a {@code String order} into an {@code Order}.
+     * Order is case-insensitive.
+     *
+     * @throws ParseException if the given {@code order} is invalid.
+     */
+    public static Order parseOrder(String orderString) throws ParseException {
+        Order order = new Order(orderString.toLowerCase());
+        if (order.isInvalid()) {
+            throw new ParseException(Order.MESSAGE_CONSTRAINTS);
+        }
+        return order;
     }
 
     /**
