@@ -43,12 +43,6 @@ public class SortCommandParser implements Parser<SortCommand> {
             order = ParserUtil.parseOrder(argMultimap.getValue(PREFIX_ORDER).get());
         }
 
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
         return new SortCommand(field, order);
     }
 
