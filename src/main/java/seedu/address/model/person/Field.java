@@ -1,13 +1,13 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 /**
  * Represents a Field in the address book.
- * Guarantees: immutable; and is in a specfied state
+ * Guarantees: immutable; and is in a specified state
  */
 public class Field {
+    /**
+     * Represents the different type of Fields, including the invalid state.
+     */
     public enum FieldValue {
         NAME,
         PHONE,
@@ -20,6 +20,10 @@ public class Field {
 
     public final FieldValue value;
 
+    /**
+     * Constructs the field from a specified string.
+     * @param field The input field string
+     */
     public Field(String field) {
         if (field.equals("name")) {
             value = FieldValue.NAME;

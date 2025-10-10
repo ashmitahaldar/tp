@@ -11,7 +11,7 @@ import seedu.address.model.person.Order;
 import seedu.address.model.person.Person;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all persons in the address book to the user in a specified sorted order.
  */
 public class SortCommand extends Command {
 
@@ -22,6 +22,11 @@ public class SortCommand extends Command {
     private final Field field;
     private final Order order;
 
+    /**
+     * Constructs a SortCommand from a specified field and order.
+     * @param field Field to use for sorting
+     * @param order Order to use for sorting
+     */
     public SortCommand(Field field, Order order) {
         this.field = requireNonNull(field);
         this.order = requireNonNull(order);
@@ -42,6 +47,10 @@ public class SortCommand extends Command {
         // return new CommandResult(MESSAGE_SUCCESS + " by " + field.toString() + " (" + order + ")");
     }
 
+    /**
+     * Constructs the appropriate Comparator given a specific field and order.
+     * @return The constructed Comparator.
+     */
     private Comparator<Person> buildComparator() {
         Comparator<Person> base;
 

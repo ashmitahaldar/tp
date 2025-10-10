@@ -1,10 +1,13 @@
 package seedu.address.model.person;
 
 /**
- * Represents a Field in the address book.
- * Guarantees: immutable; and is in a specfied state
+ * Represents an Order in the address book.
+ * Guarantees: immutable; and is in a specified state
  */
 public class Order {
+    /**
+     * Represents the different type of Orders, including the invalid state.
+     */
     public enum OrderValue {
         ASC,
         DESC,
@@ -15,6 +18,10 @@ public class Order {
 
     public final OrderValue value;
 
+    /**
+     * Constructs the Order from a specified string.
+     * @param order The input order string
+     */
     public Order(String order) {
         if (order.equals("asc")) {
             value = OrderValue.ASC;

@@ -97,6 +97,12 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
+    /**
+     * Parses a {@code String field} into a {@code Field}.
+     * Field is case-insensitive.
+     *
+     * @throws ParseException if the given {@code field} is invalid.
+     */
     public static Field parseField(String fieldString) throws ParseException {
         Field field = new Field(fieldString.toLowerCase());
         if (field.isInvalid()) {
@@ -105,6 +111,12 @@ public class ParserUtil {
         return field;
     }
 
+    /**
+     * Parses a {@code String order} into an {@code Order}.
+     * Order is case-insensitive.
+     *
+     * @throws ParseException if the given {@code order} is invalid.
+     */
     public static Order parseOrder(String orderString) throws ParseException {
         Order order = new Order(orderString.toLowerCase());
         if (order.isInvalid()) {
