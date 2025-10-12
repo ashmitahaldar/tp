@@ -42,8 +42,15 @@ public class CommandBox extends UiPart<Region> {
         }
 
         try {
-            commandExecutor.execute(commandText);
-            commandTextField.setText("");
+            CommandResult result = commandExecutor.execute(commandText);
+
+            // Check if this is an inline edit request
+            if (result.isInlineEdit()) {
+                commandTextField.setText(result.getEditData());
+                commandTextField.positionCaret(commandTextField.getText().length());
+            } else {
+                commandTextField.setText("");
+            }
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }

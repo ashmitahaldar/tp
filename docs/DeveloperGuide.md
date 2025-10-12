@@ -625,6 +625,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b1. System rejects the update.
     * Use case ends.
 
+**Use case: U16 - Filtering contacts by tag**
+
+**Preconditions:** User has started the app and contacts with tags exist.
+
+**MSS**
+
+1. User requests to filter contacts by a specific tag keyword.
+2. System displays all contacts that have the matching tag.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. No contacts have the specified tag.
+    * 2a1. System displays empty result set.
+    * Use case ends.
+
+**Use case: U17 - Grouping contacts by event**
+
+**Preconditions:** User has started the app and contacts exist.
+
+**MSS**
+
+1. User tags multiple contacts (U5) with the same tag meant to represent an event.
+2. User filters contacts by the event's tag (U16).
+
+   Use case ends.
+
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ (Windows, Linux, MacOS) as long as it has Java `17` or above installed.
@@ -642,6 +670,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Student Leader**: A student in NUS directly involved in supporting or organizing an event
 * **Contact**: A data structure representing a person's contact information. It consists of a name, email address, phone number, address, and any tags associated with that contact.
 * **Tag**: A string input by the user to characterize contacts for organizational and filtering purposes
+* **Vendor**: An external supplier or service provider that student leaders work with for events (e.g., caterers, merchandise suppliers, venue staff)
+* **Index**: The numerical position of a contact in the displayed contact list, used to reference specific contacts in commands
+* **JSON (JavaScript Object Notation)**: A lightweight data format used for storing and exchanging contact information
+* **Duplicate Contact**: A contact with the same phone number or email address as an existing contact in the system
+* **Pinned Contact**: A contact marked for priority display, appearing at the top of the contact list regardless of sort order
+* **NUS**: National University of Singapore
+* **IG Head**: Interest Group Head, a leadership position in student organizations
 
 --------------------------------------------------------------------------------------------------------------------
 

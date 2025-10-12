@@ -59,11 +59,17 @@ public class EditCommandParserTest {
         // no index specified
         assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
-        // no field specified
-        assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
-
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_missingDetails_success() {
+        Index targetIndex = INDEX_SECOND_PERSON;
+        EditCommand expectedCommand = new EditCommand(targetIndex);
+        // no field specified
+        assertParseSuccess(parser, "2", expectedCommand);
+
     }
 
     @Test

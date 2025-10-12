@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -18,8 +19,13 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
+        int threshold = 2; // adjust for fuzziness
+        String[] nameWords = person.getName().fullName.split("\\s+");
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+                .anyMatch(keyword ->
+                        Arrays.stream(nameWords).anyMatch(word ->
+                                matchesKeyword(word, keyword, threshold)
+                        ));
     }
 
     @Override
@@ -40,5 +46,10 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("keywords", keywords).toString();
+    }
+
+    private boolean matchesKeyword(String word, String keyword, int threshold) {
+        return StringUtil.containsWordIgnoreCase(word, keyword)
+                || StringUtil.fuzzyMatch(word, keyword, threshold);
     }
 }

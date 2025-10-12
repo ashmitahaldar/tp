@@ -35,6 +35,12 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
+
+
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
@@ -47,13 +53,22 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
-
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-
+    private final boolean isInitiatingEdit;
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
+
+
+    /**
+     * Initiates editing logic directly after user input.
+     *
+     * @param index of the person in the filtered person list to edit
+     */
+    public EditCommand(Index index) {
+        requireNonNull(index);
+        this.index = index;
+        this.editPersonDescriptor = null;
+        this.isInitiatingEdit = true;
+    }
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -65,6 +80,7 @@ public class EditCommand extends Command {
 
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.isInitiatingEdit = false;
     }
 
     @Override
@@ -74,6 +90,11 @@ public class EditCommand extends Command {
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        if (isInitiatingEdit) {
+            Person personToEdit = lastShownList.get(index.getZeroBased());
+            return CommandResult.forInlineEdit(personToEdit, index.getOneBased()); // New CommandResult type
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
@@ -99,7 +120,9 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+
+        //Allow deleting of tags
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(Collections.emptySet());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -117,7 +140,7 @@ public class EditCommand extends Command {
 
         EditCommand otherEditCommand = (EditCommand) other;
         return index.equals(otherEditCommand.index)
-                && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
+                && Objects.equals(editPersonDescriptor, otherEditCommand.editPersonDescriptor);
     }
 
     @Override

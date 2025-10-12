@@ -2,16 +2,22 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Field;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Order;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -93,6 +99,50 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String field} into a {@code Field}.
+     * Field is case-insensitive.
+     *
+     * @throws ParseException if the given {@code field} is invalid.
+     */
+    public static Field parseField(String fieldString) throws ParseException {
+        Field field = new Field(fieldString.toLowerCase());
+        if (field.isInvalid()) {
+            throw new ParseException(Field.MESSAGE_CONSTRAINTS);
+        }
+        return field;
+    }
+
+    /**
+     * Parses a {@code String order} into an {@code Order}.
+     * Order is case-insensitive.
+     *
+     * @throws ParseException if the given {@code order} is invalid.
+     */
+    public static Order parseOrder(String orderString) throws ParseException {
+        Order order = new Order(orderString.toLowerCase());
+        if (order.isInvalid()) {
+            throw new ParseException(Order.MESSAGE_CONSTRAINTS);
+        }
+        return order;
+    }
+
+    /**
+     * Parses a {@code String filepath} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code filepath} is invalid.
+     */
+    public static Path parsePath(String filepath) throws ParseException {
+        requireNonNull(filepath);
+        String trimmedPath = filepath.trim();
+        try {
+            return Paths.get(trimmedPath);
+        } catch (InvalidPathException e) {
+            throw new ParseException(ImportCommand.MESSAGE_INVALID_FILE);
+        }
     }
 
     /**
