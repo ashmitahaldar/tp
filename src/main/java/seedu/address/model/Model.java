@@ -14,7 +14,7 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
+    ObservableList<Person> getSortedPersonList();
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -86,7 +86,20 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    ObservableList<Person> getSortedPersonList();
+    /**
+     * Saves the current state of the address book for undo functionality.
+     */
+    void saveAddressBookState();
+
+    /**
+     * Returns true if there are address book states to undo.
+     */
+    boolean canUndoAddressBook();
+
+    /**
+     * Restores the address book to the previous state.
+     */
+    void undoAddressBook();
 
     void sortFilteredPersonList(Comparator<Person> comparator);
 }
