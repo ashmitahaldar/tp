@@ -146,6 +146,20 @@ public class ImportCommandTest {
         };
 
         @Override
+        public void saveAddressBookState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public ObservableList<Person> getSortedPersonList() {
             throw new AssertionError("This method should not be called.");
         };

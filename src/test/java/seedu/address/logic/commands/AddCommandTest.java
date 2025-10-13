@@ -160,14 +160,31 @@ public class AddCommandTest {
         }
 
         @Override
+        public void saveAddressBookState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void sortFilteredPersonList(Comparator<Person> comparator) {
             throw new AssertionError("This method should not be called.");
         };
 
-        @Override
         public ObservableList<Person> getSortedPersonList() {
             throw new AssertionError("This method should not be called.");
         };
+
+
+
     }
 
     /**
