@@ -128,7 +128,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+        return unmodifiableSortedPersons;
     }
 
     @Override
