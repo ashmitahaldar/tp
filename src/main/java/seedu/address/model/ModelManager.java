@@ -158,6 +158,13 @@ public class ModelManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    // === For sorting ===
+
+    @Override
+    public ObservableList<Person> getSortedPersonList() {
+        return unmodifiableSortedPersons;
+    };
+
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         sortedPersons.setComparator(comparator);
