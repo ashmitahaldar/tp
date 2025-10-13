@@ -27,6 +27,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SortedList<Person> sortedPersons;
     private final ObservableList<Person> unmodifiableSortedPersons;
+    private final AddressBookVersionHistory versionHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +39,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        versionHistory = new AddressBookVersionHistory();
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.sortedPersons = new SortedList<>(filteredPersons);
         this.unmodifiableSortedPersons = FXCollections.unmodifiableObservableList(sortedPersons);
@@ -126,7 +128,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return unmodifiableSortedPersons;
+        return filteredPersons;
     }
 
     @Override
@@ -134,6 +136,32 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    //=========== Undo ==================================================================================
+
+    @Override
+    public void saveAddressBookState() {
+        versionHistory.saveState(addressBook);
+    }
+
+    @Override
+    public boolean canUndoAddressBook() {
+        return versionHistory.canUndo();
+    }
+
+    @Override
+    public void undoAddressBook() {
+        if (!canUndoAddressBook()) {
+            throw new IllegalStateException("No states available to undo.");
+        }
+        addressBook.resetData(versionHistory.undo(addressBook));
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void sortFilteredPersonList(Comparator<Person> comparator) {
+        sortedPersons.setComparator(comparator);
+    };
 
     @Override
     public boolean equals(Object other) {
@@ -152,15 +180,4 @@ public class ModelManager implements Model {
                 && filteredPersons.equals(otherModelManager.filteredPersons);
     }
 
-    // === For sorting ===
-
-    @Override
-    public ObservableList<Person> getSortedPersonList() {
-        return unmodifiableSortedPersons;
-    };
-
-    @Override
-    public void sortFilteredPersonList(Comparator<Person> comparator) {
-        sortedPersons.setComparator(comparator);
-    };
 }
