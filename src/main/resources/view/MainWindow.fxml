@@ -52,10 +52,10 @@
           <padding>
             <Insets top="10" right="10" bottom="10" left="10" />
           </padding>
-          <HBox spacing="1" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-            <StackPane fx:id="personListPanelPlaceholder" prefWidth="300"/>
-            <Separator orientation="VERTICAL"/>
-            <StackPane fx:id="personInfoPanelPlaceholder" prefWidth="400"/>
+          <HBox spacing="1" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" VBox.vgrow="ALWAYS">
+            <StackPane fx:id="personListPanelPlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
+            <Separator orientation="VERTICAL" />
+            <StackPane fx:id="personInfoPanelPlaceholder" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"/>
           </HBox>
         </VBox>
 
