@@ -86,6 +86,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code TelegramHandle} of the {@code Person} that we are building.
+     */
     public PersonBuilder withTelegram(String handle) {
         this.telegramHandle = new TelegramHandle(handle);
         return this;

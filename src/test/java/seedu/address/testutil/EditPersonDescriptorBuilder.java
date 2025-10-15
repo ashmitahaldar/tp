@@ -57,6 +57,9 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code TelegramHandle} of the {@code EditPersonDescriptor} that we are building.
+     */
     public EditPersonDescriptorBuilder withTelegram(String handle) {
         descriptor.setTelegramHandle(new TelegramHandle(handle));
         return this;
