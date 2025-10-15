@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class TelegramHandle {
 
 
-    public static final String MESSAGE_CONSTRAINTS = "A telegram handle should be between 5 and 32 characters and" +
-            "start with a letter, are you sure you entered it correctly?";
+    public static final String MESSAGE_CONSTRAINTS = "A telegram handle should be between 5 and 32 characters and"
+            + "start with a letter, are you sure you entered it correctly?";
 
     public static final String VALIDATION_REGEX = "^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$";
     public final String value;

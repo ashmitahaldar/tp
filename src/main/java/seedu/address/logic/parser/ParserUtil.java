@@ -9,8 +9,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.naming.TimeLimitExceededException;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ImportCommand;
@@ -74,6 +72,12 @@ public class ParserUtil {
         return new Phone(trimmedPhone);
     }
 
+    /**
+     * Parses a {@code String handle} into a {@code TelegramHandle}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code handle} is invalid.
+     */
     public static TelegramHandle parseTelegramHandle(String handle) throws ParseException {
         requireNonNull(handle);
         String trimmedHandle = handle.trim();

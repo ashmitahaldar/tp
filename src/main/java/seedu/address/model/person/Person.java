@@ -47,7 +47,9 @@ public class Person {
         return phone;
     }
 
-    public TelegramHandle getTelegramHandle() { return telegramHandle; }
+    public TelegramHandle getTelegramHandle() {
+        return telegramHandle;
+    }
 
     public Email getEmail() {
         return email;
