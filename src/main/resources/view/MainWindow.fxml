@@ -53,7 +53,7 @@
           </padding>
           <HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
             <StackPane fx:id="personListPanelPlaceholder" prefWidth="300"/>
-<!--            <StackPane fx:id="personInfoPanelPlaceholder" prefWidth="300"/>-->
+            <StackPane fx:id="personInfoPanelPlaceholder" prefWidth="400"/>
           </HBox>
         </VBox>
 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Separator?>
+<ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fitToWidth="true" fitToHeight="true" styleClass="background">
+    <content>
+        <VBox fx:id="infoBox" spacing="8" alignment="TOP_LEFT"
+              styleClass="background" style="-fx-padding: 12;">
+            <Label fx:id="name" styleClass="label-header"/>
+            <VBox spacing="8">
+                <Label text="Phone:" styleClass="label-info-type"/>
+                <Label fx:id="phone" styleClass="label-bright"/>
+            </VBox>
+            <VBox spacing="8">
+                <Label text="Address:" styleClass="label-info-type"/>
+                <Label fx:id="address" styleClass="label-bright"/>
+            </VBox>
+            <VBox spacing="8">
+                <Label text="Email:" styleClass="label-info-type"/>
+                <Label fx:id="email" styleClass="label-bright"/>
+            </VBox>
+            <FlowPane fx:id="tags" hgap="8" vgap="8" id="tags"/>
+        </VBox>
+    </content>
+</ScrollPane>
