@@ -129,9 +129,9 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        personListPanel.getPersonListView().getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldPerson, newPerson) -> personInfoPanel.displayPerson(newPerson)
-        );
+        personListPanel.getPersonListView().getSelectionModel().selectedItemProperty().addListener((
+                obs, oldPerson, newPerson)
+                -> personInfoPanel.displayPerson(newPerson));
     }
 
     /**

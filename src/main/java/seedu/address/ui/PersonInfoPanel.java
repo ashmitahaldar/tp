@@ -6,11 +6,14 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
+/**
+ * Panel that displays detailed information of a selected {@code Person}.
+ */
 public class PersonInfoPanel extends UiPart<Region> {
     private static final String FXML = "PersonInfoPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -28,11 +31,20 @@ public class PersonInfoPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
+    /**
+     * Creates a {@code PersonInfoPanel} and initializes with placeholder text.
+     */
     public PersonInfoPanel() {
         super(FXML);
         displayPerson(null);
     }
 
+    /**
+     * Displays the details of the given {@code Person} in the panel.
+     * If {@code person} is {@code null}, shows placeholder text.
+     *
+     * @param person The person whose details to display, or {@code null} for default text.
+     */
     public void displayPerson(Person person) {
         if (person == null) {
             name.setText("No person selected");
