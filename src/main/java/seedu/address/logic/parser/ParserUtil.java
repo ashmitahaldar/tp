@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.naming.TimeLimitExceededException;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ImportCommand;
@@ -19,6 +21,7 @@ import seedu.address.model.person.Field;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Order;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.TelegramHandle;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -69,6 +72,25 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    public static TelegramHandle parseTelegramHandle(String handle) throws ParseException {
+        requireNonNull(handle);
+        String trimmedHandle = handle.trim();
+
+        if (trimmedHandle.isEmpty()) {
+            return new TelegramHandle("@unspecified");
+        }
+
+        if (!trimmedHandle.startsWith("@")) {
+            trimmedHandle = "@" + trimmedHandle;
+        }
+
+        if (!TelegramHandle.isValidHandle(trimmedHandle)) {
+            throw new ParseException(TelegramHandle.MESSAGE_CONSTRAINTS);
+        }
+
+        return new TelegramHandle(trimmedHandle);
     }
 
     /**

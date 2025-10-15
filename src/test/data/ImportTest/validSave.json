@@ -2,6 +2,7 @@
   "persons" : [ {
     "name" : "John Computing",
     "phone" : "81234567",
+    "telegram" : "@john_computing",
     "email" : "E1234567@u.nus.edu",
     "address" : "1 Computing Lane",
     "tags" : [ ]
