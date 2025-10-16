@@ -42,6 +42,8 @@ public class ModelManager implements Model {
         versionHistory = new AddressBookVersionHistory();
         this.filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         this.sortedPersons = new SortedList<>(filteredPersons);
+        // Set default comparator to show pinned contacts first
+        this.sortedPersons.setComparator(Comparator.comparing(Person::isPinned).reversed());
         this.unmodifiableSortedPersons = FXCollections.unmodifiableObservableList(sortedPersons);
     }
 
@@ -167,7 +169,10 @@ public class ModelManager implements Model {
 
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
-        sortedPersons.setComparator(comparator);
+        // Chain the comparator to ensure pinned contacts remain at the top
+        Comparator<Person> pinnedFirstComparator = Comparator.comparing(Person::isPinned).reversed()
+                .thenComparing(comparator);
+        sortedPersons.setComparator(pinnedFirstComparator);
     };
 
     @Override

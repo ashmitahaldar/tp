@@ -44,7 +44,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags, boolean isPinned) {
+    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags,
+                  boolean isPinned) {
         requireAllNonNull(name, phone, telegramHandle, email, address, tags);
         this.name = name;
         this.phone = phone;
