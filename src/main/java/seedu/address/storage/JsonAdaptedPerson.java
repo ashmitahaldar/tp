@@ -31,6 +31,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final boolean isPinned;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -39,7 +40,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("telegram") String telegram,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("isPinned") Boolean isPinned) {
         this.name = name;
         this.phone = phone;
         this.telegram = telegram;
@@ -48,6 +49,7 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.isPinned = isPinned != null ? isPinned : false;
     }
 
     /**
@@ -62,6 +64,7 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        isPinned = source.isPinned();
     }
 
     /**
@@ -118,7 +121,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        return new Person(modelName, modelPhone, modelTelegramHandle, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelTelegramHandle, modelEmail, modelAddress, modelTags, isPinned);
     }
 
 }
