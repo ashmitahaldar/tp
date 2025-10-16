@@ -83,7 +83,7 @@ public class ParserUtil {
         String trimmedHandle = handle.trim();
 
         if (trimmedHandle.isEmpty()) {
-            return new TelegramHandle("@unspecified");
+            return new TelegramHandle("");
         }
 
         if (!trimmedHandle.startsWith("@")) {
