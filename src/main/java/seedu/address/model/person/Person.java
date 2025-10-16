@@ -25,6 +25,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final boolean isPinned;
 
     /**
      * Every field must be present and not null.
@@ -37,6 +38,21 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.isPinned = false;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags, boolean isPinned) {
+        requireAllNonNull(name, phone, telegramHandle, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.telegramHandle = telegramHandle;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.isPinned = isPinned;
     }
 
     public Name getName() {
@@ -65,6 +81,10 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public boolean isPinned() {
+        return isPinned;
     }
 
     /**
@@ -101,13 +121,14 @@ public class Person {
                 && telegramHandle.equals(otherPerson.telegramHandle)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && isPinned == otherPerson.isPinned;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, telegramHandle, email, address, tags);
+        return Objects.hash(name, phone, telegramHandle, email, address, tags, isPinned);
     }
 
     @Override
@@ -119,6 +140,7 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("isPinned", isPinned)
                 .toString();
     }
 
