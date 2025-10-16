@@ -35,11 +35,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private Label telegram;
+    @FXML
     private Label address;
     @FXML
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label pinIcon;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -50,10 +54,24 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
+        boolean validTelegram = person.getTelegramHandle().isValid;
+        telegram.setText(person.getTelegramHandle().value);
+        if (validTelegram) {
+            telegram.setVisible(true);
+            telegram.setManaged(true);
+        } else {
+            telegram.setVisible(false);
+            telegram.setManaged(false);
+        }
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        // Show pin icon if the person is pinned
+        if (person.isPinned()) {
+            pinIcon.setVisible(true);
+        }
     }
 }

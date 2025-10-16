@@ -22,7 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 
-public class ImportCommandTest {
+public class ExportCommandTest {
     private static Path validPath;
     private static Path invalidPath;
 
@@ -37,33 +37,28 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void constructor_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ImportCommand(null));
-    }
+    public void execute_pathAcceptedByModel_exportSuccessful() throws Exception {
+        ModelStub modelStub = new ModelStubValidPath();
 
-    @Test
-    public void execute_pathAcceptedByModel_importSuccessful() throws Exception {
-        ModelStub modelStub = new ModelStubAcceptingPath();
+        CommandResult commandResult = new ExportCommand().execute(modelStub);
 
-        CommandResult commandResult = new ImportCommand(validPath).execute(modelStub);
-
-        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_JOHN),
+        assertEquals(String.format(ExportCommand.MESSAGE_SUCCESS),
                 commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_pathAcceptedByModel_importFailure() {
-        ModelStub modelStub = new ModelStubAcceptingPath();
+    public void execute_pathAcceptedByModel_exportFailure() {
+        ModelStub modelStub = new ModelStubInvalidPath();
 
-        assertThrows(CommandException.class, () -> new ImportCommand(invalidPath)
+        assertThrows(CommandException.class, () -> new ExportCommand()
                 .execute(modelStub).getFeedbackToUser());
     }
 
     @Test
     public void toStringMethod() {
-        ImportCommand importCommand = new ImportCommand(validPath);
-        String expected = ImportCommand.class.getCanonicalName() + "{filepath=" + VALID_FILEPATH_JOHN + "}";
-        assertEquals(expected, importCommand.toString());
+        ExportCommand exportCommand = new ExportCommand();
+        String expected = ExportCommand.class.getCanonicalName() + "{}";
+        assertEquals(expected, exportCommand.toString());
     }
 
     /**
@@ -166,17 +161,22 @@ public class ImportCommandTest {
     }
 
     /**
-     * A Model stub that always returns a valid filepath.
+     * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPath extends ModelStub {
+    private class ModelStubValidPath extends ModelStub {
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            return;
+        public Path getAddressBookFilePath() {
+            return validPath;
         }
+    }
 
+    /**
+     * A Model stub that always accept the person being added.
+     */
+    private class ModelStubInvalidPath extends ModelStub {
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            return;
+        public Path getAddressBookFilePath() {
+            return invalidPath;
         }
     }
 

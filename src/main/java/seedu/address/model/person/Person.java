@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,21 +21,40 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final TelegramHandle telegramHandle;
 
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final boolean isPinned;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, telegramHandle, email, address, tags);
         this.name = name;
         this.phone = phone;
+        this.telegramHandle = telegramHandle;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.isPinned = false;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags,
+                  boolean isPinned) {
+        requireAllNonNull(name, phone, telegramHandle, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.telegramHandle = telegramHandle;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.isPinned = isPinned;
     }
 
     public Name getName() {
@@ -43,6 +63,10 @@ public class Person {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public TelegramHandle getTelegramHandle() {
+        return telegramHandle;
     }
 
     public Email getEmail() {
@@ -61,6 +85,10 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public boolean isPinned() {
+        return isPinned;
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -72,6 +100,24 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Retrieve all fields related to the person
+     * Each element of the ArrayList will be of the form "[FIELD_NAME]:[FIELD VALUE]"
+     * @return Field name and field details
+     */
+    public ArrayList<String> getFields() {
+        ArrayList<String> fieldList = new ArrayList<>();
+        fieldList.add("name:" + this.name);
+        fieldList.add("phone:" + this.phone);
+        fieldList.add("address:" + this.address);
+        fieldList.add("email:" + this.email);
+        fieldList.add("telegram:" + this.telegramHandle);
+        tags.forEach((Tag t) -> {
+            fieldList.add("tag:" + t);
+        });
+        return fieldList;
     }
 
     /**
@@ -92,15 +138,17 @@ public class Person {
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
+                && telegramHandle.equals(otherPerson.telegramHandle)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && isPinned == otherPerson.isPinned;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, telegramHandle, email, address, tags, isPinned);
     }
 
     @Override
@@ -108,9 +156,11 @@ public class Person {
         return new ToStringBuilder(this)
                 .add("name", name)
                 .add("phone", phone)
+                .add("telegram", telegramHandle)
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("isPinned", isPinned)
                 .toString();
     }
 

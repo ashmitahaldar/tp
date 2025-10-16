@@ -8,6 +8,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.TelegramHandle;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -18,14 +19,17 @@ public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_TELEGRAM = "";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
     private Name name;
     private Phone phone;
+    private TelegramHandle telegramHandle;
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private boolean isPinned;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -33,9 +37,11 @@ public class PersonBuilder {
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
+        telegramHandle = new TelegramHandle(DEFAULT_TELEGRAM);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        isPinned = false;
     }
 
     /**
@@ -44,9 +50,11 @@ public class PersonBuilder {
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
+        telegramHandle = personToCopy.getTelegramHandle();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        isPinned = personToCopy.isPinned();
     }
 
     /**
@@ -82,6 +90,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code TelegramHandle} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withTelegram(String handle) {
+        this.telegramHandle = new TelegramHandle(handle);
+        return this;
+    }
+
+    /**
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
@@ -89,8 +105,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code isPinned} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withPinned(boolean isPinned) {
+        this.isPinned = isPinned;
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, telegramHandle, email, address, tags, isPinned);
     }
 
 }
