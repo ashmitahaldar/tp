@@ -1,27 +1,24 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.NoSuchElementException;
-import java.util.PrimitiveIterator;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 
 /**
- * Adds a person to the address book.
+ * Exports the save file as a .csv file
  */
 public class ExportCommand extends Command {
 
@@ -50,6 +47,10 @@ public class ExportCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
+    /**
+     * Initializes export variables.
+     * @throws CommandException if an error occurred while initializing the export file
+     */
     private void initializeExport() throws CommandException {
         try {
             File outputFile = new File(OUTPUT_PATH);
@@ -60,6 +61,12 @@ public class ExportCommand extends Command {
         }
     }
 
+    /**
+     * Retrieves the saved list of people in the address book.
+     * @param model the model used for the instance
+     * @return list of people in the address book of the model
+     * @throws CommandException if the save file used by the model is not found
+     */
     private ObservableList<Person> getPersonList(Model model) throws CommandException {
         Path saveFilePath = model.getAddressBookFilePath();
 
@@ -71,12 +78,21 @@ public class ExportCommand extends Command {
         }
     }
 
+    /**
+     * Translates the list of people into a .csv file.
+     * @param personList list of people to be saved in the .csv file
+     */
     private void saveAsCsv(ObservableList<Person> personList) {
         personList.iterator().forEachRemaining((Person person) -> {
             StringBuilder fieldsString = new StringBuilder();
-            person.getFields().forEach(fieldsString::append);
+            person.getFields().forEach((String s) -> {
+                fieldsString.append(s);
+                fieldsString.append(',');
+            });
+            fieldsString.deleteCharAt(fieldsString.length() - 1); // remove trailing comma
             printWriter.println(fieldsString);
         });
+        printWriter.close();
     }
 
     @Override
