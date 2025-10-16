@@ -15,7 +15,7 @@ public class TelegramHandle {
 
     public static final String VALIDATION_REGEX = "^@?[a-zA-Z][a-zA-Z0-9_]{4,31}$";
     public final String value;
-    public final boolean valid;
+    public final boolean isValid;
 
     /**
      * Constructs a {@code TelegramHandle}.
@@ -26,12 +26,12 @@ public class TelegramHandle {
         requireNonNull(handle);
         if (handle.isEmpty()) {
             value = handle;
-            valid = false;
+            isValid = false;
             return;
         }
         checkArgument(isValidHandle(handle), MESSAGE_CONSTRAINTS);
         value = handle;
-        valid = true;
+        isValid = true;
     }
 
     /**
