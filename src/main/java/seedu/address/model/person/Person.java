@@ -92,6 +92,7 @@ public class Person {
         fieldList.add("phone:" + this.phone);
         fieldList.add("address:" + this.address);
         fieldList.add("email:" + this.email);
+        fieldList.add("telegram:" + this.telegramHandle);
         tags.forEach((Tag t) -> {
             fieldList.add("tag:" + t);
         });
