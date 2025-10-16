@@ -15,7 +15,7 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 
 /**
- * Adds a person to the address book.
+ * Imports a save file to the address book.
  */
 public class ImportCommand extends Command {
 
@@ -34,7 +34,7 @@ public class ImportCommand extends Command {
     private Path filepath;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an ImportCommand to import the specified save file
      */
     public ImportCommand(Path filepath) {
         requireNonNull(filepath);
