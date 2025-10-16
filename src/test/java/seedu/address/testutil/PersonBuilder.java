@@ -29,6 +29,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private boolean isPinned;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -40,6 +41,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        isPinned = false;
     }
 
     /**
@@ -52,6 +54,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        isPinned = personToCopy.isPinned();
     }
 
     /**
@@ -102,8 +105,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code isPinned} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withPinned(boolean isPinned) {
+        this.isPinned = isPinned;
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, telegramHandle, email, address, tags);
+        return new Person(name, phone, telegramHandle, email, address, tags, isPinned);
     }
 
 }
