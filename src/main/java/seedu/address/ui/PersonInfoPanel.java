@@ -25,6 +25,8 @@ public class PersonInfoPanel extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private Label telegram;
+    @FXML
     private Label address;
     @FXML
     private Label email;
@@ -49,12 +51,22 @@ public class PersonInfoPanel extends UiPart<Region> {
         if (person == null) {
             name.setText("No person selected");
             phone.setText("-");
+            telegram.setText("-");
             address.setText("-");
             email.setText("-");
             tags.getChildren().clear();
         } else {
             name.setText(person.getName().fullName);
             phone.setText(person.getPhone().value);
+            boolean validTelegram = person.getTelegramHandle().isValid;
+            telegram.setText(person.getTelegramHandle().value);
+            if (validTelegram) {
+                telegram.setVisible(true);
+                telegram.setManaged(true);
+            } else {
+                telegram.setVisible(false);
+                telegram.setManaged(false);
+            }
             address.setText(person.getAddress().value);
             email.setText(person.getEmail().value);
             tags.getChildren().clear();

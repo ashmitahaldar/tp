@@ -17,6 +17,10 @@
                 <Label fx:id="phone" styleClass="label-bright"/>
             </VBox>
             <VBox spacing="8">
+                <Label text="Telegram:" styleClass="label-info-type"/>
+                <Label fx:id="telegram" styleClass="label-bright"/>
+            </VBox>
+            <VBox spacing="8">
                 <Label text="Address:" styleClass="label-info-type"/>
                 <Label fx:id="address" styleClass="label-bright"/>
             </VBox>
