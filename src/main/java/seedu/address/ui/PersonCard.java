@@ -61,7 +61,7 @@ public class PersonCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        // Show pin icon if person is pinned
+        // Show pin icon if the person is pinned
         if (person.isPinned()) {
             pinIcon.setVisible(true);
         }

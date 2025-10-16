@@ -170,8 +170,10 @@ public class ModelManager implements Model {
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         // Chain the comparator to ensure pinned contacts remain at the top
-        Comparator<Person> pinnedFirstComparator = Comparator.comparing(Person::isPinned).reversed()
-                .thenComparing(comparator);
+        Comparator<Person> pinnedFirstComparator = Comparator.comparing(Person::isPinned).reversed();
+        if (comparator != null) {
+            pinnedFirstComparator = pinnedFirstComparator.thenComparing(comparator);
+        }
         sortedPersons.setComparator(pinnedFirstComparator);
     };
 
