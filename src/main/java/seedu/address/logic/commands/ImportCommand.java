@@ -34,7 +34,7 @@ public class ImportCommand extends Command {
     private Path filepath;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an ImportCommand to import the specified savefile
      */
     public ImportCommand(Path filepath) {
         requireNonNull(filepath);

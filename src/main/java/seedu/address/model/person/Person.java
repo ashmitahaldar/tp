@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -72,6 +73,23 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Retrieve all fields related to the person
+     * Each element of the ArrayList will be of the form "[FIELD_NAME]:[FIELD VALUE]"
+     * @return Field name and field details
+     */
+    public ArrayList<String> getFields() {
+        ArrayList<String> fieldList = new ArrayList<>();
+        fieldList.add("name:" + this.name);
+        fieldList.add("phone:" + this.phone);
+        fieldList.add("address:" + this.address);
+        fieldList.add("email:" + this.email);
+        tags.forEach((Tag t) -> {
+            fieldList.add("tag:" + t);
+        });
+        return fieldList;
     }
 
     /**
