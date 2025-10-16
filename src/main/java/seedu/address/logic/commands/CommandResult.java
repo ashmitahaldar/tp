@@ -62,9 +62,10 @@ public class CommandResult {
             tagsString.append(" t/").append(tag.tagName);
         }
 
-        return String.format("edit " + index + " n/%s p/%s e/%s a/%s%s",
+        return String.format("edit " + index + " n/%s p/%s tele/%s e/%s a/%s%s",
                 person.getName(),
                 person.getPhone(),
+                person.getTelegramHandle(),
                 person.getEmail(),
                 person.getAddress(),
                 tagsString.toString());
