@@ -46,7 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
 
-        TelegramHandle telegramHandle = new TelegramHandle("@unspecified");
+        TelegramHandle telegramHandle = new TelegramHandle("");
         if (argMultimap.getValue(PREFIX_TELEGRAM).isPresent()) {
             telegramHandle = ParserUtil.parseTelegramHandle(argMultimap.getValue(PREFIX_TELEGRAM).get());
         }
