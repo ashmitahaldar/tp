@@ -155,6 +155,11 @@ Examples:
   * Edit
   * Clear
 
+### Redoing a command : `redo`
+
+* Reverts application to the state before the last undo command
+* Redo history will clear everytime a new command is made
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
