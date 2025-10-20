@@ -132,6 +132,23 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Filtering persons by tags: `filter`
+
+Filters persons who has any of the given tags.
+
+Format: `filter TAG [MORE_TAG]`
+
+* The search is case-insensitive. e.g `friends` will match `Friends`
+* The order of the keywords does not matter. e.g. `friends colleagues` will match contacts with either tag
+* Only the tags are searched.
+* Only exact tag matches will be matched e.g. `friend` will not match `friends`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `filter friends colleagues` will return contacts tagged with `friends` or `colleagues` or both
+
+Examples:
+* `filter friends` returns all contacts tagged with `friends`
+* `filter friends colleagues` returns all contacts tagged with either `friends` or `colleagues`
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -145,6 +162,35 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+
+### Pinning a contact : `pin`
+
+Pins the specified contact to keep them at the top of the contact list.
+
+Format: `pin INDEX`
+
+* Pins the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Pinned contacts will always appear at the top of the list, even when sorting or filtering.
+
+Examples:
+* `list` followed by `pin 2` pins the 2nd person in the address book.
+* `find Betsy` followed by `pin 1` pins the 1st person in the results of the `find` command.
+
+### Unpinning a contact : `unpin`
+
+Unpins the specified contact, removing it from the pinned position.
+
+Format: `unpin INDEX`
+
+* Unpins the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The person must already be pinned.
+
+Examples:
+* `list` followed by `unpin 1` unpins the 1st person in the address book.
 
 ### Undoing a command : `undo`
 
@@ -208,6 +254,9 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Filter** | `filter TAG [MORE_TAGS]`<br> e.g., `filter friends colleagues`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**Pin** | `pin INDEX`<br> e.g., `pin 2`
+**Unpin** | `unpin INDEX`<br> e.g., `unpin 1`
 **Help** | `help`
