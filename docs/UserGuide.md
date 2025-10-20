@@ -3,7 +3,9 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+## LinkedUp User Guide
+
+LinkedUp is a **desktop app for university student leaders to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). 
 
 * Table of Contents
 {:toc}
@@ -15,7 +17,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W09-1/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
@@ -28,7 +30,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/Takoyaki Vendor p/98765432 e/takoyakis@gmail.com a/Jane Street, block 24000, #01-01` : Adds a contact named `Takoyaki Vendor` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -79,13 +81,19 @@ Adds a person to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: A person can have any number of tags (including 0) </strong>
 </div>
 
-Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+<div style="margin-top:15px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip 2: The command line will prompt the correct </strong>
+</div>
+
+
+Example:
+* `add n/Hwang Dowon p/91897095 e/e12345678@nus.edu.sg a/Elm College, 10 College Ave t/computing t/dodgeball`
+
+![Add](images/Add.png)
 
 ### Listing all persons : `list`
 
@@ -100,6 +108,18 @@ Edits an existing person in the address book.
 Format: `edit INDEX​`
 
 * Autofills edit command for person at index without executing. The index **must be a positive integer** 1, 2, 3, …​
+* Make changes and press enter again to confirm edits
+
+Example:
+* `Edit 7`
+
+The command line will autofill the person in index 7 as shown below
+
+![Edit](images/Edit.png)
+
+<div style="margin-top:5px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Use this shortcut to save time and ensure correct syntax </strong>
+</div>
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
@@ -127,6 +147,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
+
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
@@ -149,11 +170,22 @@ Examples:
 ### Undoing a command : `undo`
 
 * Undo last action
-* Works on the following commands:
+* Reverts the effects of the following commands:
   * Add
   * Delete
   * Edit
   * Clear
+  * Pin
+  * Unpin
+
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Useful for any unintentional mistakes </strong>
+</div>
+
+### Redoing a command : `redo`
+
+* Redo last action, reverting state of application to that before previous undo
+* Redo history will be cleared when commands that edit the state of the data are made
 
 ### Clearing all entries : `clear`
 
@@ -207,7 +239,11 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit autofill** | `edit INDEX ​`<br> e.g.,`edit 2`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**Undo** | `undo`
+**Redo** | `redo`
 **Help** | `help`
+
