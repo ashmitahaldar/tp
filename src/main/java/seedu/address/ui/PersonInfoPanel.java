@@ -26,7 +26,7 @@ public class PersonInfoPanel extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label phone;
+    private Hyperlink phone;
     @FXML
     private Hyperlink telegram;
     @FXML
@@ -91,6 +91,16 @@ public class PersonInfoPanel extends UiPart<Region> {
             }
         } catch (Exception e) {
             logger.warning("Could not open link: " + uri + " (" + e.getMessage() + ")");
+        }
+    }
+
+    @FXML
+    private void onPhoneClick() {
+        String phoneText = phone.getText();
+        if (!phoneText.isEmpty()) {
+            // tel: might be handled differently on different OSes...
+            String digits = phoneText.replaceAll("\\s+", "");
+            openUri("tel:" + digits);
         }
     }
 

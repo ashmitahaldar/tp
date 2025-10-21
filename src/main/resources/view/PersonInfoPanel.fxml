@@ -15,7 +15,7 @@
             <Label fx:id="name" styleClass="label-header"/>
             <VBox spacing="8">
                 <Label text="Phone:" styleClass="label-info-type"/>
-                <Label fx:id="phone" styleClass="label-bright"/>
+                <Hyperlink fx:id="phone" styleClass="label-bright" onAction="#onPhoneClick"/>
             </VBox>
             <VBox spacing="8">
                 <Label text="Telegram:" styleClass="label-info-type"/>
