@@ -235,6 +235,26 @@ Examples:
 * Redo last action, reverting state of application to that before previous undo
 * Redo history will be cleared when commands that edit the state of the data are made
 
+## Sorting Contacts: `sort`
+Sort contacts via a specific field in a specific order
+
+Format: `sort [f/FIELD] [o/ORDER]`
+
+Options:
+* `[FIELD]`: One of:
+    * `name`
+    * `phone`
+    * `email`
+    * `address`
+* `[ORDER]`: One of:
+    * `asc`
+    * `desc`
+
+Example
+* `sort f/name o/asc` sorts all contacts by name in ascending order
+* `sort f/address o/desc` sorts all contacts by address in descending order
+
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -294,6 +314,7 @@ Action | Format, Examples
 **List** | `list`
 **Undo** | `undo`
 **Redo** | `redo`
+**Sort** | `sort [f/FIELD] [o/ORDER]`
 **Pin** | `pin INDEX`<br> e.g., `pin 2`
 **Unpin** | `unpin INDEX`<br> e.g., `unpin 1`
 **Help** | `help`
