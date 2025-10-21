@@ -22,7 +22,7 @@ public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a specified .json file. "
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_FILE + "FILE \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILE + "data/addressbook.json";
