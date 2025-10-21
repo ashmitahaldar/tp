@@ -145,8 +145,6 @@ public class ImportCommand extends Command {
             }
         }
 
-        System.out.println(commandString);
-
         return commandString.toString();
     }
 
