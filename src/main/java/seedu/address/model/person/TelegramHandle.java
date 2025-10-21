@@ -38,7 +38,7 @@ public class TelegramHandle {
      * Returns true if a given string is a valid Telegram handle.
      */
     public static boolean isValidHandle(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.isEmpty() || test.matches(VALIDATION_REGEX);
     }
 
     @Override
