@@ -235,6 +235,29 @@ Examples:
 * Redo last action, reverting state of application to that before previous undo
 * Redo history will be cleared when commands that edit the state of the data are made
 
+### Importing a save file : `import FILE`
+
+Imports the details stored in the specified file
+
+Format: `import f/FILE`
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Use relative addresses for easier referencing! </strong>
+</div>
+
+* Either a `.json` or a `.csv` file can be used.
+
+Example: 
+* Importing a json file: `import f/data/addressbook.json`
+* Importing a csv file: `import f/data/addressbook.csv`
+
+### Exporting your save file to .csv : `export`
+
+Exports your saved data to a `.csv` file.
+
+Format: `export`
+
+* The exported file will be saved as `data/addressbook.csv`
+
 ## Sorting Contacts: `sort`
 Sort contacts via a specific field in a specific order
 
@@ -289,8 +312,10 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
-
+**A**: 
+1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`)  
+2. Copy your file of choice to your other computer.
+3. Use `import f/FILE` to use your data in your other computer.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
@@ -314,6 +339,8 @@ Action | Format, Examples
 **List** | `list`
 **Undo** | `undo`
 **Redo** | `redo`
+**Import** | `import f/FILE`<br> e.g., `import f/data/addressbook.json`
+**Export** | `export`
 **Sort** | `sort [f/FIELD] [o/ORDER]`
 **Pin** | `pin INDEX`<br> e.g., `pin 2`
 **Unpin** | `unpin INDEX`<br> e.g., `unpin 1`
