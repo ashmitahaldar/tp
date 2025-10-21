@@ -150,8 +150,8 @@ public class HelpWindow extends UiPart<Stage> {
             UnpinCommand.MESSAGE_USAGE
         );
 
-        for (String usage : commandUsages) {
-            sb.append(usage).append("\n\n");
+        for (int i = 0; i < commandUsages.size(); i++) {
+            sb.append(String.format("%d. %s", i + 1, commandUsages.get(i))).append("\n\n");
         }
 
         return sb.toString();
