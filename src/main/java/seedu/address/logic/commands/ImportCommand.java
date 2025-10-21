@@ -47,13 +47,20 @@ public class ImportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (this.filepath.endsWith(".json")) {
+        if (this.filepath.toString().endsWith(".json")) {
             return importJson(model);
         }
 
         throw new CommandException(MESSAGE_INVALID_FILETYPE);
     }
 
+    /**
+     * Imports a .json file
+     *
+     * @param model {@code Model} to which the file should be imported to
+     * @return feedback message of the operation result for display
+     * @throws CommandException if an invalid file was provided
+     */
     public CommandResult importJson(Model model) throws CommandException {
         model.setAddressBookFilePath(filepath);
 

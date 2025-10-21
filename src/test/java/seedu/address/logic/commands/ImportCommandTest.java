@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILEPATH;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_TYPE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JOHN;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -25,12 +26,14 @@ import seedu.address.model.person.Person;
 public class ImportCommandTest {
     private static Path validPath;
     private static Path invalidPath;
+    private static Path invalidFile;
 
     @BeforeAll
     public static void setup() {
         try {
             validPath = ParserUtil.parsePath(VALID_FILEPATH_JOHN);
             invalidPath = ParserUtil.parsePath(INVALID_FILEPATH);
+            invalidFile = ParserUtil.parsePath(INVALID_FILE_TYPE);
         } catch (ParseException e) {
             System.out.println("Test file missing.\n");
         }
@@ -56,6 +59,14 @@ public class ImportCommandTest {
         ModelStub modelStub = new ModelStubAcceptingPath();
 
         assertThrows(CommandException.class, () -> new ImportCommand(invalidPath)
+                .execute(modelStub).getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_pathAcceptedByModel_invalidFileFailure() {
+        ModelStub modelStub = new ModelStubAcceptingPath();
+
+        assertThrows(CommandException.class, () -> new ImportCommand(invalidFile)
                 .execute(modelStub).getFeedbackToUser());
     }
 
