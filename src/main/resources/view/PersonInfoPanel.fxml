@@ -27,7 +27,7 @@
             </VBox>
             <VBox spacing="8">
                 <Label text="Email:" styleClass="label-info-type"/>
-                <Label fx:id="email" styleClass="label-bright"/>
+                <Hyperlink fx:id="email" styleClass="label-bright" onAction="#onEmailClick"/>
             </VBox>
             <FlowPane fx:id="tags" hgap="8" vgap="8" id="tags"/>
         </VBox>

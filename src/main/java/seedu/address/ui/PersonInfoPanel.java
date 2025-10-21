@@ -32,7 +32,7 @@ public class PersonInfoPanel extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
-    private Label email;
+    private Hyperlink email;
     @FXML
     private FlowPane tags;
 
@@ -87,6 +87,7 @@ public class PersonInfoPanel extends UiPart<Region> {
         try {
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().browse(new URI(uri));
+                logger.warning("Opened link: " + uri);
             }
         } catch (Exception e) {
             logger.warning("Could not open link: " + uri + " (" + e.getMessage() + ")");
@@ -99,6 +100,14 @@ public class PersonInfoPanel extends UiPart<Region> {
         if (!telegramHandle.isEmpty()) {
             String path = telegramHandle.trim().replaceFirst("^@", "");
             openUri("https://t.me/" + path);
+        }
+    }
+
+    @FXML
+    private void onEmailClick() {
+        String emailText = email.getText();
+        if (!emailText.isEmpty()) {
+            openUri("mailto:" + emailText.trim());
         }
     }
 }
