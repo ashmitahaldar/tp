@@ -32,6 +32,8 @@ public class PersonInfoPanel extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label note;
 
     /**
      * Creates a {@code PersonInfoPanel} and initializes with placeholder text.
@@ -55,6 +57,7 @@ public class PersonInfoPanel extends UiPart<Region> {
             address.setText("-");
             email.setText("-");
             tags.getChildren().clear();
+            note.setText("-");
         } else {
             name.setText(person.getName().fullName);
             phone.setText(person.getPhone().value);
@@ -77,6 +80,10 @@ public class PersonInfoPanel extends UiPart<Region> {
                         tagLabel.getStyleClass().add("label");
                         tags.getChildren().add(tagLabel);
                     });
+            note.setText(person.getNote().value);
+            note.setWrapText(true);
+            // subtract container padding (12 left + 12 right = 24) so text wraps correctly to visible width
+            note.maxWidthProperty().bind(infoBox.widthProperty().subtract(24));
         }
     }
 }

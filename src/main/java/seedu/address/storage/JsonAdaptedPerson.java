@@ -16,6 +16,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TelegramHandle;
+import seedu.address.model.person.Note;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,6 +31,7 @@ class JsonAdaptedPerson {
     private final String telegram;
     private final String email;
     private final String address;
+    private final String note;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final boolean isPinned;
 
@@ -40,7 +42,8 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("telegram") String telegram,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("isPinned") Boolean isPinned) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("note") String note,
+            @JsonProperty("isPinned") Boolean isPinned) {
         this.name = name;
         this.phone = phone;
         this.telegram = telegram;
@@ -49,6 +52,7 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.note = note;
         this.isPinned = isPinned != null ? isPinned : false;
     }
 
@@ -64,6 +68,7 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        note = source.getNote().value;
         isPinned = source.isPinned();
     }
 
@@ -121,7 +126,13 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        return new Person(modelName, modelPhone, modelTelegramHandle, modelEmail, modelAddress, modelTags, isPinned);
+        if (note == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
+        }
+        final Note modelNote = new Note(note);
+
+        return new Person(modelName, modelPhone, modelTelegramHandle,
+                modelEmail, modelAddress, modelTags, modelNote, isPinned);
     }
 
 }

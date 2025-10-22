@@ -9,7 +9,7 @@
 <ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fitToWidth="true" fitToHeight="true" styleClass="background">
     <content>
-        <VBox fx:id="infoBox" spacing="8" alignment="TOP_LEFT"
+        <VBox fx:id="infoBox" spacing="8" alignment="TOP_LEFT" fillWidth="true"
               styleClass="background" style="-fx-padding: 12;">
             <Label fx:id="name" styleClass="label-header"/>
             <VBox spacing="8">
@@ -29,6 +29,11 @@
                 <Label fx:id="email" styleClass="label-bright"/>
             </VBox>
             <FlowPane fx:id="tags" hgap="8" vgap="8" id="tags"/>
+            <Separator></Separator>
+            <VBox spacing="8" prefHeight="200.0" prefWidth="300.0">
+                <Label text="Notes:" styleClass="label-info-type"/>
+                <Label fx:id="note" styleClass="label-bright" wrapText="true"/>
+            </VBox>
         </VBox>
     </content>
 </ScrollPane>
