@@ -13,7 +13,9 @@ Class ModelManager
 Class UserPrefs
 
 Class UniquePersonList
-Class Person
+Class Person {
+  -isPinned: boolean
+}
 Class Address
 Class Email
 Class Name
