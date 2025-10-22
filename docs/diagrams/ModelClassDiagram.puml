@@ -21,6 +21,8 @@ Class Email
 Class Name
 Class Phone
 Class Tag
+Class TagContainsKeywordsPredicate
+Class NameContainsKeywordsPredicate
 
 Class I #FFFFFF
 }
@@ -53,4 +55,6 @@ Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager --> "~* filtered" Person
+ModelManager ..> TagContainsKeywordsPredicate : <<use>>
+ModelManager ..> NameContainsKeywordsPredicate : <<use>>
 @enduml
