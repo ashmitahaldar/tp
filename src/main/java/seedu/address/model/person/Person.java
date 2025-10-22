@@ -32,7 +32,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags, Note note) {
+    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email,
+                  Address address, Set<Tag> tags, Note note) {
         requireAllNonNull(name, phone, telegramHandle, email, address, tags, note);
         this.name = name;
         this.phone = phone;
@@ -47,8 +48,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags, Note note,
-                  boolean isPinned) {
+    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email,
+                  Address address, Set<Tag> tags, Note note, boolean isPinned) {
         requireAllNonNull(name, phone, telegramHandle, email, address, tags);
         this.name = name;
         this.phone = phone;

@@ -1,7 +1,11 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Represents a freeform note attached to a person in the address book.
+ *
+ * <p>This class is immutable: once constructed, the note text stored in {@code value} does not change.
+ * An empty string denotes the absence of a note. The {@code value} field is never {@code null}.
+ */
 public class Note {
     public final String value;
 
