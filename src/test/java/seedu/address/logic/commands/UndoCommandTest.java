@@ -16,7 +16,7 @@ public class UndoCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_undoAdd() throws Exception {
+    public void execute_undoAdd_success() throws Exception {
         int initialSize = model.getFilteredPersonList().size();
         new AddCommand(new PersonBuilder().withName("Alice").build()).execute(model);
         CommandResult result = new UndoCommand().execute(model);
@@ -25,7 +25,7 @@ public class UndoCommandTest {
     }
 
     @Test
-    public void execute_undoEdit() throws Exception {
+    public void execute_undoEdit_success() throws Exception {
         new EditCommand(Index.fromZeroBased(0), new EditCommand.EditPersonDescriptor())
                 .execute(model);
         CommandResult result = new UndoCommand().execute(model);

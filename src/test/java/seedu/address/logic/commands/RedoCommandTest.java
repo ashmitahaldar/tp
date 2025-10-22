@@ -16,7 +16,7 @@ public class RedoCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_addUndoRedo() throws Exception {
+    public void execute_addUndoRedo_success() throws Exception {
         int initialSize = model.getFilteredPersonList().size();
         new AddCommand(new PersonBuilder().withName("Alice").build()).execute(model);
 
@@ -29,7 +29,7 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void execute_editPinUndoUndoRedoRedo() throws Exception {
+    public void execute_editPinUndoUndoRedoRedo_success() throws Exception {
         EditCommand.EditPersonDescriptor descriptor = new EditCommand.EditPersonDescriptor();
         descriptor.setName(new PersonBuilder().withName("Edited").build().getName());
 
