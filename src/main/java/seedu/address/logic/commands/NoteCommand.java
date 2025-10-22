@@ -29,11 +29,12 @@ public class NoteCommand extends Command {
     public static final String MESSAGE_NOT_IMPLEMENTED_YET =
             "Note command not implemented yet";
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Note: %2$s";
-    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added note to Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed note from Person: %1$s";
+    public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
+    public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Person: %1$s";
 
     private final Index index;
     private final Note note;
+    private final boolean isInitiating;
 
     /**
      * Constructs a NoteCommand with an index and a Note object.
@@ -46,6 +47,17 @@ public class NoteCommand extends Command {
 
         this.index = index;
         this.note = note;
+        this.isInitiating = false;
+    }
+
+    /**
+     * Constructs an initiating NoteCommand used when the user types just the command word.
+     * This variant does not operate on a specific index and is used to trigger interactive behavior.
+     */
+    public NoteCommand() {
+        this.index = null;
+        this.note = new Note("");
+        this.isInitiating = true;
     }
 
     /**
@@ -59,6 +71,7 @@ public class NoteCommand extends Command {
 
         this.index = index;
         this.note = new Note(note);
+        this.isInitiating = false;
     }
 
     /**
@@ -70,6 +83,10 @@ public class NoteCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        if (isInitiating) {
+            // Initiating mode: no immediate model changes. Return a neutral result that the UI can handle.
+            return new CommandResult("");
+        }
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -95,7 +112,7 @@ public class NoteCommand extends Command {
      * @return formatted success message
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !note.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        String message = !note.value.isEmpty() ? MESSAGE_ADD_NOTE_SUCCESS : MESSAGE_DELETE_NOTE_SUCCESS;
         return String.format(message, Messages.format(personToEdit));
     }
 
@@ -118,6 +135,9 @@ public class NoteCommand extends Command {
         }
 
         NoteCommand e = (NoteCommand) other;
+        if (this.isInitiating || e.isInitiating) {
+            return this.isInitiating == e.isInitiating;
+        }
         return index.equals(e.index)
                 && note.equals(e.note);
     }

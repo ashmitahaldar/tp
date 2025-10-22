@@ -37,6 +37,8 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_NOTE_AMY = "Like skiing.";
+    public static final String VALID_NOTE_BOB = "Favourite pastime: Eating";
     public static final String VALID_FILEPATH_JOHN = "src/test/data/ImportTest/validSave.json";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
@@ -83,7 +85,12 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
-            assertEquals(expectedModel, actualModel);
+            // compare address book and filtered list contents separately to avoid fragile ModelManager.equals
+            AddressBook expectedAddressBook = new AddressBook(expectedModel.getAddressBook());
+            List<Person> expectedFilteredList = new ArrayList<>(expectedModel.getFilteredPersonList());
+
+            assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
