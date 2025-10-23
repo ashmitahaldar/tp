@@ -56,7 +56,7 @@ public class ImportCommandTest {
 
         CommandResult commandResult = new ImportCommand(validJsonPath).execute(modelStub);
 
-        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_JSON),
+        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_JSON.toString().replace('\\', '/')),
                 commandResult.getFeedbackToUser());
     }
 
@@ -66,7 +66,7 @@ public class ImportCommandTest {
 
         CommandResult commandResult = new ImportCommand(validCsvPath).execute(modelStub);
 
-        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_CSV),
+        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_CSV.toString().replace('\\', '/'))),
                 commandResult.getFeedbackToUser());
     }
 
