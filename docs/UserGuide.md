@@ -3,7 +3,9 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+## LinkedUp User Guide
+
+LinkedUp is a **desktop app for university student leaders to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). 
 
 * Table of Contents
 {:toc}
@@ -15,7 +17,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W09-1/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
@@ -28,7 +30,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/Takoyaki Vendor p/98765432 e/takoyakis@gmail.com a/Jane Street, block 24000, #01-01` : Adds a contact named `Takoyaki Vendor` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -79,13 +81,19 @@ Adds a person to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: A person can have any number of tags (including 0) </strong>
 </div>
 
-Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+<div style="margin-top:15px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip 2: The command line will prompt the correct </strong>
+</div>
+
+
+Example:
+* `add n/Hwang Dowon p/91897095 e/e12345678@nus.edu.sg a/Elm College, 10 College Ave t/computing t/dodgeball`
+
+![Add](images/Add.png)
 
 ### Listing all persons : `list`
 
@@ -100,6 +108,18 @@ Edits an existing person in the address book.
 Format: `edit INDEX​`
 
 * Autofills edit command for person at index without executing. The index **must be a positive integer** 1, 2, 3, …​
+* Make changes and press enter again to confirm edits
+
+Example:
+* `Edit 7`
+
+The command line will autofill the person in index 7 as shown below
+
+![Edit](images/Edit.png)
+
+<div style="margin-top:5px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Use this shortcut to save time and ensure correct syntax </strong>
+</div>
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
@@ -142,13 +162,32 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
+* Fuzzy matching is supported: minor typos are tolerated (e.g. \`find Jhn\` will match \`John\`). 
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 * `find John` returns `john` and `John Doe`
+* `find mario` returns `Mario Wong` and `Maria`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
+
+### Filtering persons by tags: `filter`
+
+Filters persons who has any of the given tags.
+
+Format: `filter TAG [MORE_TAG]`
+
+* The search is case-insensitive. e.g `friends` will match `Friends`
+* The order of the keywords does not matter. e.g. `friends colleagues` will match contacts with either tag
+* Only the tags are searched.
+* Only exact tag matches will be matched e.g. `friend` will not match `friends`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+  e.g. `filter friends colleagues` will return contacts tagged with `friends` or `colleagues` or both
+
+Examples:
+* `filter friends` returns all contacts tagged with `friends`
+* `filter friends colleagues` returns all contacts tagged with either `friends` or `colleagues`
 
 ### Deleting a person : `delete`
 
@@ -164,14 +203,97 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Pinning a contact : `pin`
+
+Pins the specified contact to keep them at the top of the contact list.
+
+Format: `pin INDEX`
+
+* Pins the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Pinned contacts will always appear at the top of the list, even when sorting or filtering.
+
+Examples:
+* `list` followed by `pin 2` pins the 2nd person in the address book.
+* `find Betsy` followed by `pin 1` pins the 1st person in the results of the `find` command.
+
+### Unpinning a contact : `unpin`
+
+Unpins the specified contact, removing it from the pinned position.
+
+Format: `unpin INDEX`
+
+* Unpins the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The person must already be pinned.
+
+Examples:
+* `list` followed by `unpin 1` unpins the 1st person in the address book.
+
 ### Undoing a command : `undo`
 
 * Undo last action
-* Works on the following commands:
+* Reverts the effects of the following commands:
   * Add
   * Delete
   * Edit
   * Clear
+  * Pin
+  * Unpin
+
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Useful for any unintentional mistakes </strong>
+</div>
+
+### Redoing a command : `redo`
+
+* Redo last action, reverting state of application to that before previous undo
+* Redo history will be cleared when commands that edit the state of the data are made
+
+### Importing a save file : `import FILE`
+
+Imports the details stored in the specified file
+
+Format: `import f/FILE`
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Use relative addresses for easier referencing! </strong>
+</div>
+
+* Either a `.json` or a `.csv` file can be used.
+
+Example: 
+* Importing a json file: `import f/data/addressbook.json`
+* Importing a csv file: `import f/data/addressbook.csv`
+
+### Exporting your save file to .csv : `export`
+
+Exports your saved data to a `.csv` file.
+
+Format: `export`
+
+* The exported file will be saved as `data/addressbook.csv`
+
+## Sorting Contacts: `sort`
+Sort contacts via a specific field in a specific order
+
+Format: `sort [f/FIELD] [o/ORDER]`
+
+Options:
+* `[FIELD]`: One of:
+    * `name`
+    * `phone`
+    * `email`
+    * `address`
+* `[ORDER]`: One of:
+    * `asc`
+    * `desc`
+
+Example
+* `sort f/name o/asc` sorts all contacts by name in ascending order
+* `sort f/address o/desc` sorts all contacts by address in descending order
+
 
 ### Clearing all entries : `clear`
 
@@ -207,8 +329,10 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
-
+**A**: 
+1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`)  
+2. Copy your file of choice to your other computer.
+3. Use `import f/FILE` to use your data in your other computer.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
@@ -225,8 +349,17 @@ Action | Format, Examples
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Edit autofill** | `edit INDEX ​`<br> e.g.,`edit 2`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Note** | `note INDEX note/[NOTE]`<br> e.g., `note 1 note/Likes to swim.`
+**Filter** | `filter TAG [MORE_TAGS]`<br> e.g., `filter friends colleagues`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**Undo** | `undo`
+**Redo** | `redo`
+**Import** | `import f/FILE`<br> e.g., `import f/data/addressbook.json`
+**Export** | `export`
+**Sort** | `sort [f/FIELD] [o/ORDER]`
+**Pin** | `pin INDEX`<br> e.g., `pin 2`
+**Unpin** | `unpin INDEX`<br> e.g., `unpin 1`
 **Help** | `help`
