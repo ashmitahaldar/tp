@@ -57,8 +57,7 @@ public class NoteCommand extends Command {
         this.note = new Note("");
         this.isInitiating = true;
 
-        assert this.index == null && this.note.value.isEmpty() && this.isInitiating
-                : "initiating NoteCommand must have null index and empty note";
+        assert this.note.value.isEmpty() : "initiating NoteCommand must have empty note";
 
     }
 
