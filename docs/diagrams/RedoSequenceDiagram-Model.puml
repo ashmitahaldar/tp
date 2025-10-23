@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":AddressBookVersionHistory" as VersionHistory MODEL_COLOR
+end box
+
+[-> Model : redoAddressBook()
+activate Model
+
+Model -> VersionHistory : redo(currentState)
+activate VersionHistory
+
+VersionHistory -> VersionHistory : undoStack.push(new AddressBook(currentState))
+VersionHistory -> VersionHistory : redoStack.pop()
+VersionHistory --> Model : ReadOnlyAddressBook
+deactivate VersionHistory
+
+Model -> Model : resetData(redoState)
+[<-- Model
+deactivate Model
+
+@enduml
