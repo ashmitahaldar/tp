@@ -6,11 +6,14 @@ Class "{abstract}\nCommand" as Command {
   +execute(Model): CommandResult
 }
 Class NoteCommand {
-  +COMMAND_WORD: String
-  +MESSAGE_USAGE: String
-  +MESSAGE_ARGUMENTS: String
-  +MESSAGE_ADD_NOTE_SUCCESS: String
-  +MESSAGE_DELETE_NOTE_SUCCESS: String
+  <u>+COMMAND_WORD: String
+  <u>+MESSAGE_USAGE: String
+  <u>+MESSAGE_ARGUMENTS: String
+  <u>+MESSAGE_ADD_NOTE_SUCCESS: String
+  <u>+MESSAGE_DELETE_NOTE_SUCCESS: String
+  -index: Index
+  -note: Note
+  -isInitiating: boolean
   +execute(Model): CommandResult
   -generateSuccessMessage(Person): String
 }
