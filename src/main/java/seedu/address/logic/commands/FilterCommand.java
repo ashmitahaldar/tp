@@ -16,7 +16,7 @@ public class FilterCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters all persons whose tags contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: TAG [MORE_TAGS]...\n"
             + "Example: " + COMMAND_WORD + " friends colleagues";
 
     private final TagContainsKeywordsPredicate predicate;

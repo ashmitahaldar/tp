@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FIELD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Comparator;
@@ -16,6 +18,15 @@ import seedu.address.model.person.Person;
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons by the specified field "
+            + "in the specified order.\n"
+            + "Parameters: "
+            + "[" + PREFIX_FIELD + "FIELD] "
+            + "[" + PREFIX_ORDER + "ORDER]\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_FIELD + "name "
+            + PREFIX_ORDER + "asc";
 
     public static final String MESSAGE_SUCCESS = "Sorted all persons";
 
