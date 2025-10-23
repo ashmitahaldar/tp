@@ -30,6 +30,7 @@ public class ImportCommandTest {
     private static Path validJsonPath;
     private static Path validCsvPath;
     private static Path invalidPath;
+    private static Path invalidFileType;
 
     @BeforeAll
     public static void setup() {
@@ -37,6 +38,7 @@ public class ImportCommandTest {
             validJsonPath = ParserUtil.parsePath(VALID_FILEPATH_JSON);
             validCsvPath = ParserUtil.parsePath(VALID_FILEPATH_CSV);
             invalidPath = ParserUtil.parsePath(INVALID_FILEPATH);
+            invalidFileType = ParserUtil.parsePath(INVALID_FILE_TYPE);
         } catch (ParseException e) {
             System.out.println("Test file missing.\n");
         }
@@ -72,7 +74,15 @@ public class ImportCommandTest {
         ModelStub modelStub = new ModelStubAcceptingPath();
 
         assertThrows(CommandException.class, () -> new ImportCommand(invalidPath)
-                .execute(modelStub).getFeedbackToUser());
+                .execute(modelStub));
+    }
+
+    @Test
+    public void execute_pathAcceptedByModel_invalidFileFailure() {
+        ModelStub modelStub = new ModelStubAcceptingPath();
+
+        assertThrows(CommandException.class, () -> new ImportCommand(invalidFileType)
+                .execute(modelStub));
     }
 
     @Test
