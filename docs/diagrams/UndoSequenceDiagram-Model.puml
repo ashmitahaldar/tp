@@ -13,7 +13,14 @@ activate Model
 Model -> VersionedAddressBook : undo()
 activate VersionedAddressBook
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
+VersionedAddressBook -> VersionedAddressBook2 : undo()
+activate VersionedAddressBook2
+
+VersionedAddressBook2 -> VersionedAddressBook2 :clear RedoStack(ReadOnlyAddressBook)
+VersionedAddressBook2 --> VersionedAddressBook :
+deactivate VersionedAddressBook2
+
+VersionedAddressBook -> VersionedAddressBook :clear RedoStack(ReadOnlyAddressBook)
 VersionedAddressBook --> Model :
 deactivate VersionedAddressBook
 

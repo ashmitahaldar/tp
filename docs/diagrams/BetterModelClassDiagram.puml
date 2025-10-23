@@ -12,6 +12,10 @@ UniqueTagList -[hidden]down- UniquePersonList
 UniqueTagList -right-> "*" Tag
 UniquePersonList -right-> Person
 
+Person {
+  -isPinned: boolean
+}
+
 Person -up-> "*" Tag
 
 Person *--> Name

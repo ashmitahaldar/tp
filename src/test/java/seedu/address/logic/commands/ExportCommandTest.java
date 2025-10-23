@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILEPATH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JOHN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JSON;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -29,7 +29,7 @@ public class ExportCommandTest {
     @BeforeAll
     public static void setup() {
         try {
-            validPath = ParserUtil.parsePath(VALID_FILEPATH_JOHN);
+            validPath = ParserUtil.parsePath(VALID_FILEPATH_JSON);
             invalidPath = ParserUtil.parsePath(INVALID_FILEPATH);
         } catch (ParseException e) {
             System.out.println("Test file missing.\n");
@@ -152,6 +152,16 @@ public class ExportCommandTest {
 
         @Override
         public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 

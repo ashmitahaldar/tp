@@ -19,9 +19,9 @@ LinkedUp is a **desktop app for university student leaders to manage contacts, o
 
 1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W09-1/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+1. Copy the file to the folder you want to use as the _home folder_ for your LinkedUp.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar linkedup.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
@@ -30,7 +30,7 @@ LinkedUp is a **desktop app for university student leaders to manage contacts, o
 
    * `list` : Lists all contacts.
 
-   * `add n/Takoyaki Vendor p/98765432 e/takoyakis@gmail.com a/Jane Street, block 24000, #01-01` : Adds a contact named `Takoyaki Vendor` to the Address Book.
+   * `add n/Takoyaki Vendor p/98765432 e/takoyakis@gmail.com a/Jane Street, block 24000, #01-01` : Adds a contact named `Takoyaki Vendor` to LinkedUp.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -86,7 +86,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 </div>
 
 <div style="margin-top:15px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip 2: The command line will prompt the correct </strong>
+        💡 <strong style="color: #000000;">Tip 2: The command line will prompt the correct format.</strong>
 </div>
 
 
@@ -111,7 +111,7 @@ Format: `edit INDEX​`
 * Make changes and press enter again to confirm edits
 
 Example:
-* `Edit 7`
+* `edit 7`
 
 The command line will autofill the person in index 7 as shown below
 
@@ -295,6 +295,11 @@ Example
 * `sort f/address o/desc` sorts all contacts by address in descending order
 
 
+### Redoing a command : `redo`
+
+* Reverts application to the state before the last undo command
+* Redo history will clear everytime a new command is made
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -309,15 +314,15 @@ Format: `exit`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+LinkedUp data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+LinkedUp data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, LinkedUp will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause LinkedUp to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
 ### Archiving data files `[coming in v2.0]`

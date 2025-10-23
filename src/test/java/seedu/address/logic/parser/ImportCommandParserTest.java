@@ -2,11 +2,11 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.FILEPATH_JOHN;
+import static seedu.address.logic.commands.CommandTestUtil.FILEPATH_JSON;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILEPATH;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JOHN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -25,8 +25,8 @@ public class ImportCommandParserTest {
     public void parse_filepathPresent_success() {
         // whitespace only preamble
         try {
-            Path correctFilePath = ParserUtil.parsePath(VALID_FILEPATH_JOHN);
-            assertParseSuccess(parser, PREAMBLE_WHITESPACE + FILEPATH_JOHN,
+            Path correctFilePath = ParserUtil.parsePath(VALID_FILEPATH_JSON);
+            assertParseSuccess(parser, PREAMBLE_WHITESPACE + FILEPATH_JSON,
                     new ImportCommand(correctFilePath));
         } catch (Exception e) {
             fail();
@@ -36,15 +36,15 @@ public class ImportCommandParserTest {
     @Test
     public void parse_repeatedValue_failure() {
         // file field repeated
-        assertParseFailure(parser, FILEPATH_JOHN + FILEPATH_JOHN,
+        assertParseFailure(parser, FILEPATH_JSON + FILEPATH_JSON,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_FILE));
 
         // invalid value followed by valid value
-        assertParseFailure(parser, INVALID_FILEPATH + FILEPATH_JOHN,
+        assertParseFailure(parser, INVALID_FILEPATH + FILEPATH_JSON,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_FILE));
 
         // valid value followed by invalid value
-        assertParseFailure(parser, FILEPATH_JOHN + INVALID_FILEPATH,
+        assertParseFailure(parser, FILEPATH_JSON + INVALID_FILEPATH,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_FILE));
     }
 
@@ -53,7 +53,7 @@ public class ImportCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE);
 
         // missing filepath prefix
-        assertParseFailure(parser, VALID_FILEPATH_JOHN,
+        assertParseFailure(parser, VALID_FILEPATH_JSON,
                 expectedMessage);
     }
 

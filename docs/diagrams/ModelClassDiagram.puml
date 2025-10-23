@@ -13,12 +13,17 @@ Class ModelManager
 Class UserPrefs
 
 Class UniquePersonList
-Class Person
+Class Person {
+  -isPinned: boolean
+}
 Class Address
 Class Email
 Class Name
 Class Phone
 Class Tag
+Class TagContainsKeywordsPredicate
+Class NameContainsKeywordsPredicate
+Class Telegram
 
 Class I #FFFFFF
 }
@@ -39,6 +44,7 @@ AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone
+Person *--> Telegram
 Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
@@ -47,8 +53,11 @@ Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
+Phone -[hidden]right-> Telegram
+Telegram -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager --> "~* filtered" Person
+ModelManager ..> TagContainsKeywordsPredicate : <<use>>
+ModelManager ..> NameContainsKeywordsPredicate : <<use>>
 @enduml
