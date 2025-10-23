@@ -76,14 +76,14 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void toStringMethod_json() {
+    public void toString_json_returnFilePath() {
         ImportCommand importCommand = new ImportCommand(validJsonPath);
         String expected = ImportCommand.class.getCanonicalName() + "{filepath=" + VALID_FILEPATH_JSON + "}";
         assertEquals(expected, importCommand.toString());
     }
 
     @Test
-    public void toStringMethod_csv() {
+    public void toString_csv_returnFilePath() {
         ImportCommand importCommand = new ImportCommand(validCsvPath);
         String expected = ImportCommand.class.getCanonicalName() + "{filepath=" + VALID_FILEPATH_CSV + "}";
         assertEquals(expected, importCommand.toString());
