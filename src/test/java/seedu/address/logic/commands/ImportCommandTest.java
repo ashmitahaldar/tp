@@ -59,7 +59,7 @@ public class ImportCommandTest {
         ModelStub modelStub = new ModelStubAcceptingPath();
 
         assertThrows(CommandException.class, () -> new ImportCommand(invalidPath)
-                .execute(modelStub).getFeedbackToUser());
+                .execute(modelStub));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class ImportCommandTest {
         ModelStub modelStub = new ModelStubAcceptingPath();
 
         assertThrows(CommandException.class, () -> new ImportCommand(invalidFileType)
-                .execute(modelStub).getFeedbackToUser());
+                .execute(modelStub));
     }
 
     @Test
