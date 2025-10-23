@@ -278,6 +278,11 @@ Example
 * `sort f/address o/desc` sorts all contacts by address in descending order
 
 
+### Redoing a command : `redo`
+
+* Reverts application to the state before the last undo command
+* Redo history will clear everytime a new command is made
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.

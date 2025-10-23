@@ -155,6 +155,16 @@ public class ExportCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public boolean canRedoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         public ObservableList<Person> getSortedPersonList() {
             throw new AssertionError("This method should not be called.");
         };

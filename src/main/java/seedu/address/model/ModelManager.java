@@ -160,6 +160,19 @@ public class ModelManager implements Model {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
+    public boolean canRedoAddressBook() {
+        return versionHistory.canRedo();
+    }
+
+    @Override
+    public void redoAddressBook() {
+        if (!canRedoAddressBook()) {
+            throw new IllegalStateException("No states available to redo.");
+        }
+        addressBook.resetData(versionHistory.redo(addressBook));
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
     // === For sorting ===
 
     @Override
