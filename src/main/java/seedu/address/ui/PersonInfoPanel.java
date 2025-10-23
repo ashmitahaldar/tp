@@ -35,6 +35,8 @@ public class PersonInfoPanel extends UiPart<Region> {
     private Hyperlink email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label note;
 
     private String telegramHandle;
 
@@ -60,6 +62,7 @@ public class PersonInfoPanel extends UiPart<Region> {
             address.setText("-");
             email.setText("-");
             tags.getChildren().clear();
+            note.setText("-");
         } else {
             name.setText(person.getName().fullName);
             phone.setText(person.getPhone().value);
@@ -80,6 +83,10 @@ public class PersonInfoPanel extends UiPart<Region> {
                         tagLabel.getStyleClass().add("label");
                         tags.getChildren().add(tagLabel);
                     });
+            note.setText(person.getNote().value);
+            note.setWrapText(true);
+            // subtract container padding (12 left + 12 right = 24) so text wraps correctly to visible width
+            note.maxWidthProperty().bind(infoBox.widthProperty().subtract(24));
         }
     }
 

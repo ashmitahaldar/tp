@@ -25,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TelegramHandle;
@@ -125,9 +126,16 @@ public class EditCommand extends Command {
                 .orElse(personToEdit.getTelegramHandle());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Note updatedNote = personToEdit.getNote(); // edit command does not allow editing remarks
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedTelegram, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName,
+                updatedPhone,
+                updatedTelegram,
+                updatedEmail,
+                updatedAddress,
+                updatedTags,
+                updatedNote);
     }
 
     @Override

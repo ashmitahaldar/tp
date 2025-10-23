@@ -7,6 +7,7 @@
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "tags" : [ "friends" ],
+    "note": "She likes aardvarks.",
     "isPinned": false
   }, {
     "name" : "Benson Meier",
@@ -15,6 +16,7 @@
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "tags" : [ "owesMoney", "friends" ],
+    "note": "He can't take beer!",
     "isPinned": false
   }, {
     "name" : "Carl Kurz",
@@ -23,6 +25,7 @@
     "email" : "heinz@example.com",
     "address" : "wall street",
     "tags" : [ ],
+    "note": "",
     "isPinned": false
   }, {
     "name" : "Daniel Meier",
@@ -31,6 +34,7 @@
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "tags" : [ "friends" ],
+    "note": "",
     "isPinned": false
   }, {
     "name" : "Elle Meyer",
@@ -39,6 +43,7 @@
     "email" : "werner@example.com",
     "address" : "michegan ave",
     "tags" : [ ],
+    "note": "",
     "isPinned": false
   }, {
     "name" : "Fiona Kunz",
@@ -47,6 +52,7 @@
     "email" : "lydia@example.com",
     "address" : "little tokyo",
     "tags" : [ ],
+    "note": "",
     "isPinned": false
   }, {
     "name" : "George Best",
@@ -55,6 +61,7 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tags" : [ ],
+    "note": "",
     "isPinned": false
   } ]
 }

@@ -5,6 +5,7 @@
     "telegram" : "@john_computing",
     "email" : "E1234567@u.nus.edu",
     "address" : "1 Computing Lane",
-    "tags" : [ ]
+    "tags" : [ ],
+    "note": ""
   } ]
 }

@@ -17,6 +17,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Field;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Note;
 import seedu.address.model.person.Order;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TelegramHandle;
@@ -196,5 +197,18 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String note} into a {@code Note}.
+     * Leading and trailing whitespaces will be trimmed. An empty or whitespace-only string
+     * is treated as an empty note.
+     *
+     * @throws ParseException never thrown currently; kept for API consistency.
+     */
+    public static Note parseNote(String note) throws ParseException {
+        requireNonNull(note);
+        String trimmedNote = note.trim();
+        return new Note(trimmedNote);
     }
 }

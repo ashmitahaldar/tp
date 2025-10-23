@@ -26,27 +26,30 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Note note;
     private final boolean isPinned;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, telegramHandle, email, address, tags);
+    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email,
+                  Address address, Set<Tag> tags, Note note) {
+        requireAllNonNull(name, phone, telegramHandle, email, address, tags, note);
         this.name = name;
         this.phone = phone;
         this.telegramHandle = telegramHandle;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.note = note;
         this.isPinned = false;
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email, Address address, Set<Tag> tags,
-                  boolean isPinned) {
+    public Person(Name name, Phone phone, TelegramHandle telegramHandle, Email email,
+                  Address address, Set<Tag> tags, Note note, boolean isPinned) {
         requireAllNonNull(name, phone, telegramHandle, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -54,6 +57,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.note = note;
         this.isPinned = isPinned;
     }
 
@@ -83,6 +87,10 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Note getNote() {
+        return note;
     }
 
     public boolean isPinned() {
@@ -142,13 +150,14 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
+                && note.equals(otherPerson.note)
                 && isPinned == otherPerson.isPinned;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, telegramHandle, email, address, tags, isPinned);
+        return Objects.hash(name, phone, telegramHandle, email, address, tags, note, isPinned);
     }
 
     @Override
@@ -161,6 +170,7 @@ public class Person {
                 .add("address", address)
                 .add("tags", tags)
                 .add("isPinned", isPinned)
+                .add("note", note)
                 .toString();
     }
 
