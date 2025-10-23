@@ -13,12 +13,16 @@ Class ModelManager
 Class UserPrefs
 
 Class UniquePersonList
-Class Person
+Class Person {
+  -isPinned: boolean
+}
 Class Address
 Class Email
 Class Name
 Class Phone
 Class Tag
+Class TagContainsKeywordsPredicate
+Class NameContainsKeywordsPredicate
 Class Telegram
 
 Class I #FFFFFF
@@ -54,4 +58,6 @@ Telegram -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager --> "~* filtered" Person
+ModelManager ..> TagContainsKeywordsPredicate : <<use>>
+ModelManager ..> NameContainsKeywordsPredicate : <<use>>
 @enduml
