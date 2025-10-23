@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILEPATH;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_TYPE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_CSV;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JSON;
 import static seedu.address.testutil.Assert.assertThrows;
