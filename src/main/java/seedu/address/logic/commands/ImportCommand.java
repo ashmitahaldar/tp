@@ -63,7 +63,7 @@ public class ImportCommand extends Command {
         requireNonNull(model);
 
         // throw exception if file is not a csv or json file
-        if (!this.filepath.toString().endsWith(".csv") || !this.filepath.toString().endsWith(".json")) {
+        if (!this.filepath.toString().endsWith(".csv") && !this.filepath.toString().endsWith(".json")) {
             throw new CommandException(MESSAGE_INVALID_FILETYPE);
         }
 
