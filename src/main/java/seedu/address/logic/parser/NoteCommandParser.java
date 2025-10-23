@@ -36,6 +36,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            assert index != null : "parsed index must not be null";
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     NoteCommand.MESSAGE_USAGE), ive);

@@ -44,6 +44,8 @@ public class NoteCommand extends Command {
      */
     public NoteCommand(Index index, Note note) {
         requireAllNonNull(index, note);
+        assert index != null : "index should not be null after requireAllNonNull";
+        assert note != null : "note should not be null after requireAllNonNull";
 
         this.index = index;
         this.note = note;
@@ -58,10 +60,14 @@ public class NoteCommand extends Command {
         this.index = null;
         this.note = new Note("");
         this.isInitiating = true;
+
+        assert this.index == null && this.note.value.isEmpty() && this.isInitiating
+                : "initiating NoteCommand must have null index and empty note";
+
     }
 
     /**
-     * Constructs a NoteCommand with an index and a raw remark string.
+     * Constructs a NoteCommand with an index and a raw note string.
      *
      * @param index the index of the person to edit
      * @param note the note text to set for the person
@@ -83,11 +89,14 @@ public class NoteCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        assert model != null : "model must not be null";
         if (isInitiating) {
             // Initiating mode: no immediate model changes. Return a neutral result that the UI can handle.
             return new CommandResult("");
         }
         List<Person> lastShownList = model.getFilteredPersonList();
+
+        assert lastShownList != null : "filtered person list should not be null";
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

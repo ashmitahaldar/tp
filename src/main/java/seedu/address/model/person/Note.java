@@ -22,6 +22,7 @@ public class Note {
      * @param note the text of the note; if empty, the note will be stored as an empty string
      */
     public Note(String note) {
+        assert note != null : "constructor should not be called with null";
         if (note.isEmpty()) {
             value = "";
         } else {

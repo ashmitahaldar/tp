@@ -40,5 +40,4 @@ public class NoteCommandParserTest {
         // no index
         assertParseFailure(parser, NoteCommand.COMMAND_WORD + " " + nonEmptyNote, expectedMessage);
     }
-
 }
