@@ -42,8 +42,6 @@ public class NoteCommand extends Command {
      */
     public NoteCommand(Index index, Note note) {
         requireAllNonNull(index, note);
-        assert index != null : "index should not be null after requireAllNonNull";
-        assert note != null : "note should not be null after requireAllNonNull";
 
         this.index = index;
         this.note = note;
