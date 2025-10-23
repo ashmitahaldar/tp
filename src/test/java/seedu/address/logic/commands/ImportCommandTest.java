@@ -1,12 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILEPATH;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_TYPE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JOHN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_CSV;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JSON;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
@@ -18,20 +21,23 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 
 public class ImportCommandTest {
-    private static Path validPath;
+    private static Path validJsonPath;
+    private static Path validCsvPath;
     private static Path invalidPath;
     private static Path invalidFileType;
 
     @BeforeAll
     public static void setup() {
         try {
-            validPath = ParserUtil.parsePath(VALID_FILEPATH_JOHN);
+            validJsonPath = ParserUtil.parsePath(VALID_FILEPATH_JSON);
+            validCsvPath = ParserUtil.parsePath(VALID_FILEPATH_CSV);
             invalidPath = ParserUtil.parsePath(INVALID_FILEPATH);
             invalidFileType = ParserUtil.parsePath(INVALID_FILE_TYPE);
         } catch (ParseException e) {
@@ -45,12 +51,22 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_pathAcceptedByModel_importSuccessful() throws Exception {
+    public void execute_pathAcceptedByModel_importJsonSuccessful() throws Exception {
         ModelStub modelStub = new ModelStubAcceptingPath();
 
-        CommandResult commandResult = new ImportCommand(validPath).execute(modelStub);
+        CommandResult commandResult = new ImportCommand(validJsonPath).execute(modelStub);
 
-        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_JOHN),
+        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_JSON.toString().replace('\\', '/')),
+                commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_pathAcceptedByModel_importCsvSuccessful() throws Exception {
+        ModelStub modelStub = new ModelStubAcceptingPath();
+
+        CommandResult commandResult = new ImportCommand(validCsvPath).execute(modelStub);
+
+        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_CSV.toString().replace('\\', '/')),
                 commandResult.getFeedbackToUser());
     }
 
@@ -71,9 +87,16 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void toStringMethod() {
-        ImportCommand importCommand = new ImportCommand(validPath);
-        String expected = ImportCommand.class.getCanonicalName() + "{filepath=" + VALID_FILEPATH_JOHN + "}";
+    public void toString_json_returnFilePath() {
+        ImportCommand importCommand = new ImportCommand(validJsonPath);
+        String expected = ImportCommand.class.getCanonicalName() + "{filepath=" + VALID_FILEPATH_JSON + "}";
+        assertEquals(expected, importCommand.toString());
+    }
+
+    @Test
+    public void toString_csv_returnFilePath() {
+        ImportCommand importCommand = new ImportCommand(validCsvPath);
+        String expected = ImportCommand.class.getCanonicalName() + "{filepath=" + VALID_FILEPATH_CSV + "}";
         assertEquals(expected, importCommand.toString());
     }
 
@@ -190,6 +213,25 @@ public class ImportCommandTest {
      * A Model stub that always returns a valid filepath.
      */
     private class ModelStubAcceptingPath extends ModelStub {
+        final ArrayList<Person> personsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            personsAdded.add(person);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+
         @Override
         public void setAddressBookFilePath(Path addressBookFilePath) {
             return;
@@ -197,6 +239,11 @@ public class ImportCommandTest {
 
         @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
+            return;
+        }
+
+        @Override
+        public void saveAddressBookState() {
             return;
         }
     }
