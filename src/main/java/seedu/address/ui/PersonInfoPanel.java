@@ -1,9 +1,12 @@
 package seedu.address.ui;
 
+import java.awt.Desktop;
+import java.net.URI;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
@@ -23,15 +26,17 @@ public class PersonInfoPanel extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label phone;
+    private Hyperlink phone;
     @FXML
-    private Label telegram;
+    private Hyperlink telegram;
     @FXML
     private Label address;
     @FXML
-    private Label email;
+    private Hyperlink email;
     @FXML
     private FlowPane tags;
+
+    private String telegramHandle;
 
     /**
      * Creates a {@code PersonInfoPanel} and initializes with placeholder text.
@@ -59,14 +64,12 @@ public class PersonInfoPanel extends UiPart<Region> {
             name.setText(person.getName().fullName);
             phone.setText(person.getPhone().value);
             boolean validTelegram = person.getTelegramHandle().isValid;
-            telegram.setText(person.getTelegramHandle().value);
-            if (validTelegram) {
-                telegram.setVisible(true);
-                telegram.setManaged(true);
-            } else {
-                telegram.setVisible(false);
-                telegram.setManaged(false);
+            telegramHandle = person.getTelegramHandle().value;
+            if (telegramHandle.isEmpty()) {
+                telegramHandle = "-";
             }
+            telegram.setText(telegramHandle);
+            telegram.setDisable(!validTelegram);
             address.setText(person.getAddress().value);
             email.setText(person.getEmail().value);
             tags.getChildren().clear();
@@ -77,6 +80,44 @@ public class PersonInfoPanel extends UiPart<Region> {
                         tagLabel.getStyleClass().add("label");
                         tags.getChildren().add(tagLabel);
                     });
+        }
+    }
+
+    private void openUri(String uri) {
+        try {
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().browse(new URI(uri));
+                logger.warning("Opened link: " + uri);
+            }
+        } catch (Exception e) {
+            logger.warning("Could not open link: " + uri + " (" + e.getMessage() + ")");
+        }
+    }
+
+    @FXML
+    private void onPhoneClick() {
+        String phoneText = phone.getText();
+        if (!phoneText.isEmpty()) {
+            // tel: might be handled differently on different OSes...
+            String digits = phoneText.replaceAll("\\s+", "");
+            openUri("tel:" + digits);
+        }
+    }
+
+    @FXML
+    private void onTelegramClick() {
+        String handle = telegram.getText();
+        if (!telegramHandle.isEmpty()) {
+            String path = telegramHandle.trim().replaceFirst("^@", "");
+            openUri("https://t.me/" + path);
+        }
+    }
+
+    @FXML
+    private void onEmailClick() {
+        String emailText = email.getText();
+        if (!emailText.isEmpty()) {
+            openUri("mailto:" + emailText.trim());
         }
     }
 }
