@@ -30,6 +30,8 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Save data imported: %1$s";
     public static final String MESSAGE_INVALID_FILE = "This file cannot be found, "
             + "check if the relative path is correct";
+    public static final String MESSAGE_INVALID_FILETYPE = "Invalid filetype specified, "
+            + "filetype must be .json or .csv";
 
     private Path filepath;
 
@@ -45,6 +47,21 @@ public class ImportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (!this.filepath.toString().endsWith(".json")) {
+            throw new CommandException(MESSAGE_INVALID_FILETYPE);
+        }
+
+        return importJson(model);
+    }
+
+    /**
+     * Imports a .json file
+     *
+     * @param model {@code Model} to which the file should be imported to
+     * @return feedback message of the operation result for display
+     * @throws CommandException if an invalid file was provided
+     */
+    public CommandResult importJson(Model model) throws CommandException {
         model.setAddressBookFilePath(filepath);
 
         AddressBookStorage newAddressStorage = new JsonAddressBookStorage(filepath);
