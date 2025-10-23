@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
@@ -14,11 +15,11 @@
             <Label fx:id="name" styleClass="label-header"/>
             <VBox spacing="8">
                 <Label text="Phone:" styleClass="label-info-type"/>
-                <Label fx:id="phone" styleClass="label-bright"/>
+                <Hyperlink fx:id="phone" styleClass="label-bright" onAction="#onPhoneClick"/>
             </VBox>
             <VBox spacing="8">
                 <Label text="Telegram:" styleClass="label-info-type"/>
-                <Label fx:id="telegram" styleClass="label-bright"/>
+                <Hyperlink fx:id="telegram" styleClass="label-bright" onAction="#onTelegramClick"/>
             </VBox>
             <VBox spacing="8">
                 <Label text="Address:" styleClass="label-info-type"/>
@@ -26,7 +27,7 @@
             </VBox>
             <VBox spacing="8">
                 <Label text="Email:" styleClass="label-info-type"/>
-                <Label fx:id="email" styleClass="label-bright"/>
+                <Hyperlink fx:id="email" styleClass="label-bright" onAction="#onEmailClick"/>
             </VBox>
             <FlowPane fx:id="tags" hgap="8" vgap="8" id="tags"/>
         </VBox>
