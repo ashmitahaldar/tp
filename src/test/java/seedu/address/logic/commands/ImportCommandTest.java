@@ -66,7 +66,7 @@ public class ImportCommandTest {
 
         CommandResult commandResult = new ImportCommand(validCsvPath).execute(modelStub);
 
-        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_CSV.toString().replace('\\', '/'))),
+        assertEquals(String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILEPATH_CSV.toString().replace('\\', '/')),
                 commandResult.getFeedbackToUser());
     }
 
