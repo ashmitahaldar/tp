@@ -21,16 +21,33 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should display statistics. */
+    private final boolean showStats;
+
+
     private final boolean isInlineEdit;
     private final String editData;
 
     /**
-     * Constructs a {@code CommandResult} with the specified fields with inline edit disabled.
+     * Constructs a {@code CommandResult} with the specified fields with inline edit disabled, stats disabled.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.isInlineEdit = false;
+        this.editData = "";
+        this.showStats = false;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields with inline edit disabled, stats enabled.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showStats) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.showStats = showStats;
         this.isInlineEdit = false;
         this.editData = "";
     }
@@ -54,6 +71,7 @@ public class CommandResult {
         this.exit = exit;
         this.isInlineEdit = isInlineEdit;
         this.editData = editData;
+        this.showStats = false;
     }
 
     private static String formatPersonForEdit(Person person, int index) {
@@ -95,6 +113,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowStats() {
+        return showStats;
     }
 
     @Override
