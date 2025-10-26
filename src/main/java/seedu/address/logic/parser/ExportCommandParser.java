@@ -35,7 +35,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         if (!exportName.toString().endsWith(".json")
-                && !exportName.endsWith(".csv")) {
+                && !exportName.toString().endsWith(".csv")) {
             throw new ParseException(ExportCommand.INVALID_EXPORT_FORMAT);
         }
 
