@@ -42,7 +42,7 @@ public class CommandTestUtil {
     public static final String VALID_FILEPATH_JSON = "src/test/data/ImportTest/validJsonSave.json";
     public static final String VALID_FILEPATH_CSV = "src/test/data/ImportTest/validCsvSave.csv";
     public static final String VALID_EXPORT_JSON = "src/test/data/ExportTest/validJsonExport.json";
-    public static final String VALID_EXPORT_CSV = "src/test/data/ExportTest/validJsonExport.csv";
+    public static final String VALID_EXPORT_CSV = "src/test/data/ExportTest/validCsvExport.csv";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
