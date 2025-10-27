@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -14,17 +13,13 @@ import java.util.stream.Stream;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
 
 /**
  * Exports the save file as a .csv file
@@ -45,6 +40,12 @@ public class ExportCommand extends Command {
     private Path exportName;
     private Set<Tag> tags;
 
+    /**
+     * Initializes the export command object.
+     *
+     * @param exportName Relative path of the export file from the working directory.
+     * @param tags Set of tags that all exported contacts should have.
+     */
     public ExportCommand(Path exportName, Set<Tag> tags) {
         requireNonNull(exportName);
         assert(exportName.toString().endsWith(".json") || exportName.toString().endsWith(".csv"));
@@ -126,7 +127,7 @@ public class ExportCommand extends Command {
      * @param people stream of people to be saved in the .json file.
      * @throws CommandException if a write error occurs.
      */
-    private void saveAsJson(Stream<Person> people) throws CommandException{
+    private void saveAsJson(Stream<Person> people) throws CommandException {
         AddressBook addressBook = new AddressBook();
         people.forEach(addressBook::addPerson);
 
@@ -142,7 +143,7 @@ public class ExportCommand extends Command {
      * @param person Person to be checked
      * @return True if person has all tags
      */
-    private boolean hasTags (Person person) {
+    private boolean hasTags(Person person) {
         return tags.stream().allMatch(person::hasTag);
     }
 

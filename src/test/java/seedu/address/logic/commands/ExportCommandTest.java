@@ -2,11 +2,14 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILEPATH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPORT_CSV;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPORT_JSON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JSON;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -25,38 +28,68 @@ import seedu.address.model.person.Person;
 public class ExportCommandTest {
     private static Path validPath;
     private static Path invalidPath;
+    private static Path jsonExportPath;
+    private static Path csvExportPath;
 
     @BeforeAll
     public static void setup() {
         try {
             validPath = ParserUtil.parsePath(VALID_FILEPATH_JSON);
             invalidPath = ParserUtil.parsePath(INVALID_FILEPATH);
+            jsonExportPath = ParserUtil.parsePath(VALID_EXPORT_JSON);
+            csvExportPath = ParserUtil.parsePath(VALID_EXPORT_CSV);
         } catch (ParseException e) {
             System.out.println("Test file missing.\n");
         }
     }
 
     @Test
-    public void execute_pathAcceptedByModel_exportSuccessful() throws Exception {
+    public void execute_jsonPathAcceptedByModel_exportSuccessful() throws Exception {
         ModelStub modelStub = new ModelStubValidPath();
 
-        CommandResult commandResult = new ExportCommand().execute(modelStub);
+        CommandResult commandResult = new ExportCommand(jsonExportPath, new HashSet<>()).execute(modelStub);
 
-        assertEquals(String.format(ExportCommand.MESSAGE_SUCCESS),
+        assertEquals(String.format(String.format(ExportCommand.MESSAGE_SUCCESS, jsonExportPath)),
                 commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_pathAcceptedByModel_exportFailure() {
+    public void execute_jsonPathAcceptedByModel_exportFailure() {
         ModelStub modelStub = new ModelStubInvalidPath();
 
-        assertThrows(CommandException.class, () -> new ExportCommand()
+        assertThrows(CommandException.class, () -> new ExportCommand(jsonExportPath, new HashSet<>())
+                .execute(modelStub).getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_csvPathAcceptedByModel_exportSuccessful() throws Exception {
+        ModelStub modelStub = new ModelStubValidPath();
+
+        CommandResult commandResult = new ExportCommand(csvExportPath, new HashSet<>()).execute(modelStub);
+
+        assertEquals(String.format(String.format(ExportCommand.MESSAGE_SUCCESS, csvExportPath)),
+                commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_csvPathAcceptedByModel_exportFailure() {
+        ModelStub modelStub = new ModelStubInvalidPath();
+
+        assertThrows(CommandException.class, () -> new ExportCommand(csvExportPath, new HashSet<>())
+                .execute(modelStub).getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_invalidPathRejectedByModel_exportFailure() {
+        ModelStub modelStub = new ModelStubValidPath();
+
+        assertThrows(CommandException.class, () -> new ExportCommand(invalidPath, new HashSet<>())
                 .execute(modelStub).getFeedbackToUser());
     }
 
     @Test
     public void toStringMethod() {
-        ExportCommand exportCommand = new ExportCommand();
+        ExportCommand exportCommand = new ExportCommand(validPath, new HashSet<>());
         String expected = ExportCommand.class.getCanonicalName() + "{}";
         assertEquals(expected, exportCommand.toString());
     }

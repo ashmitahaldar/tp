@@ -1,9 +1,5 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -28,6 +24,9 @@ public class PersonBuilder {
     private Note note;
     private boolean isPinned;
 
+    /**
+     * Initializes a person builder
+     */
     public PersonBuilder() {
         // initialize optional fields
         this.telegramHandle = new TelegramHandle("");
@@ -42,7 +41,7 @@ public class PersonBuilder {
     }
 
     public void setTelegramHandle(String telegramHandle) {
-        this.telegramHandle =  new TelegramHandle(telegramHandle);
+        this.telegramHandle = new TelegramHandle(telegramHandle);
     }
 
     public void setEmail(String email) {
