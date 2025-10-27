@@ -17,8 +17,8 @@ import seedu.address.model.person.Person;
  */
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private static final int PAGE_JUMP = 5;
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
     private ListView<Person> personListView;
@@ -107,7 +107,9 @@ public class PersonListPanel extends UiPart<Region> {
     // move list item selection up or down
     private void selectRelative(int delta) {
         var items = personListView.getItems();
-        if (items == null || items.isEmpty()) return;
+        if (items == null || items.isEmpty()) {
+            return;
+        }
 
         var sm = personListView.getSelectionModel();
         int current = Math.max(0, sm.getSelectedIndex());
@@ -121,7 +123,9 @@ public class PersonListPanel extends UiPart<Region> {
     // move to a specific list item
     private void selectIndex(int index) {
         var items = personListView.getItems();
-        if (items == null || items.isEmpty()) return;
+        if (items == null || items.isEmpty()) {
+            return;
+        }
 
         int bounded = Math.max(0, Math.min(index, items.size() - 1));
         personListView.getSelectionModel().select(bounded);
