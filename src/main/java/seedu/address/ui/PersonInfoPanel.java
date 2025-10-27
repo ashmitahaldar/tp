@@ -37,6 +37,8 @@ public class PersonInfoPanel extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private Label note;
+    @FXML
+    private VBox logContainer;
 
     private String telegramHandle;
 
@@ -87,6 +89,18 @@ public class PersonInfoPanel extends UiPart<Region> {
             note.setWrapText(true);
             // subtract container padding (12 left + 12 right = 24) so text wraps correctly to visible width
             note.maxWidthProperty().bind(infoBox.widthProperty().subtract(24));
+
+            // Display logs
+            logContainer.getChildren().clear();
+            if (!person.getLogs().isEmpty()) {
+                person.getLogs().getLogs().forEach(log -> {
+                    Label logLabel = new Label(log.toString());
+                    logLabel.setWrapText(true);
+                    logLabel.maxWidthProperty().bind(infoBox.widthProperty().subtract(24));
+                    logLabel.getStyleClass().add("log-entry");
+                    logContainer.getChildren().add(logLabel);
+                });
+            }
         }
     }
 
