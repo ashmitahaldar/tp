@@ -16,5 +16,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ORDER = new Prefix("o/");
     public static final Prefix PREFIX_TELEGRAM = new Prefix("tele/");
     public static final Prefix PREFIX_NOTE = new Prefix("note/");
+    public static final Prefix PREFIX_MESSAGE = new Prefix("m/");
+    public static final Prefix PREFIX_TYPE = new Prefix("t/");
 
 }
