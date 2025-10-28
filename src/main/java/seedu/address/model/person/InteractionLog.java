@@ -58,8 +58,8 @@ public class InteractionLog {
         assert entry != null : "LogEntry should not be null";
 
         List<LogEntry> updatedLogs = new ArrayList<>();
-        updatedLogs.add(entry);  // Add new entry at the beginning
-        updatedLogs.addAll(logs);  // Add existing entries after
+        updatedLogs.add(entry); // Add new entry at the beginning
+        updatedLogs.addAll(logs); // Add existing entries after
         return new InteractionLog(updatedLogs);
     }
 

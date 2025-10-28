@@ -6,6 +6,7 @@
     "email" : "E1234567@u.nus.edu",
     "address" : "1 Computing Lane",
     "tags" : [ ],
-    "note": ""
+    "note": "",
+    "logs": []
   } ]
 }
