@@ -117,7 +117,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        personInfoPanel = new PersonInfoPanel();
+        personInfoPanel = new PersonInfoPanel(logic.getAddressBook());
         personInfoPanelPlaceholder.getChildren().add(personInfoPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -191,6 +191,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isShowStats()) {
+                personInfoPanel.displayPerson(null);
             }
 
             if (commandResult.isExit()) {
