@@ -12,9 +12,6 @@
  * - Use primary for large surface areas; use accents to draw attention and indicate state.
  * - Keep text using Light text (#FEC196) on dark surfaces; check contrast for critical UI elements.
  * - Prefer component-specific selectors (e.g., #personListPanel, .button) for overrides.
- *
- * Accessibility: verify contrast ratios for text and interactive controls (adjust lightness of
- * accents if necessary to meet WCAG 2.1 AA for intended text sizes).
  */
 
 .error {

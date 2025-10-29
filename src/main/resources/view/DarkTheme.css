@@ -12,9 +12,6 @@
  * - Use primary for large surface areas; use accents to draw attention and indicate state.
  * - Keep text using Light text (#FEC196) on dark surfaces; check contrast for critical UI elements.
  * - Prefer component-specific selectors (e.g., #personListPanel, .button) for overrides.
- *
- * Accessibility: verify contrast ratios for text and interactive controls (adjust lightness of
- * accents if necessary to meet WCAG 2.1 AA for intended text sizes).
  */
 
 .background {
@@ -400,6 +397,16 @@
     -fx-border-radius: 6;
     -fx-background-radius: 6;
     -fx-font-size: 11;
+}
+
+#tags .hyperlink {
+    -fx-text-fill: #1b0e0f;
+    -fx-background-color: #FFA686;
+    -fx-padding: 2 6 2 6;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-size: 11;
+    -fx-underline: false;
 }
 
 #personInfoPanelPlaceholder .background {
