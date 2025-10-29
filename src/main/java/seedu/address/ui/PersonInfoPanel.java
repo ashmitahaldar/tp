@@ -95,7 +95,19 @@ public class PersonInfoPanel extends UiPart<Region> {
         VBox cardContainer = new VBox();
         cardContainer.setPrefHeight(200);
 
-        // Total contacts
+        VBox totalSection = totalContactsSection(totalContacts);
+        VBox tagsSection = topTagsSection(topThreeTags);
+        VBox addressSection = mostCommonLocationSection();
+
+        VBox container = new VBox(12);
+        container.setStyle("-fx-spacing: 12;");
+        container.getChildren().addAll(totalSection, tagsSection, addressSection);
+
+        note.setGraphic(container);
+        note.setText("");
+    }
+
+    private VBox totalContactsSection(int totalContacts) {
         VBox totalSection = new VBox(2);
         Text totalLabel = new Text("Total contacts");
         totalLabel.setStyle("-fx-font-size: 13; -fx-font-weight: bold;-fx-fill: #ffffff;"
@@ -103,8 +115,10 @@ public class PersonInfoPanel extends UiPart<Region> {
         Text totalValue = new Text(String.valueOf(totalContacts));
         totalValue.setStyle("-fx-font-size: 14; -fx-fill: #999999; -fx-padding: 6 0;");
         totalSection.getChildren().addAll(totalLabel, totalValue);
+        return totalSection;
+    }
 
-        // Top 3 tags
+    private VBox topTagsSection(List<String> topThreeTags) {
         VBox tagsSection = new VBox(4);
         Text tagsLabel = new Text("Top tags");
         tagsLabel.setStyle("-fx-font-size: 13; -fx-font-weight: bold; -fx-fill: #ffffff;"
@@ -114,12 +128,14 @@ public class PersonInfoPanel extends UiPart<Region> {
         for (String tag : topThreeTags) {
             Label tagLabel = new Label(tag);
             tagLabel.setStyle("-fx-font-size: 13; -fx-fill: #ffffff;"
-                + "-fx-background-color: #2a95bd; -fx-padding: 3 4; -fx-text-fill: white;");
+                    + "-fx-background-color: #2a95bd; -fx-padding: 3 4; -fx-text-fill: white;");
             tagFlow.getChildren().add(tagLabel);
         }
         tagsSection.getChildren().addAll(tagsLabel, tagFlow);
+        return tagsSection;
+    }
 
-        // Most common address
+    private VBox mostCommonLocationSection() {
         VBox addressSection = new VBox(4);
         Text addressLabel = new Text("Most common location");
         addressLabel.setStyle("-fx-font-size: 13; -fx-font-weight: bold; -fx-fill: #ffffff;"
@@ -128,12 +144,7 @@ public class PersonInfoPanel extends UiPart<Region> {
         Text addressValue = new Text(mostCommonWord.isEmpty() ? "N/A" : mostCommonWord);
         addressValue.setStyle("-fx-font-size: 13; -fx-fill: #999999; -fx-padding: 6 0;");
         addressSection.getChildren().addAll(addressLabel, addressValue);
-        VBox container = new VBox(12);
-        container.setStyle("-fx-spacing: 12;");
-        container.getChildren().addAll(totalSection, tagsSection, addressSection);
-
-        note.setGraphic(container);
-        note.setText("");
+        return addressSection;
     }
 
     /**
