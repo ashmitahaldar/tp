@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -68,8 +69,8 @@ public class PersonBuilder {
     }
 
     // add log to log collection
-    public void setLog(String log, String type) {
-        this.interactionLog.addLogEntry(new LogEntry(log, type));
+    public void setLog(String time, String type, String log) {
+        this.interactionLog.addLogEntry(new LogEntry(log, type, LocalDateTime.parse(time)));
     }
 
     /**
