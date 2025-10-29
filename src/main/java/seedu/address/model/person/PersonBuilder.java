@@ -123,7 +123,7 @@ public class PersonBuilder {
                 .add("address", address)
                 .add("tags", tags)
                 .add("isPinned", isPinned)
-                .add("log",  interactionLog)
+                .add("log", interactionLog)
                 .add("note", note)
                 .toString();
     }
