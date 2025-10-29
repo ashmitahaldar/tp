@@ -29,7 +29,7 @@ public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a specified .json file. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a specified .json or .csv file. "
             + "\nParameters: "
             + PREFIX_FILE + "FILE \n"
             + "Example: " + COMMAND_WORD + " "
