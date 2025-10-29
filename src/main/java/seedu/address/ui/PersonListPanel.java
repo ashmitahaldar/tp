@@ -112,10 +112,16 @@ public class PersonListPanel extends UiPart<Region> {
 
         var sm = personListView.getSelectionModel();
         int current = sm.getSelectedIndex();
-        if (current < 0) current = 0;
+        if (current < 0) {
+            current = 0;
+        }
         int next = current + delta;
-        if (next < 0) next = 0;
-        if (next > (items.size() - 1)) next = items.size() - 1;
+        if (next < 0) {
+            next = 0;
+        }
+        if (next > (items.size() - 1)) {
+            next = items.size() - 1;
+        }
         if (current != next) {
             sm.select(next);
             personListView.scrollTo(next);
@@ -130,8 +136,12 @@ public class PersonListPanel extends UiPart<Region> {
         }
 
         int bounded = index;
-        if (bounded < 0) bounded = 0;
-        if (bounded > (items.size() - 1)) bounded = items.size() - 1;
+        if (bounded < 0) {
+            bounded = 0;
+        }
+        if (bounded > (items.size() - 1)) {
+            bounded = items.size() - 1;
+        }
         personListView.getSelectionModel().select(bounded);
         personListView.scrollTo(bounded);
     }
