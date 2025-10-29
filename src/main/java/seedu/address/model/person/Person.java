@@ -133,6 +133,9 @@ public class Person {
             fieldList.add("tag:" + t);
         });
         fieldList.add("isPinned:" + this.isPinned);
+        logs.getLogs().forEach((LogEntry l) -> {
+            fieldList.add("log:" + l);
+        });
         fieldList.add("note:" + this.note);
         return fieldList;
     }
