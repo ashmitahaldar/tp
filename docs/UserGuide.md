@@ -5,10 +5,10 @@ title: User Guide
 
 ## LinkedUp User Guide
 
-LinkedUp is a **desktop app for university student leaders to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). 
+LinkedUp is a **desktop app for university student leaders to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -28,15 +28,15 @@ LinkedUp is a **desktop app for university student leaders to manage contacts, o
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+    * `list` : Lists all contacts.
 
-   * `add n/Takoyaki Vendor p/98765432 e/takoyakis@gmail.com a/Jane Street, block 24000, #01-01` : Adds a contact named `Takoyaki Vendor` to LinkedUp.
+    * `add n/Takoyaki Vendor p/98765432 e/takoyakis@gmail.com a/Jane Street, block 24000, #01-01` : Adds a contact named `Takoyaki Vendor` to LinkedUp.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+    * `clear` : Deletes all contacts.
 
-   * `exit` : Exits the app.
+    * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -128,7 +128,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+  specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -162,7 +162,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Fuzzy matching is supported: minor typos are tolerated (e.g. \`find Jhn\` will match \`John\`). 
+* Fuzzy matching is supported: minor typos are tolerated (e.g. \`find Jhn\` will match \`John\`).
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
@@ -236,12 +236,12 @@ Examples:
 
 * Undo last action
 * Reverts the effects of the following commands:
-  * Add
-  * Delete
-  * Edit
-  * Clear
-  * Pin
-  * Unpin
+    * Add
+    * Delete
+    * Edit
+    * Clear
+    * Pin
+    * Unpin
 
 <div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
         💡 <strong style="color: #000000;">Tip: Useful for any unintentional mistakes </strong>
@@ -252,7 +252,7 @@ Examples:
 * Redo last action, reverting state of application to that before previous undo
 * Redo history will be cleared when commands that edit the state of the data are made
 
-### Importing a save file : `import FILE`
+### Importing a save file : `import`
 
 Imports the details stored in the specified file
 
@@ -263,19 +263,25 @@ Format: `import f/FILE`
 
 * Either a `.json` or a `.csv` file can be used.
 
-Example: 
+Example:
 * Importing a json file: `import f/data/addressbook.json`
 * Importing a csv file: `import f/data/addressbook.csv`
 
-### Exporting your save file to .csv : `export`
+### Exporting your save file to `.json` or `.csv` : `export`
 
-Exports your saved data to a `.csv` file.
+Exports your saved data to a `.json` or `.csv` file.
 
-Format: `export`
+Format: `export f/FILE [t/TAG]...`
 
-* The exported file will be saved as `data/addressbook.csv`
+Options:
+* `FILE`: Filepath of export file. File must have extension `.json` or `.csv`.
+* `[TAG]`: Tags to filter the contact list before exporting. Only contacts with all the provided tags will be exported.
 
-## Sorting Contacts: `sort`
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Use relative addresses for easier referencing! </strong>
+</div>
+
+### Sorting Contacts: `sort`
 Sort contacts via a specific field in a specific order
 
 Format: `sort [f/FIELD] [o/ORDER]`
@@ -334,8 +340,8 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: 
-1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`)  
+**A**:
+1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`)
 2. Copy your file of choice to your other computer.
 3. Use `import f/FILE` to use your data in your other computer.
 --------------------------------------------------------------------------------------------------------------------
