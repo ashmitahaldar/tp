@@ -43,42 +43,41 @@ public class PersonListPanel extends UiPart<Region> {
         personListView.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             KeyCode code = e.getCode();
             switch (code) {
-            case UP -> {
+            case UP:
                 e.consume();
                 selectRelative(-1); // previous list item
-            }
-            case DOWN -> {
+                break;
+            case DOWN:
                 e.consume();
                 selectRelative(1); // next list item
-            }
-            case PAGE_UP -> {
+                break;
+            case PAGE_UP:
                 e.consume();
                 selectRelative(-PAGE_JUMP); // jump upwards few items
-            }
-            case PAGE_DOWN -> {
+                break;
+            case PAGE_DOWN:
                 e.consume();
                 selectRelative(PAGE_JUMP); // jump downwards few items
-            }
-            case HOME -> {
+                break;
+            case HOME:
                 e.consume();
                 selectIndex(0); // first list item
-            }
-            case END -> {
+                break;
+            case END:
                 e.consume();
                 selectIndex(personListView.getItems().size() - 1); // last list item
-            }
+                break;
             // vim style keybind
-            case J -> {
+            case J:
                 e.consume();
                 selectRelative(1); // next list item
-            }
-            case K -> {
+                break;
+            case K:
                 e.consume();
                 selectRelative(-1); // previous list item
-            }
-            default -> {
-                // allow rest to pass through
-            }
+                break;
+            default:
+                break;
             }
         });
     }
@@ -112,8 +111,11 @@ public class PersonListPanel extends UiPart<Region> {
         }
 
         var sm = personListView.getSelectionModel();
-        int current = Math.max(0, sm.getSelectedIndex());
-        int next = Math.max(0, Math.min(current + delta, items.size() - 1));
+        int current = sm.getSelectedIndex();
+        if (current < 0) current = 0;
+        int next = current + delta;
+        if (next < 0) next = 0;
+        if (next > (items.size() - 1)) next = items.size() - 1;
         if (current != next) {
             sm.select(next);
             personListView.scrollTo(next);
@@ -127,7 +129,9 @@ public class PersonListPanel extends UiPart<Region> {
             return;
         }
 
-        int bounded = Math.max(0, Math.min(index, items.size() - 1));
+        int bounded = index;
+        if (bounded < 0) bounded = 0;
+        if (bounded > (items.size() - 1)) bounded = items.size() - 1;
         personListView.getSelectionModel().select(bounded);
         personListView.scrollTo(bounded);
     }
