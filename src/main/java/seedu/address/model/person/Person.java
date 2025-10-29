@@ -125,7 +125,18 @@ public class Person {
         tags.forEach((Tag t) -> {
             fieldList.add("tag:" + t);
         });
+        fieldList.add("isPinned:" + this.isPinned);
+        fieldList.add("note:" + this.note);
         return fieldList;
+    }
+
+    /**
+     * Checks if the person has the specified tag
+     * @param tag The tag to be checked
+     * @return True if the person has the tag
+     */
+    public boolean hasTag(Tag tag) {
+        return tags.contains(tag);
     }
 
     /**

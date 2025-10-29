@@ -1,11 +1,21 @@
 {
   "persons" : [ {
-    "name" : "John Computing",
-    "phone" : "81234567",
-    "telegram" : "@john_computing",
-    "email" : "E1234567@u.nus.edu",
-    "address" : "1 Computing Lane",
+    "name" : "n",
+    "phone" : "12345786",
+    "telegram" : "",
+    "email" : "e@e.com",
+    "address" : "a",
     "tags" : [ ],
-    "note": ""
+    "note" : "",
+    "isPinned" : false
+  }, {
+    "name" : "w",
+    "phone" : "12343827",
+    "telegram" : "",
+    "email" : "dfs@sfd.com",
+    "address" : "ds",
+    "tags" : [ ],
+    "note" : "",
+    "isPinned" : false
   } ]
 }
