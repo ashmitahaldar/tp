@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.InteractionLog;
+import seedu.address.model.person.LogEntry;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
@@ -33,6 +35,7 @@ class JsonAdaptedPerson {
     private final String address;
     private final String note;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedLogEntry> logs = new ArrayList<>();
     private final boolean isPinned;
 
     /**
@@ -43,6 +46,7 @@ class JsonAdaptedPerson {
             @JsonProperty("telegram") String telegram,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("note") String note,
+            @JsonProperty("logs") List<JsonAdaptedLogEntry> logs,
             @JsonProperty("isPinned") Boolean isPinned) {
         this.name = name;
         this.phone = phone;
@@ -53,6 +57,9 @@ class JsonAdaptedPerson {
             this.tags.addAll(tags);
         }
         this.note = note;
+        if (logs != null) {
+            this.logs.addAll(logs);
+        }
         this.isPinned = isPinned != null ? isPinned : false;
     }
 
@@ -69,6 +76,9 @@ class JsonAdaptedPerson {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         note = source.getNote().value;
+        logs.addAll(source.getLogs().getLogs().stream()
+                .map(JsonAdaptedLogEntry::new)
+                .collect(Collectors.toList()));
         isPinned = source.isPinned();
     }
 
@@ -131,8 +141,14 @@ class JsonAdaptedPerson {
         }
         final Note modelNote = new Note(note);
 
+        final List<LogEntry> logEntries = new ArrayList<>();
+        for (JsonAdaptedLogEntry log : logs) {
+            logEntries.add(log.toModelType());
+        }
+        final InteractionLog modelLogs = new InteractionLog(logEntries);
+
         return new Person(modelName, modelPhone, modelTelegramHandle,
-                modelEmail, modelAddress, modelTags, modelNote, isPinned);
+                modelEmail, modelAddress, modelTags, modelNote, modelLogs, isPinned);
     }
 
 }

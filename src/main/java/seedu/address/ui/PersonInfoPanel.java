@@ -22,7 +22,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
-
 /**
  * Panel that displays detailed information of a selected {@code Person}.
  */
@@ -48,6 +47,8 @@ public class PersonInfoPanel extends UiPart<Region> {
     @FXML
     private Label note;
     @FXML
+    private VBox logContainer;
+    @FXML
     private Label phoneLabel;
     @FXML
     private Label telegramLabel;
@@ -57,6 +58,8 @@ public class PersonInfoPanel extends UiPart<Region> {
     private Label emailLabel;
     @FXML
     private Label notesLabel;
+    @FXML
+    private Label logLabel;
 
     private String telegramHandle;
 
@@ -87,7 +90,7 @@ public class PersonInfoPanel extends UiPart<Region> {
      */
     private void displayStatistics() {
         int totalContacts = this.addressBook.getPersonList().size();
-        List<String> topThreeTags = getTopThreeTags(new ArrayList<>(this.addressBook.getPersonList()));
+        List<String[]> topThreeTags = getTopThreeTags(new ArrayList<>(this.addressBook.getPersonList()));
 
         name.setText("LinkedUp Statistics");
         setPersonDisplay(false);
@@ -110,24 +113,26 @@ public class PersonInfoPanel extends UiPart<Region> {
     private VBox totalContactsSection(int totalContacts) {
         VBox totalSection = new VBox(2);
         Text totalLabel = new Text("Total contacts");
-        totalLabel.setStyle("-fx-font-size: 13; -fx-font-weight: bold;-fx-fill: #ffffff;"
+        totalLabel.setStyle("-fx-font-size: 20; -fx-font-weight: bold;-fx-fill: #ffffff;"
                 + "-fx-background-color: #4a4a4a; -fx-padding: 8 10;");
         Text totalValue = new Text(String.valueOf(totalContacts));
-        totalValue.setStyle("-fx-font-size: 14; -fx-fill: #999999; -fx-padding: 6 0;");
+        totalValue.setStyle("-fx-font-size: 20; -fx-fill: #999999; -fx-padding: 6 0;");
         totalSection.getChildren().addAll(totalLabel, totalValue);
         return totalSection;
     }
 
-    private VBox topTagsSection(List<String> topThreeTags) {
+    private VBox topTagsSection(List<String[]> topThreeTags) {
         VBox tagsSection = new VBox(4);
         Text tagsLabel = new Text("Top tags");
-        tagsLabel.setStyle("-fx-font-size: 13; -fx-font-weight: bold; -fx-fill: #ffffff;"
+        tagsLabel.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: #ffffff;"
                 + "-fx-background-color: #4a4a4a; -fx-padding: 8 10;");
         FlowPane tagFlow = new FlowPane();
         tagFlow.setStyle("-fx-hgap: 8;");
-        for (String tag : topThreeTags) {
-            Label tagLabel = new Label(tag);
-            tagLabel.setStyle("-fx-font-size: 13; -fx-fill: #ffffff;"
+        for (String[] tagData : topThreeTags) {
+            String tagName = tagData[0];
+            String count = tagData[1];
+            Label tagLabel = new Label(tagName + " (" + count + ")");
+            tagLabel.setStyle("-fx-font-size: 20; -fx-fill: #ffffff;"
                     + "-fx-background-color: #2a95bd; -fx-padding: 3 4; -fx-text-fill: white;");
             tagFlow.getChildren().add(tagLabel);
         }
@@ -138,11 +143,11 @@ public class PersonInfoPanel extends UiPart<Region> {
     private VBox mostCommonLocationSection() {
         VBox addressSection = new VBox(4);
         Text addressLabel = new Text("Most common location");
-        addressLabel.setStyle("-fx-font-size: 13; -fx-font-weight: bold; -fx-fill: #ffffff;"
+        addressLabel.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: #ffffff;"
                 + "-fx-background-color: #4a4a4a; -fx-padding: 8 10;");
         String mostCommonWord = getMostCommonAddressWord();
         Text addressValue = new Text(mostCommonWord.isEmpty() ? "N/A" : mostCommonWord);
-        addressValue.setStyle("-fx-font-size: 13; -fx-fill: #999999; -fx-padding: 6 0;");
+        addressValue.setStyle("-fx-font-size: 20; -fx-fill: #999999; -fx-padding: 6 0;");
         addressSection.getChildren().addAll(addressLabel, addressValue);
         return addressSection;
     }
@@ -177,7 +182,20 @@ public class PersonInfoPanel extends UiPart<Region> {
                 });
         note.setText(person.getNote().value);
         note.setWrapText(true);
+        // subtract container padding (12 left + 12 right = 24) so text wraps correctly to visible width
         note.maxWidthProperty().bind(infoBox.widthProperty().subtract(24));
+
+        // Display logs
+        logContainer.getChildren().clear();
+        if (!person.getLogs().isEmpty()) {
+            person.getLogs().getLogs().forEach(log -> {
+                Label logLabel = new Label(log.toString());
+                logLabel.setWrapText(true);
+                logLabel.maxWidthProperty().bind(infoBox.widthProperty().subtract(24));
+                logLabel.getStyleClass().add("log-entry");
+                logContainer.getChildren().add(logLabel);
+            });
+        }
     }
 
     private void openUri(String uri) {
@@ -195,6 +213,7 @@ public class PersonInfoPanel extends UiPart<Region> {
     private void onPhoneClick() {
         String phoneText = phone.getText();
         if (!phoneText.isEmpty()) {
+            // tel: might be handled differently on different OSes...
             String digits = phoneText.replaceAll("\\s+", "");
             openUri("tel:" + digits);
         }
@@ -217,14 +236,14 @@ public class PersonInfoPanel extends UiPart<Region> {
         }
     }
 
-    private List<String> getTopThreeTags(List<Person> allPersons) {
+    private List<String[]> getTopThreeTags(List<Person> allPersons) {
         return allPersons.stream()
                 .flatMap(person -> person.getTags().stream())
                 .collect(Collectors.groupingBy(tag -> tag.tagName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted((a, b) -> Long.compare(b.getValue(), a.getValue()))
                 .limit(3)
-                .map(Map.Entry::getKey)
+                .map(entry -> new String[]{entry.getKey(), String.valueOf(entry.getValue())})
                 .collect(Collectors.toList());
     }
 
@@ -255,6 +274,8 @@ public class PersonInfoPanel extends UiPart<Region> {
     private void setPersonDisplay(boolean bool) {
         phone.setManaged(bool);
         phone.setVisible(bool);
+        logContainer.setManaged(bool);
+        logContainer.setVisible(bool);
         telegram.setManaged(bool);
         telegram.setVisible(bool);
         address.setManaged(bool);
@@ -273,5 +294,7 @@ public class PersonInfoPanel extends UiPart<Region> {
         emailLabel.setVisible(bool);
         notesLabel.setManaged(bool);
         notesLabel.setVisible(bool);
+        logLabel.setManaged(bool);
+        logLabel.setVisible(bool);
     }
 }

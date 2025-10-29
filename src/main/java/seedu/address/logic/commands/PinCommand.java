@@ -56,6 +56,7 @@ public class PinCommand extends Command {
                 personToPin.getAddress(),
                 personToPin.getTags(),
                 personToPin.getNote(),
+                personToPin.getLogs(),
                 true
         );
 
