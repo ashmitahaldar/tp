@@ -11,6 +11,7 @@ Package " "<<Rectangle>>{
     Class Model MODEL_COLOR
     Class Main #grey
     Class Commons LOGIC_COLOR_T2
+    Class VersionHistory LOGIC_COLOR_T4
 }
 
 Class "<$user>" as User MODEL_COLOR_T2
@@ -26,6 +27,8 @@ Main -[#grey]-> Logic
 Main -[#grey]-> Storage
 Main -up[#grey]-> Model
 Main -down[hidden]-> Commons
+VersionHistory -> Model
+Logic -> VersionHistory
 
 Storage -up[STORAGE_COLOR].> Model
 Storage .right[STORAGE_COLOR].>File
