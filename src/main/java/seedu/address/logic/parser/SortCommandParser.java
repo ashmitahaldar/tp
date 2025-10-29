@@ -12,8 +12,8 @@ import seedu.address.model.person.Order;
  * Parses input arguments and creates a new SortCommand object
  */
 public class SortCommandParser implements Parser<SortCommand> {
-    private static final Field defaultField = new Field("name");
-    private static final Order defaultOrder = new Order("asc");
+    private static final Field DEFAULT_FIELD = new Field("name");
+    private static final Order DEFAULT_ORDER = new Order("asc");
 
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
@@ -25,9 +25,15 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_FIELD, PREFIX_ORDER);
 
+        // only allow empty preamble, user should not input other text
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format("Invalid command format! Usage: %s", SortCommand.MESSAGE_USAGE));
+        }
+
         // default order
-        Field field = defaultField;
-        Order order = defaultOrder;
+        Field field = DEFAULT_FIELD;
+        Order order = DEFAULT_ORDER;
 
         if (argMultimap.getValue(PREFIX_FIELD).isPresent()) {
             field = ParserUtil.parseField(argMultimap.getValue(PREFIX_FIELD).get());
