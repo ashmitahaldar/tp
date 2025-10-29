@@ -368,8 +368,8 @@ Action | Format, Examples
 **List** | `list`
 **Undo** | `undo`
 **Redo** | `redo`
-**Import** | `import f/FILE`<br> e.g., `import f/data/addressbook.json`
-**Export** | `export`
+**Import** | `import f/FILE`<br> e.g., `import f/data/linkedup.json`
+**Export** | `export f/FILE [t/TAG]...` <br> e.g., `export f/data/linkedup.json t/colleagues`
 **Sort** | `sort [f/FIELD] [o/ORDER]`
 **Pin** | `pin INDEX`<br> e.g., `pin 2`
 **Unpin** | `unpin INDEX`<br> e.g., `unpin 1`
