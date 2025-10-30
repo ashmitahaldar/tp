@@ -49,8 +49,20 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     }
 
     private boolean matchesKeyword(String word, String keyword, int threshold) {
-        return StringUtil.containsWordIgnoreCase(word, keyword)
-                || StringUtil.containsSubstringIgnoreCase(word, keyword)
-                || StringUtil.fuzzyMatch(word, keyword, threshold);
+        String trimmed = keyword.trim();
+        if (trimmed.isEmpty()) {
+            return false;
+        }
+
+        // For short keywords (length < 4) do NOT perform substring matching to avoid noisy matches.
+        if (trimmed.length() < 4) {
+            return StringUtil.containsWordIgnoreCase(word, trimmed)
+                    || StringUtil.fuzzyMatch(word, trimmed, threshold);
+        }
+
+        // For longer keywords allow substring matching in addition to full-word and fuzzy matches.
+        return StringUtil.containsWordIgnoreCase(word, trimmed)
+                || StringUtil.containsSubstringIgnoreCase(word, trimmed)
+                || StringUtil.fuzzyMatch(word, trimmed, threshold);
     }
 }
