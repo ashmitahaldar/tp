@@ -26,10 +26,10 @@ public class SampleDataUtil {
     public static final InteractionLog EMPTY_LOGS = new InteractionLog();
 
     public static Person[] getSamplePersons() {
-        InteractionLog sampleLogs = new InteractionLog();
-        sampleLogs.addLogEntry(new LogEntry("Met to discuss CS2103T", "meeting",
-                LocalDateTime.parse("2025-09-30T20:45:00")));
-        sampleLogs.addLogEntry(new LogEntry("Met to discuss CS2103T", "meeting"));
+        InteractionLog sampleLogs = new InteractionLog()
+                .addLogEntry(new LogEntry("Met to discuss CS2103T", "meeting",
+                LocalDateTime.parse("2025-09-30T20:45:00")))
+                .addLogEntry(new LogEntry("Met to discuss CS2103T", "meeting"));
         return new Person[] {
             new Person(new Name("Queensway Shirt Vendor"), new Phone("97110393"), new TelegramHandle("@queenshirts"),
                     new Email("qs@gmail"), new Address("Queensway Shopping Centre"),
