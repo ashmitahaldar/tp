@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILEPATH;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_TYPE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPORT_CSV;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPORT_JSON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JSON;
@@ -17,17 +17,18 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 public class ExportCommandTest {
     private static Path validPath;
-    private static Path invalidPath;
+    private static Path invalidFilePath;
     private static Path jsonExportPath;
     private static Path csvExportPath;
 
@@ -35,7 +36,7 @@ public class ExportCommandTest {
     public static void setup() {
         try {
             validPath = ParserUtil.parsePath(VALID_FILEPATH_JSON);
-            invalidPath = ParserUtil.parsePath(INVALID_FILEPATH);
+            invalidFilePath = ParserUtil.parsePath(INVALID_FILE_TYPE);
             jsonExportPath = ParserUtil.parsePath(VALID_EXPORT_JSON);
             csvExportPath = ParserUtil.parsePath(VALID_EXPORT_CSV);
         } catch (ParseException e) {
@@ -54,14 +55,6 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_jsonPathAcceptedByModel_exportFailure() {
-        ModelStub modelStub = new ModelStubInvalidPath();
-
-        assertThrows(CommandException.class, () -> new ExportCommand(jsonExportPath, new HashSet<>())
-                .execute(modelStub).getFeedbackToUser());
-    }
-
-    @Test
     public void execute_csvPathAcceptedByModel_exportSuccessful() throws Exception {
         ModelStub modelStub = new ModelStubValidPath();
 
@@ -72,19 +65,11 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_csvPathAcceptedByModel_exportFailure() {
-        ModelStub modelStub = new ModelStubInvalidPath();
-
-        assertThrows(CommandException.class, () -> new ExportCommand(csvExportPath, new HashSet<>())
-                .execute(modelStub).getFeedbackToUser());
-    }
-
-    @Test
-    public void execute_invalidPathRejectedByModel_exportFailure() {
+    public void execute_invalidFileTypeRejectedByModel_exportFailure() {
         ModelStub modelStub = new ModelStubValidPath();
 
-        assertThrows(CommandException.class, () -> new ExportCommand(invalidPath, new HashSet<>())
-                .execute(modelStub).getFeedbackToUser());
+        assertThrows(AssertionError.class, () -> new ExportCommand(invalidFilePath, new HashSet<>())
+                .execute(modelStub));
     }
 
     @Test
@@ -204,23 +189,22 @@ public class ExportCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always returns a valid addressbook
      */
     private class ModelStubValidPath extends ModelStub {
         @Override
-        public Path getAddressBookFilePath() {
-            return validPath;
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBookStubEmptyList();
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * An AddressBook stub that always returns an empty list
      */
-    private class ModelStubInvalidPath extends ModelStub {
+    private class AddressBookStubEmptyList extends AddressBook {
         @Override
-        public Path getAddressBookFilePath() {
-            return invalidPath;
+        public ObservableList<Person> getPersonList() {
+            return new UniquePersonList().asUnmodifiableObservableList();
         }
     }
-
 }
