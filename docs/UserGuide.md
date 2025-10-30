@@ -8,32 +8,32 @@ title: User Guide
 LinkedUp is a **desktop app for university student leaders to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 ## Table of Contents <a name="toc"></a>
-### [Setup](#setup)
-### [Features](#features)
-* [Viewing help](#view)
-* [Adding a contact](#add)
-* [Listing all contacts](#list)
-* [Editing a contact](#edit)
-* [Adding a note to a contact](#note)
-* [Locating contacts by name](#find)
-* [Filtering contacts by tags](#filter)
-* [Deleting a contact](#delete)
-* [Pinning a contact](#pin)
-* [Unpinning a contact](#unpin)
-* [Undoing a command](#undo)
-* [Redoing a command](#redo)
-* [Importing a save file](#import)
-* [Exporting your save file to .json or .csv](#export)
-* [Sorting contacts](#sort)
-* [Clear contacts](#clear)
-* [Exiting the app](#exit)
-### [Saving the data](#savedata)
-### [Editing the data file](#editdata)
-### [Archiving data files](#archive)
-### [FAQ](#faq)
-### [Known Issues](#issues)
-### [Command Summary](#summary)
-### [Glossary](#glossary)
+- [Setup](#setup)
+- [Features](#features)
+  * [Viewing help](#view)
+  * [Adding a contact](#add)
+  * [Listing all contacts](#list)
+  * [Editing a contact](#edit)
+  * [Adding a note to a contact](#note)
+  * [Locating contacts by name](#find)
+  * [Filtering contacts by tags](#filter)
+  * [Deleting a contact](#delete)
+  * [Pinning a contact](#pin)
+  * [Unpinning a contact](#unpin)
+  * [Undoing a command](#undo)
+  * [Redoing a command](#redo)
+  * [Importing a save file](#import)
+  * [Exporting your save file to .json or .csv](#export)
+  * [Sorting contacts](#sort)
+  * [Clear contacts](#clear)
+  * [Exiting the app](#exit)
+- [Saving the data](#savedata)
+- [Editing the data file](#editdata)
+- [Archiving data files](#archive)
+- [FAQ](#faq)
+- [Known Issues](#issues)
+- [Command Summary](#summary)
+- [Glossary](#glossary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -44,10 +44,10 @@ LinkedUp is a **desktop app for university student leaders to manage contacts, o
      **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
 - Downloading LinkedUp:
-  - Download the latest `.jar` file from the latest release by clicking the file on [this github](https://github.com/AY2526S1-CS2103T-W09-1/tp/releases).
+  - Navigate to the release page on [this Github repository](https://github.com/AY2526S1-CS2103T-W09-1/tp/releases).
+  - Download the latest `.jar` file from the latest release by clicking it (it should be the first entry).
     ![jarimg.png](images/jarimg.png)
-    (Click the first file)
-  - Save the file to the folder you want to use as the _home folder_ for your LinkedUp.
+  - Save the file to the folder you want to use as the _home folder_ for your LinkedUp installation.
 
 - Running LinkedUp
   - Open a command terminal, `cd` into the folder you put the jar file in (e.g `cd linkedupfolder`), and use the `java -jar linkedup.jar` command to run the application.<br>
@@ -104,10 +104,9 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-<div style="margin-top:15px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip : The command line will prompt the correct format when syntax is wrong.</strong>
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+The command line will prompt the correct format when syntax is wrong.
 </div>
-
 
 ### [Adding a contact: `add`](#toc) <a name="add"></a>
 
@@ -115,8 +114,8 @@ Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
-<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip: A contact can have any number of tags (including 0) </strong>
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+A contact can have any number of tags (including 0)
 </div>
 
 **WARNING**: Email does not check for domains like .com because of unique organisations
@@ -146,8 +145,8 @@ The command line will autofill the person in index 3 as shown below without chan
 
 ![Edit](images/Edit.png)
 
-<div style="margin-top:5px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip: Use this shortcut to save time and ensure correct syntax </strong>
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use this shortcut to save time and ensure correct syntax
 </div>
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
@@ -160,7 +159,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
   specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 p/91234567 e/queenspants@gmail.com` Edits the phone number and email address of the 1st contact to be `91234567` and `queenspants@gmail.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
 ### [Adding a note to a contact : `note`](#toc) <a name="note"></a>
@@ -180,6 +179,22 @@ Examples:
 * `note 1 note/Likes to swim.` Adds the note "Likes to swim." to the 1st contact.
 * `note 2 note/Prefers email communication` Adds a note about communication preference to the 2nd contact.
 * `note 1 note/` Removes the note from the 1st contact.
+
+### Logging an interaction with a person : `log`
+
+Adds a log entry to document an interaction with an existing contact in the address book.
+
+Format: `log INDEX m/MESSAGE [t/TYPE]`
+
+* Adds a log entry for the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The `MESSAGE` describes the interaction.
+* The optional `TYPE` specifies the type of interaction (e.g., "call", "meeting", "email").
+
+Examples:
+* `log 1 m/Called about catering quote, they'll email by Friday t/call`
+* `log 2 m/Informed to deliver goods by 29/11/25`
 
 ### [Locating contacts by name: `find`](#toc) <a name="find"></a>
 
@@ -201,8 +216,9 @@ Examples:
 * `find Rile` returns `Riley Tan`<br>
   ![result for 'find Riley'](images/Find.png)
 
-<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip: Use five or more characters to utilize fuzzy search effectively </strong>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use five or more characters to utilize fuzzy search effectively
 </div>
 
 ### [Filtering contacts by tags: `filter`](#toc) <a name="filter"></a>
@@ -276,8 +292,8 @@ Examples:
     * Pin
     * Unpin
 
-<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip: Useful for any unintentional mistakes </strong>
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Useful for any unintentional mistakes
 </div>
 
 ### [Redoing a command : `redo`](#toc) <a name="redo"></a>
@@ -290,8 +306,9 @@ Examples:
 Imports the details stored in the specified file
 
 Format: `import f/FILE`
-<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip: Use relative addresses for easier referencing! </strong>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use relative addresses for easier referencing!
 </div>
 
 * Either a `.json` or a `.csv` file can be used.
@@ -310,8 +327,8 @@ Options:
 * `FILE`: Filepath of export file. File must have extension `.json` or `.csv`.
 * `[TAG]`: Tags to filter the contact list before exporting. Only contacts with all the provided tags will be exported.
 
-<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip: Use relative addresses for easier referencing! </strong>
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use relative addresses for easier referencing!
 </div>
 
 ### [Sorting Contacts: `sort`](#toc) <a name="sort"></a>
@@ -335,9 +352,18 @@ Example
 
 ### [Clearing all entries : `clear`](#toc) <a name="clear"></a>
 
+Format: `clear`
+
+A warning will pop up, where you can type `clear confirm` to confirm the deletion.
+
+![clearWarning](images/clearWarning.png)
+
+**WARNING**: Deletes all contact details. Data cannot be retrieved after you clear and exit the app.
+
+Format: `clear confirm`
+
 Clears all entries from the address book.
 
-Format: `clear`
 
 ### [Exiting the program : `exit`](#toc) <a name="exit"></a>
 
@@ -389,6 +415,7 @@ Action | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit autofill** | `edit INDEX ​`<br> e.g.,`edit 2`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Log** | `log INDEX m/MESSAGE [t/TYPE]`<br> e.g., `log 1 m/Called about catering quote t/call` 
 **Note** | `note INDEX note/[NOTE]`<br> e.g., `note 1 note/Likes to swim.`
 **Filter** | `filter TAG [MORE_TAGS]`<br> e.g., `filter friends colleagues`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`

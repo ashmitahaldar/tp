@@ -129,7 +129,7 @@ public class NoteCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ClearCommand(true)));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new NoteCommand(INDEX_SECOND_PERSON, VALID_NOTE_AMY)));

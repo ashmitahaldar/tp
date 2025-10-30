@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -16,6 +15,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.CsvAddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 
 /**
@@ -33,7 +33,6 @@ public class ExportCommand extends Command {
 
     public static final String INVALID_EXPORT_FORMAT = "Target file should be .csv or .json!";
 
-    private PrintWriter printWriter;
     private Path exportName;
     private Set<Tag> tags;
 
@@ -70,8 +69,6 @@ public class ExportCommand extends Command {
             this.saveAsJson(filteredPersonStream);
         }
 
-        printWriter.close();
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, exportName));
     }
 
@@ -88,7 +85,6 @@ public class ExportCommand extends Command {
                 outputFile.getParentFile().mkdirs();
             }
             outputFile.createNewFile();
-            printWriter = new PrintWriter(outputFile);
         } catch (IOException e) {
             throw new CommandException("An error occurred while generating the output file :" + e.getMessage());
         }
@@ -98,17 +94,15 @@ public class ExportCommand extends Command {
      * Writes a stream of people into the .csv file.
      * @param people stream of people to be saved in the .csv file
      */
-    private void saveAsCsv(Stream<Person> people) {
-        people.forEach((Person person) -> {
-            StringBuilder fieldsString = new StringBuilder();
-            person.getFields().forEach((String s) -> {
-                String filteredString = s.replaceAll(",", "\\,");
-                fieldsString.append(s);
-                fieldsString.append(',');
-            });
-            fieldsString.deleteCharAt(fieldsString.length() - 1); // remove trailing comma
-            printWriter.println(fieldsString);
-        });
+    private void saveAsCsv(Stream<Person> people) throws CommandException {
+        AddressBook addressBook = new AddressBook();
+        people.forEach(addressBook::addPerson);
+
+        try {
+            new CsvAddressBookStorage(exportName).saveAddressBook(addressBook);
+        } catch (IOException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     /**

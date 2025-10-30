@@ -283,6 +283,29 @@ The class diagram shows the relationships between the `FindCommand`, `FindComman
 The activity diagram illustrates the decision flow for matching a single keyword against a name word, showing how the keyword length determines which matching strategies are applied.
 
 =======
+=======
+### Interaction Log feature
+
+The interaction log feature allows users to record interactions with contacts. Each log entry contains a message, an optional type, and a timestamp. The `log` command is used to add new log entries.
+
+The following sequence diagram illustrates the execution of the `log` command:
+
+![LogSequenceDiagram](images/LogSequenceDiagram.png)
+
+The implementation of this feature is divided into three main classes: `LogCommand`, `InteractionLog`, and `LogEntry`.
+
+*   **`LogEntry`**: This is an immutable class that represents a single log entry. It contains the message, type, and timestamp of the interaction.
+*   **`InteractionLog`**: This is also an immutable class that holds a list of `LogEntry` objects. It provides a method `addLogEntry` which returns a new `InteractionLog` instance with the new log entry added. This immutability ensures that the log history of a person cannot be changed accidentally.
+*   **`LogCommand`**: This class is responsible for executing the `log` command. When executed, it performs the following steps:
+    1.  It parses the user input to get the index of the person, the log message, and the interaction type.
+    2.  It retrieves the `Person` object from the model using the provided index.
+    3.  It creates a new `LogEntry` object with the provided message and type.
+    4.  It calls the `addLogEntry` method on the person's `InteractionLog` to get a new `InteractionLog` with the new entry.
+    5.  It creates a new `Person` object with the updated `InteractionLog`.
+    6.  Finally, it replaces the old `Person` object in the model with the new one.
+
+This entire process ensures that the data remains consistent and that the application state is managed in a predictable way. The use of immutable objects for `LogEntry` and `InteractionLog` makes the code more robust and easier to reason about.
+
 ### Data importing and exporting
 
 The address book is stored in a `.json` file. To facilitate usage across different platforms, import and export features have been incorporated.
