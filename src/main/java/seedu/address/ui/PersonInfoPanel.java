@@ -110,8 +110,8 @@ public class PersonInfoPanel extends UiPart<Region> {
         totalContactsValue.setText(String.valueOf(totalContacts));
 
         statTagFlow.getChildren().clear();
-        for (String tag : topThreeTags) {
-            Label tagLabel = new Label(tag);
+        for (String[] tag : topTags) {
+            Label tagLabel = new Label(tag[0] + "(" + tag[1] + ")");
             tagLabel.getStyleClass().add("label");
             statTagFlow.getChildren().add(tagLabel);
         }
