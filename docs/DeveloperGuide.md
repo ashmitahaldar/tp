@@ -458,6 +458,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User provides details in the command line for new contact.
 2. System internalizes details to create a new contact object.
 3. System adds the contact and displays the updated list of contacts.
+4. System scrolls to the newly added contact.
 
    Use case ends.
 
@@ -731,6 +732,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. System validates the new information.
 4. System updates the contact with new information.
 5. System displays the updated contact list.
+6. System scrolls to the newly updated contact.
 
    Use case ends.
 
