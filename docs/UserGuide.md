@@ -393,7 +393,7 @@ Furthermore, certain edits can cause LinkedUp to behave in unexpected ways (e.g.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Follow all instructions below in order <br>
-1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`).
+1. You can use `export` to create either a `.csv` file or a `.json` file.
 2. Copy your file of choice to your other computer.
 3. Use `import f/FILE` to use your data in your other computer.
 --------------------------------------------------------------------------------------------------------------------
