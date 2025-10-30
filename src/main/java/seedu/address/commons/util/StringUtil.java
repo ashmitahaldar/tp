@@ -38,6 +38,30 @@ public class StringUtil {
                 .anyMatch(preppedWord::equalsIgnoreCase);
     }
 
+    /*** Returns {@code true} if the given {@code sentence} contains the specified {@code substring},
+     * ignoring character case.
+     *
+     * <p>Both parameters are trimmed and compared in a case-insensitive manner. The method does not
+     * accept an empty or all-whitespace {@code substring} and will throw {@link IllegalArgumentException}
+     * if {@code substring} is empty after trimming. Passing {@code null} for either argument will
+     * result in a {@link NullPointerException}.
+     *
+     * @param sentence the string to search in; must not be {@code null}
+     * @param substring the substring to search for; must not be {@code null} or empty (after trimming)
+     * @return {@code true} if {@code sentence} contains {@code substring} ignoring case, {@code false} otherwise
+     * @throws NullPointerException if {@code sentence} or {@code substring} is {@code null}
+     * @throws IllegalArgumentException if {@code substring} is empty or contains only whitespace
+     */
+    public static boolean containsSubstringIgnoreCase(String sentence, String substring) {
+        requireNonNull(sentence);
+        requireNonNull(substring);
+
+        String prepped = substring.trim();
+        checkArgument(!prepped.isEmpty(), "Substring parameter cannot be empty");
+
+        return sentence.toLowerCase().contains(prepped.toLowerCase());
+    }
+
     /**
      * Returns a detailed message of the t, including the stack trace.
      */
