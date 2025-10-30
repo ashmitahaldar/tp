@@ -9,13 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Setting up, getting started**
-
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
+* This project is based on the AddressBook-Level3 project created by the SE-EDU initiative. Source code can be found at https://github.com/nus-cs2103-AY2526S1/tp
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -60,7 +54,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `ModelManager` class (which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -239,8 +233,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 ### Data importing and exporting
 
 The address book is stored in a `.json` file. To facilitate usage across different platforms, import and export features have been incorporated.
@@ -298,10 +290,6 @@ Exports follow the sequence below:
 Compatibility with `.csv` files has been added, providing users with an alternative file format for `import`ing and `export`ing data. 
 
 `.csv` files can be both exported and imported. `Import`s follow a similar flow as [importing `.json` files.](#importing-contact-lists).
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -764,8 +752,6 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 ### Deleting a person
 
 1. Deleting a person while all persons are being shown
@@ -778,15 +764,14 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `delete 0`<br>
       Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+   1. Test case: `delete -5`<br>
+         Expected: Only positive integer accepted. Error details of index of existing person being needed will show.
 
-1. _{ more test cases …​ }_
+      1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+         Expected: Similar to previous.
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+   1. _Our software will still open, but it will refuse to load in the corrupted data. When new valid data is added, it will only save the new data to resume its normal functionality._
