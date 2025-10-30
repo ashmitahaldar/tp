@@ -59,7 +59,7 @@ public class CsvUtil {
         csvFile.getPersonList().forEach((Person person) -> {
             StringBuilder fieldsString = new StringBuilder();
             person.getFields().forEach((String s) -> {
-                fieldsString.append(s);
+                fieldsString.append(s.replaceAll(",", "\",\""));
                 fieldsString.append(',');
             });
             fieldsString.deleteCharAt(fieldsString.length() - 1); // remove trailing comma
@@ -121,7 +121,7 @@ public class CsvUtil {
 
         PersonBuilder builder = new PersonBuilder();
 
-        String[] fieldArray = inputString.split(",");
+        String[] fieldArray = inputString.split(",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
         for (String s : fieldArray) {
             addFieldToPerson(builder, s);
         }
@@ -158,8 +158,8 @@ public class CsvUtil {
             builder.setPinned(s.substring(s.indexOf(":") + 1));
             break;
         case "log":
-            String logTime = s.substring(s.indexOf('[' + 1), s.indexOf(']'));
-            String logType = s.substring(s.indexOf('(' + 1), s.indexOf(')'));
+            String logTime = s.substring(s.indexOf('[') + 1, s.indexOf(']'));
+            String logType = s.substring(s.indexOf('(') + 1, s.indexOf(')'));
             String logData = s.substring(s.indexOf(')') + 1);
             builder.setLog(logTime, logType, logData);
             break;
