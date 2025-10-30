@@ -5,10 +5,12 @@ title: User Guide
 
 ## LinkedUp User Guide
 
-LinkedUp is a **desktop app for university student leaders to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
+**LinkedUp is designed for university student leaders** including club presidents, society executives, event organizers, student council members, and committee heads who manage extensive networks of contacts across campus and beyond. These users typically manage 50-500+ contacts including fellow students, faculty advisors, alumni mentors, corporate sponsors, venue coordinators, and partner organization representatives. **The application assumes users are comfortable with typing and prefer keyboard-based workflows** over mouse-driven interfaces, valuing speed and efficiency in data entry and retrieval. Users are expected to be familiar with basic command syntax similar to using search bars or messaging apps, and need categorization and tagging capabilities to organize contacts by role, project, or affiliation without complex navigation.
 
-## Table of Contents <a name="toc"></a>
+**LinkedUp empowers student leaders to organize their professional networks efficiently through fast, typing-based commands.** Instead of clicking through multiple menus, users simply type short commands to add contacts, search for specific people, categorize relationships, and retrieve information instantly. The application displays all contact information, search results, and organized lists visually while letting users work at typing speed, combining the speed of text-based input with the clarity of visual presentation. Whether you're a club president tracking member information, an event organizer managing vendor contacts, or a society executive coordinating with sponsors, **LinkedUp helps you maintain your network without slowing you down**, making it ideal for users who need quick access to their contacts during busy coordination work.
+
 - [Setup](#setup)
+- [QuickStart](#quickstart)
 - [Features](#features)
   * [Viewing help](#view)
   * [Adding a contact](#add)
@@ -29,7 +31,6 @@ LinkedUp is a **desktop app for university student leaders to manage contacts, o
   * [Exiting the app](#exit)
 - [Saving the data](#savedata)
 - [Editing the data file](#editdata)
-- [Archiving data files](#archive)
 - [FAQ](#faq)
 - [Known Issues](#issues)
 - [Command Summary](#summary)
@@ -53,6 +54,8 @@ LinkedUp is a **desktop app for university student leaders to manage contacts, o
   - Open a command terminal, `cd` into the folder you put the jar file in (e.g `cd linkedupfolder`), and use the `java -jar linkedup.jar` command to run the application.<br>
      A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
      ![Ui](images/Ui.png)
+
+## [QuickStart](#toc)<a name="quickstart"></a>
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -384,17 +387,13 @@ If your changes to the data file makes its format invalid, LinkedUp will discard
 Furthermore, certain edits can cause LinkedUp to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### [Archiving data files](#toc) <a name="archive"></a>`[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## [FAQ](#toc) <a name="faq"></a>
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**:
-1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`)
+**A**: Follow all instructions below in order <br>
+1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`).
 2. Copy your file of choice to your other computer.
 3. Use `import f/FILE` to use your data in your other computer.
 --------------------------------------------------------------------------------------------------------------------
