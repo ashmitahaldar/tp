@@ -61,7 +61,7 @@ public class AddCommand extends Command {
 
         model.saveAddressBookState();
         model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)), toAdd);
     }
 
     @Override
