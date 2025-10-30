@@ -260,7 +260,7 @@ The save data is stored by `JsonAddressBookStorage` in a `.json` file. Thus, it 
 2. The `UI` calls the `logic` manager to execute the command.
 3. The `logic` manager parses the filepath.
 4. The `logic` manager creates a new `Storage` for that filepath.
-5. The `logic` manager requests the stored data via `readAddressBook`.
+5. The `logic` manager requests the stored data from `Storage` via `readAddressBook`.
 6. The `storage` returns the read `AddressBook`.
 7. The `logic` manager sets the `model`'s `AddressBook` as the read `AddressBook`.
 8. The `logic` manager sets the `model`'s `AddressBook` filepath to the input filepath.
@@ -276,12 +276,22 @@ To `import` files, the user needs to be able to create files that are compatible
 Exports follow the sequence below:
 ![Export Sequence Diagram](images/ExportSequenceDiagram.png)
 
+1. The command for `export` is given, along with output destination and any tags.
+2. The `UI` calls the `Logic` manager to execute the command.
+3. The `Logic` manager parses the filepath.
+4. The `Logic` manager creates a new `Storage` for that filepath.
+5. The `Logic` manager requests the stored `AddressBook` from the `Model`.
+6. The `Model` returns the `AddressBook`.
+7. The `Logic` manager retrieves a list of `People` from the `AddressBook`.
+8. The `Logic` manager filters the list of `People` with the `Tag`s
+9. The `Logic` manager sends the filtered list to the `Storage` object.
+10. The `Storage` object writes the filtered list to the destination file.
+
 #### Compatibility with .csv files
 
 Compatibility with `.csv` files has been added, providing users with an alternative file format for importing and exporting data. 
 
 `.csv` files can be both exported and imported. Imports follow a similar flow as [importing `.json` files.](#importing-contact-lists)
-
 
 ### \[Proposed\] Data archiving
 
