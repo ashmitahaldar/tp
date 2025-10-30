@@ -24,7 +24,8 @@ public class JsonUtilTest {
 
         JsonUtil.serializeObjectToJsonFile(SERIALIZATION_FILE, serializableTestClass);
 
-        assertEquals(FileUtil.readFromFile(SERIALIZATION_FILE), SerializableTestClass.JSON_STRING_REPRESENTATION);
+        assertEquals(FileUtil.readFromFile(SERIALIZATION_FILE),
+                SerializableTestClass.JSON_STRING_REPRESENTATION + "\n");
     }
 
     @Test

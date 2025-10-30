@@ -19,7 +19,7 @@ public class CommandResult {
     private final boolean showHelp;
 
     /** The application should exit. */
-    private final boolean exit;
+    private final boolean isExit;
 
     /** The application should display statistics. */
     private final boolean isShowingStats;
@@ -34,7 +34,7 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
-        this.exit = exit;
+        this.isExit = exit;
         this.isInlineEdit = false;
         this.editData = "";
         this.isShowingStats = false;
@@ -46,7 +46,7 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean isShowingStats) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
-        this.exit = exit;
+        this.isExit = exit;
         this.isShowingStats = isShowingStats;
         this.isInlineEdit = false;
         this.editData = "";
@@ -68,7 +68,7 @@ public class CommandResult {
                          boolean isInlineEdit, String editData) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
-        this.exit = exit;
+        this.isExit = exit;
         this.isInlineEdit = isInlineEdit;
         this.editData = editData;
         this.isShowingStats = false;
@@ -112,7 +112,7 @@ public class CommandResult {
     }
 
     public boolean isExit() {
-        return exit;
+        return isExit;
     }
 
     public boolean isShowStats() {
@@ -133,12 +133,12 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && isExit == otherCommandResult.isExit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, isExit);
     }
 
     @Override
@@ -146,7 +146,7 @@ public class CommandResult {
         return new ToStringBuilder(this)
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
-                .add("exit", exit)
+                .add("exit", isExit)
                 .toString();
     }
 

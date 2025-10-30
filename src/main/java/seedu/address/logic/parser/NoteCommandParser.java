@@ -27,10 +27,9 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_NOTE);
 
-        // If no index (empty preamble) and no other args, return an initiating NoteCommand.
-        if (argMultimap.getPreamble().trim().isEmpty()) {
-            // treat as initiating command (no immediate index)
-            return new NoteCommand();
+        if (argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    NoteCommand.MESSAGE_USAGE));
         }
 
         Index index;

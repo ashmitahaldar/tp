@@ -56,6 +56,7 @@ public class UnpinCommand extends Command {
                 personToUnpin.getAddress(),
                 personToUnpin.getTags(),
                 personToUnpin.getNote(),
+                personToUnpin.getLogs(),
                 false
         );
 

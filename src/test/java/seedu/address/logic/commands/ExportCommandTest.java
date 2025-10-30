@@ -19,10 +19,12 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 public class ExportCommandTest {
     private static Path validPath;
@@ -187,13 +189,22 @@ public class ExportCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always returns a valid addressbook
      */
     private class ModelStubValidPath extends ModelStub {
         @Override
-        public Path getAddressBookFilePath() {
-            return validPath;
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBookStubEmptyList();
         }
     }
 
+    /**
+     * An AddressBook stub that always returns an empty list
+     */
+    private class AddressBookStubEmptyList extends AddressBook {
+        @Override
+        public ObservableList<Person> getPersonList() {
+            return new UniquePersonList().asUnmodifiableObservableList();
+        }
+    }
 }

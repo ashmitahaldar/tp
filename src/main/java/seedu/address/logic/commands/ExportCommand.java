@@ -6,19 +6,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
-import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
-import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 
 /**
@@ -48,6 +45,7 @@ public class ExportCommand extends Command {
      */
     public ExportCommand(Path exportName, Set<Tag> tags) {
         requireNonNull(exportName);
+        //ExportCommandParser should only allow .json or .csv files to pass
         assert(exportName.toString().endsWith(".json") || exportName.toString().endsWith(".csv"));
 
         this.exportName = exportName;
@@ -60,9 +58,11 @@ public class ExportCommand extends Command {
 
         initializeExport();
 
-        ObservableList<Person> personList = getPersonList(model);
+        ObservableList<Person> personList = model.getAddressBook().getPersonList();
 
         Stream<Person> filteredPersonStream = personList.stream().filter(this::hasTags);
+
+        assert(exportName.toString().endsWith(".json") || exportName.toString().endsWith(".csv"));
 
         if (exportName.toString().endsWith(".csv")) {
             this.saveAsCsv(filteredPersonStream);
@@ -95,23 +95,6 @@ public class ExportCommand extends Command {
     }
 
     /**
-     * Retrieves the saved list of people in the address book.
-     * @param model the model used for the instance
-     * @return list of people in the address book of the model
-     * @throws CommandException if the save file used by the model is not found
-     */
-    private ObservableList<Person> getPersonList(Model model) throws CommandException {
-        Path saveFilePath = model.getAddressBookFilePath();
-
-        AddressBookStorage newAddressStorage = new JsonAddressBookStorage(saveFilePath);
-        try {
-            return newAddressStorage.readAddressBook().get().getPersonList();
-        } catch (DataLoadingException | NoSuchElementException e) {
-            throw new CommandException("Existing save file not found, please try again.");
-        }
-    }
-
-    /**
      * Writes a stream of people into the .csv file.
      * @param people stream of people to be saved in the .csv file
      */
@@ -119,6 +102,7 @@ public class ExportCommand extends Command {
         people.forEach((Person person) -> {
             StringBuilder fieldsString = new StringBuilder();
             person.getFields().forEach((String s) -> {
+                String filteredString = s.replaceAll(",", "\\,");
                 fieldsString.append(s);
                 fieldsString.append(',');
             });

@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -23,6 +24,7 @@ public class PersonBuilder {
     private Set<Tag> tags = new HashSet<>();
     private Note note;
     private boolean isPinned;
+    private InteractionLog interactionLog;
 
     /**
      * Initializes a person builder
@@ -30,6 +32,8 @@ public class PersonBuilder {
     public PersonBuilder() {
         // initialize optional fields
         this.telegramHandle = new TelegramHandle("");
+        // initialize collection of logs
+        this.interactionLog = new InteractionLog();
     }
 
     public void setName(String name) {
@@ -64,12 +68,17 @@ public class PersonBuilder {
         this.isPinned = isPinned.equals("true");
     }
 
+    // add log to log collection
+    public void setLog(String time, String type, String log) {
+        this.interactionLog.addLogEntry(new LogEntry(log, type, LocalDateTime.parse(time)));
+    }
+
     /**
      * Build person using set parameters
      * @return person with specified parameters
      */
     public Person buildPerson() {
-        return new Person(name, phone, telegramHandle, email, address, tags, note, isPinned);
+        return new Person(name, phone, telegramHandle, email, address, tags, note, interactionLog, isPinned);
     }
 
     /**
@@ -94,6 +103,7 @@ public class PersonBuilder {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && tags.equals(otherPerson.tags)
+                && interactionLog.equals(otherPerson.interactionLog)
                 && note.equals(otherPerson.note)
                 && isPinned == otherPerson.isPinned;
     }
@@ -101,7 +111,7 @@ public class PersonBuilder {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, telegramHandle, email, address, tags, note, isPinned);
+        return Objects.hash(name, phone, telegramHandle, email, address, tags, note, interactionLog, isPinned);
     }
 
     @Override
@@ -114,6 +124,7 @@ public class PersonBuilder {
                 .add("address", address)
                 .add("tags", tags)
                 .add("isPinned", isPinned)
+                .add("log", interactionLog)
                 .add("note", note)
                 .toString();
     }
