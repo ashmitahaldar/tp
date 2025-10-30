@@ -38,10 +38,7 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-
-
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
@@ -56,7 +53,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_EMAIL + "queenspants@gmail.com"
+            + " OR " + COMMAND_WORD + " INDEX to autofill current details into command line";
     /**
      * Message shown when a user attempts to edit notes via the edit command.
      * Notes must be added or removed using the dedicated `note` command.
