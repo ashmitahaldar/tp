@@ -28,7 +28,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ### Architecture
 
-<img src="images/ArchitectureDiagram.png" width="280" />
+<img src="images/ArchitectureDiagram.jpg" width="280" />
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -40,12 +40,14 @@ Given below is a quick overview of main components and how they interact with ea
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
-The bulk of the app's work is done by the following four components:
+The bulk of the app's work is done by the following five components:
 
 * [**`UI`**](#ui-component): The UI of the App.
 * [**`Logic`**](#logic-component): The command executor.
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
+* [**`VersionHistory`**](#version-component): Stores different states of the contacts between commands.
+
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
@@ -53,7 +55,7 @@ The bulk of the app's work is done by the following four components:
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-<img src="images/ArchitectureSequenceDiagram.png" width="574" />
+<img src="images/ArchitectureSequenceDiagram.jpg" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
@@ -129,7 +131,7 @@ The `Model` component,
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
+<img src="images/BetterModelClassDiagram.jpg" width="450" />
 
 </div>
 
@@ -151,21 +153,21 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## **Version component**
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### Undo/redo feature
 
-#### Proposed Implementation
+The mechanism is facilitated by `AddressBookVersionHistory`. It manages the undo/redo history using two stacks: `undoStack` for past states and `redoStack` for future states. Additionally, it implements the following operations:
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+* `AddressBookVersionHistory#saveState(ReadOnlyAddressBook)` — Saves the current address book state before making changes.
+* `AddressBookVersionHistory#undo(ReadOnlyAddressBook)` — Restores the previous address book state from the undo stack.
+* `AddressBookVersionHistory#redo(ReadOnlyAddressBook)` — Restores a previously undone address book state from the redo stack.
+* `AddressBookVersionHistory#canUndo()` — Checks if there are states available to undo.
+* `AddressBookVersionHistory#canRedo()` — Checks if there are states available to redo.
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#saveAddressBookState()`, `Model#undoAddressBook()`, `Model#redoAddressBook()`, `Model#canUndoAddressBook()`, and `Model#canRedoAddressBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
