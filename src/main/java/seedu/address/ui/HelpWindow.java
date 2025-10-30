@@ -25,6 +25,7 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.commands.PinCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -150,6 +151,7 @@ public class HelpWindow extends UiPart<Stage> {
             UnpinCommand.MESSAGE_USAGE,
             SortCommand.MESSAGE_USAGE,
             UndoCommand.MESSAGE_USAGE,
+            RedoCommand.MESSAGE_USAGE,
             NoteCommand.MESSAGE_USAGE,
             StatsCommand.MESSAGE_USAGE
         );
