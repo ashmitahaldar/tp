@@ -6,13 +6,15 @@
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "tags": [ "friends" ],
-    "note": "She likes aardvarks."
+    "note": "She likes aardvarks.",
+    "logs": []
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "telegram": "@alice_pauline",
     "email": "pauline@example.com",
     "address": "4th street",
-    "note": "She likes aardvarks."
+    "note": "She likes aardvarks.",
+    "logs": []
   } ]
 }

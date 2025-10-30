@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -21,12 +22,12 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
-
 /**
  * Panel that displays detailed information of a selected {@code Person}.
  */
 public class PersonInfoPanel extends UiPart<Region> {
     private static final String FXML = "PersonInfoPanel.fxml";
+    private static final int MAX_NUMBER_OF_TAGS = 3;
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final ReadOnlyAddressBook addressBook;
 
@@ -47,6 +48,8 @@ public class PersonInfoPanel extends UiPart<Region> {
     @FXML
     private Label note;
     @FXML
+    private VBox logContainer;
+    @FXML
     private Label phoneLabel;
     @FXML
     private Label telegramLabel;
@@ -56,6 +59,8 @@ public class PersonInfoPanel extends UiPart<Region> {
     private Label emailLabel;
     @FXML
     private Label notesLabel;
+    @FXML
+    private Label logLabel;
 
     // --- FXML nodes for statistics (moved out of Java-created nodes) ---
     @FXML
@@ -96,7 +101,7 @@ public class PersonInfoPanel extends UiPart<Region> {
      */
     private void displayStatistics() {
         int totalContacts = this.addressBook.getPersonList().size();
-        List<String> topThreeTags = getTopThreeTags(new ArrayList<>(this.addressBook.getPersonList()));
+        List<String[]> topTags = getTopTags(new ArrayList<>(this.addressBook.getPersonList()));
 
         name.setText("LinkedUp Statistics");
         setPersonDisplay(false);
@@ -105,8 +110,8 @@ public class PersonInfoPanel extends UiPart<Region> {
         totalContactsValue.setText(String.valueOf(totalContacts));
 
         statTagFlow.getChildren().clear();
-        for (String tag : topThreeTags) {
-            Label tagLabel = new Label(tag);
+        for (String[] tag : topTags) {
+            Label tagLabel = new Label(tag[0] + "(" + tag[1] + ")");
             tagLabel.getStyleClass().add("label");
             statTagFlow.getChildren().add(tagLabel);
         }
@@ -155,7 +160,20 @@ public class PersonInfoPanel extends UiPart<Region> {
                 });
         note.setText(person.getNote().value);
         note.setWrapText(true);
+        // subtract container padding (12 left + 12 right = 24) so text wraps correctly to visible width
         note.maxWidthProperty().bind(infoBox.widthProperty().subtract(24));
+
+        // Display logs
+        logContainer.getChildren().clear();
+        if (!person.getLogs().isEmpty()) {
+            person.getLogs().getLogs().forEach(log -> {
+                Label logLabel = new Label(log.toString());
+                logLabel.setWrapText(true);
+                logLabel.maxWidthProperty().bind(infoBox.widthProperty().subtract(24));
+                logLabel.getStyleClass().add("log-entry");
+                logContainer.getChildren().add(logLabel);
+            });
+        }
     }
 
     private void openUri(String uri) {
@@ -173,6 +191,7 @@ public class PersonInfoPanel extends UiPart<Region> {
     private void onPhoneClick() {
         String phoneText = phone.getText();
         if (!phoneText.isEmpty()) {
+            // tel: might be handled differently on different OSes...
             String digits = phoneText.replaceAll("\\s+", "");
             openUri("tel:" + digits);
         }
@@ -194,14 +213,14 @@ public class PersonInfoPanel extends UiPart<Region> {
         }
     }
 
-    private List<String> getTopThreeTags(List<Person> allPersons) {
+    private List<String[]> getTopTags(List<Person> allPersons) {
         return allPersons.stream()
                 .flatMap(person -> person.getTags().stream())
                 .collect(Collectors.groupingBy(tag -> tag.tagName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted((a, b) -> Long.compare(b.getValue(), a.getValue()))
-                .limit(3)
-                .map(Map.Entry::getKey)
+                .limit(MAX_NUMBER_OF_TAGS)
+                .map(entry -> new String[]{entry.getKey(), String.valueOf(entry.getValue())})
                 .collect(Collectors.toList());
     }
 
@@ -230,26 +249,16 @@ public class PersonInfoPanel extends UiPart<Region> {
     }
 
     private void setPersonDisplay(boolean bool) {
-        phone.setManaged(bool);
-        phone.setVisible(bool);
-        telegram.setManaged(bool);
-        telegram.setVisible(bool);
-        address.setManaged(bool);
-        address.setVisible(bool);
-        email.setManaged(bool);
-        email.setVisible(bool);
-        tags.setManaged(bool);
-        tags.setVisible(bool);
-        phoneLabel.setManaged(bool);
-        phoneLabel.setVisible(bool);
-        telegramLabel.setManaged(bool);
-        telegramLabel.setVisible(bool);
-        addressLabel.setManaged(bool);
-        addressLabel.setVisible(bool);
-        emailLabel.setManaged(bool);
-        emailLabel.setVisible(bool);
-        notesLabel.setManaged(bool);
-        notesLabel.setVisible(bool);
+        List<Node> nodes = List.of(
+                phone, logContainer, telegram, address, email, tags,
+                phoneLabel, telegramLabel, addressLabel, emailLabel,
+                notesLabel, logLabel
+        );
+
+        nodes.forEach(node -> {
+            node.setManaged(bool);
+            node.setVisible(bool);
+        });
 
         // statsBox should be shown when not displaying a person
         if (statsBox != null) {

@@ -114,6 +114,7 @@ public class ExportCommand extends Command {
         people.forEach((Person person) -> {
             StringBuilder fieldsString = new StringBuilder();
             person.getFields().forEach((String s) -> {
+                String filteredString = s.replaceAll(",", "\\,");
                 fieldsString.append(s);
                 fieldsString.append(',');
             });

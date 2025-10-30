@@ -87,7 +87,8 @@ public class NoteCommand extends Command {
 
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getTelegramHandle(),
-                personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getTags(), note);
+                personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getTags(), note,
+                personToEdit.getLogs(), personToEdit.isPinned());
 
         model.saveAddressBookState();
         model.setPerson(personToEdit, editedPerson);

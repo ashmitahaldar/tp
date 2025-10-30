@@ -52,6 +52,11 @@
                 <Label fx:id="notesLabel" text="Notes:" styleClass="label-info-type"/>
                 <Label fx:id="note" styleClass="label-bright" wrapText="true"/>
             </VBox>
+            <Separator></Separator>
+            <VBox spacing="8" prefHeight="200.0" prefWidth="300.0">
+                <Label fx:id="logLabel" text="Interaction History:" styleClass="label-info-type"/>
+                <VBox fx:id="logContainer" spacing="4"/>
+            </VBox>
         </VBox>
     </content>
 </ScrollPane>

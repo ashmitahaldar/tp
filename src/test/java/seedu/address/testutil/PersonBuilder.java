@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.InteractionLog;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
@@ -35,6 +36,7 @@ public class PersonBuilder {
     private Set<Tag> tags;
     private boolean isPinned;
     private Note note;
+    private InteractionLog logs;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -48,6 +50,7 @@ public class PersonBuilder {
         tags = new HashSet<>();
         isPinned = false;
         note = new Note(DEFAULT_NOTE);
+        logs = new InteractionLog();
     }
 
     /**
@@ -62,6 +65,7 @@ public class PersonBuilder {
         tags = new HashSet<>(personToCopy.getTags());
         isPinned = personToCopy.isPinned();
         note = personToCopy.getNote();
+        logs = personToCopy.getLogs();
     }
 
     /**
@@ -129,7 +133,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, telegramHandle, email, address, tags, note, isPinned);
+        return new Person(name, phone, telegramHandle, email, address, tags, note, logs, isPinned);
     }
 
 }
