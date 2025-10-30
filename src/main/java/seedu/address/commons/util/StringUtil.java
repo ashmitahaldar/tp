@@ -38,7 +38,8 @@ public class StringUtil {
                 .anyMatch(preppedWord::equalsIgnoreCase);
     }
 
-    /*** Returns {@code true} if the given {@code sentence} contains the specified {@code substring},
+    /**
+     * Returns {@code true} if the given {@code sentence} contains the specified {@code substring},
      * ignoring character case.
      *
      * <p>Both parameters are trimmed and compared in a case-insensitive manner. The method does not
