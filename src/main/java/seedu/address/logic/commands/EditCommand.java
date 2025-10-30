@@ -54,7 +54,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "queenspants@gmail.com"
-            + " OR "  + COMMAND_WORD + " INDEX to autofill current details into command line";
+            + " OR " + COMMAND_WORD + " INDEX to autofill current details into command line";
     /**
      * Message shown when a user attempts to edit notes via the edit command.
      * Notes must be added or removed using the dedicated `note` command.
