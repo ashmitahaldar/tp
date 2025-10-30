@@ -17,13 +17,25 @@ public class ClearCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_CONFIRM_CLEAR = "Enter 'clear confirm' to confirm deleting all contacts";
 
+
+    public final boolean isConfirmed;
+
+
+    public ClearCommand(boolean isConfirmed) {
+        this.isConfirmed = isConfirmed;
+    }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.saveAddressBookState();
-        model.setAddressBook(new AddressBook());
-        return new CommandResult(MESSAGE_SUCCESS);
+        if (isConfirmed) {
+            model.saveAddressBookState();
+            model.setAddressBook(new AddressBook());
+            return new CommandResult(MESSAGE_SUCCESS);
+        }
+        return new CommandResult(MESSAGE_CONFIRM_CLEAR);
+
     }
 }
