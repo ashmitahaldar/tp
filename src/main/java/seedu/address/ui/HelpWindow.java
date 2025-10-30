@@ -36,7 +36,7 @@ import seedu.address.logic.commands.UnpinCommand;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://ay2526s1-cs2103t-w09-1.github.io/tp/";
+    public static final String USERGUIDE_URL = "https://ay2526s1-cs2103t-w09-1.github.io/tp/UserGuide.html";
     public static final String USERGUIDE_LABEL = "Refer to the full user guide here: " + USERGUIDE_URL;
     public static final String HELP_MESSAGE = buildHelpMessage();
 
