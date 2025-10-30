@@ -39,13 +39,16 @@ public class Messages {
         builder.append(person.getName())
                 .append("; Phone: ")
                 .append(person.getPhone())
+                .append("; Telegram: ")
+                .append(person.getTelegramHandle())
                 .append("; Email: ")
                 .append(person.getEmail())
                 .append("; Address: ")
                 .append(person.getAddress())
+                .append("; Note: ")
+                .append(person.getNote())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
