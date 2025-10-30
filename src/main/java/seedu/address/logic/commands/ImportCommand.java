@@ -72,8 +72,6 @@ public class ImportCommand extends Command {
      * @throws CommandException if an invalid file was provided
      */
     public CommandResult importJson(Model model) throws CommandException {
-        model.setAddressBookFilePath(filepath);
-
         AddressBookStorage newAddressStorage = new JsonAddressBookStorage(filepath);
         try {
             ReadOnlyAddressBook newAddressBook = newAddressStorage.readAddressBook().get();
@@ -94,13 +92,10 @@ public class ImportCommand extends Command {
      * @throws CommandException if an invalid file was provided
      */
     public CommandResult importCsv(Model model) throws CommandException {
-        model.setAddressBookFilePath(filepath);
-
         AddressBookStorage newAddressStorage = new CsvAddressBookStorage(filepath);
         try {
             ReadOnlyAddressBook newAddressBook = newAddressStorage.readAddressBook().get();
             model.setAddressBook(newAddressBook);
-            model.setAddressBookFilePath(filepath);
         } catch (DataLoadingException | NoSuchElementException e) {
             throw new CommandException(ImportCommand.MESSAGE_INVALID_FILE);
         }
