@@ -63,9 +63,11 @@ public class ImportCommand extends Command {
         }
 
         if (this.filepath.toString().endsWith(".csv")) {
+            model.saveAddressBookState();
             return importCsv(model);
         }
 
+        model.saveAddressBookState();
         return importJson(model);
     }
 
