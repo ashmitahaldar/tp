@@ -5,44 +5,74 @@ title: User Guide
 
 ## LinkedUp User Guide
 
-LinkedUp is a **desktop app for university student leaders to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). 
+LinkedUp is a **desktop app for university student leaders to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-* Table of Contents
-{:toc}
+## Table of Contents <a name="toc"></a>
+### [Setup](#setup)
+### [Features](#features)
+* [Viewing help](#view)
+* [Adding a contact](#add)
+* [Listing all contacts](#list)
+* [Editing a contact](#edit)
+* [Adding a note to a contact](#note)
+* [Locating contacts by name](#find)
+* [Filtering contacts by tags](#filter)
+* [Deleting a contact](#delete)
+* [Pinning a contact](#pin)
+* [Unpinning a contact](#unpin)
+* [Undoing a command](#undo)
+* [Redoing a command](#redo)
+* [Importing a save file](#import)
+* [Exporting your save file to .json or .csv](#export)
+* [Sorting contacts](#sort)
+* [Clear contacts](#clear)
+* [Exiting the app](#exit)
+### [Saving the data](#savedata)
+### [Editing the data file](#editdata)
+### [Archiving data files](#archive)
+### [FAQ](#faq)
+### [Known Issues](#issues)
+### [Command Summary](#summary)
+### [Glossary](#glossary)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## [Setup](#toc)<a name="setup"></a>
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+- System requirements:
+  - Ensure you have Java `17` or above installed in your Computer by executing `java -version`.<br>
+     **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-W09-1/tp/releases).
+- Downloading LinkedUp:
+  - Download the latest `.jar` file from the latest release by clicking the file on [this github](https://github.com/AY2526S1-CS2103T-W09-1/tp/releases).
+    ![jarimg.png](images/jarimg.png)
+    (Click the first file)
+  - Save the file to the folder you want to use as the _home folder_ for your LinkedUp.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your LinkedUp.
-
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar linkedup.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+- Running LinkedUp
+  - Open a command terminal, `cd` into the folder you put the jar file in (e.g `cd linkedupfolder`), and use the `java -jar linkedup.jar` command to run the application.<br>
+     A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+     ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+    * `list` : Lists all contacts.
 
-   * `add n/Takoyaki Vendor p/98765432 e/takoyakis@gmail.com a/Jane Street, block 24000, #01-01` : Adds a contact named `Takoyaki Vendor` to LinkedUp.
+   * `add n/Sarah Tan p/91234567 tele/@sarahtan_nus e/sarah.tan@u.nus.edu a/21 Lower Kent Ridge Road, #12-08 t/President t/ComputingClub
+` : Adds a contact named `Sarah Tan` to LinkedUp.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+    * `clear` : Deletes all contacts.
 
-   * `exit` : Exits the app.
+    * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## [Features](#toc)<a name="features"></a>
 
 <div markdown="block" class="alert alert-info">
 
@@ -66,7 +96,7 @@ LinkedUp is a **desktop app for university student leaders to manage contacts, o
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
-### Viewing help : `help`
+### [Viewing help : `help`](#toc) <a name="help"></a>
 
 Shows a message explaining how to access the help page.
 
@@ -74,46 +104,45 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+<div style="margin-top:15px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip : The command line will prompt the correct format when syntax is wrong.</strong>
+</div>
 
-### Adding a person: `add`
 
-Adds a person to the address book.
+### [Adding a contact: `add`](#toc) <a name="add"></a>
+
+Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
 <div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip: A person can have any number of tags (including 0) </strong>
+        💡 <strong style="color: #000000;">Tip: A contact can have any number of tags (including 0) </strong>
 </div>
 
-<div style="margin-top:15px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip 2: The command line will prompt the correct format.</strong>
-</div>
+**WARNING**: Email does not check for domains like .com because of unique organisations
 
 
 Example:
-* `add n/Hwang Dowon p/91897095 e/e12345678@nus.edu.sg a/Elm College, 10 College Ave t/computing t/dodgeball`
 
-![Add](images/Add.png)
+### [Listing all contacts : `list`](#toc) <a name="list"></a>
 
-### Listing all persons : `list`
-
-Shows a list of all persons in the address book.
+Shows a list of all contacts in the address book.
 
 Format: `list`
 
-### Editing a person : `edit`
+### [Editing a contact : `edit`](#toc) <a name="edit"></a>
 
-Edits an existing person in the address book.
+Edits an existing contact in the address book.
 
 Format: `edit INDEX​`
 
-* Autofills edit command for person at index without executing. The index **must be a positive integer** 1, 2, 3, …​
+* Autofills edit command for contact at index without executing. The index **must be a positive integer** 1, 2, 3, …​
 * Make changes and press enter again to confirm edits
 
 Example:
-* `edit 7`
+* `edit 3`
 
-The command line will autofill the person in index 7 as shown below
+The command line will autofill the person in index 3 as shown below without changing actual data
 
 ![Edit](images/Edit.png)
 
@@ -123,38 +152,38 @@ The command line will autofill the person in index 7 as shown below
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
+* You can remove all the contact’s tags by typing `t/` without
+  specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
-### Adding a note to a person : `note`
+### [Adding a note to a contact : `note`](#toc) <a name="note"></a>
 
-Adds or edits a freeform note for an existing person in the address book. The note will be displayed in the person info panel.
+Adds or edits a freeform note for an existing contact in the address book. The note will be displayed in the contact info panel.
 
 Format: `note INDEX note/[NOTE]`
 
-* Adds or edits the note of the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Adds or edits the note of the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The note can contain any text and will be visible in the person info panel.
+* The note can contain any text and will be visible in the contact info panel.
 * To remove a note, use `note INDEX note/` without specifying any text after `note/`.
 * Existing notes will be overwritten by the new note.
 
 Examples:
-* `note 1 note/Likes to swim.` Adds the note "Likes to swim." to the 1st person.
-* `note 2 note/Prefers email communication` Adds a note about communication preference to the 2nd person.
-* `note 1 note/` Removes the note from the 1st person.
+* `note 1 note/Likes to swim.` Adds the note "Likes to swim." to the 1st contact.
+* `note 2 note/Prefers email communication` Adds a note about communication preference to the 2nd contact.
+* `note 1 note/` Removes the note from the 1st contact.
 
-### Locating persons by name: `find`
+### [Locating contacts by name: `find`](#toc) <a name="find"></a>
 
-Finds persons whose names contain any of the given keywords.
+Finds contacts whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -162,19 +191,23 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Fuzzy matching is supported: minor typos are tolerated (e.g. \`find Jhn\` will match \`John\`). 
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* Fuzzy matching is supported: minor typos are tolerated (e.g. \`find Jhn\` will match \`John\`).
+* contacts matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find mario` returns `Mario Wong` and `Maria`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find Rile` returns `Riley Tan`<br>
+  ![result for 'find Riley'](images/Find.png)
 
-### Filtering persons by tags: `filter`
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Use five or more characters to utilize fuzzy search effectively </strong>
+</div>
 
-Filters persons who has any of the given tags.
+### [Filtering contacts by tags: `filter`](#toc) <a name="filter"></a>
+
+Filters contacts who has any of the given tags.
 
 Format: `filter TAG [MORE_TAG]`
 
@@ -182,77 +215,77 @@ Format: `filter TAG [MORE_TAG]`
 * The order of the keywords does not matter. e.g. `friends colleagues` will match contacts with either tag
 * Only the tags are searched.
 * Only exact tag matches will be matched e.g. `friend` will not match `friends`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* contacts matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `filter friends colleagues` will return contacts tagged with `friends` or `colleagues` or both
 
 Examples:
 * `filter friends` returns all contacts tagged with `friends`
 * `filter friends colleagues` returns all contacts tagged with either `friends` or `colleagues`
 
-### Deleting a person : `delete`
+### [Deleting a contact : `delete`](#toc) <a name="delete"></a>
 
-Deletes the specified person from the address book.
+Deletes the specified contact from the address book.
 
 Format: `delete INDEX`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd contact in the address book.
+* `find Betsy` followed by `delete 1` deletes the 1st contact in the results of the `find` command.
 
-### Pinning a contact : `pin`
+### [Pinning a contact : `pin`](#toc) <a name="pin"></a>
 
 Pins the specified contact to keep them at the top of the contact list.
 
 Format: `pin INDEX`
 
-* Pins the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Pins the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * Pinned contacts will always appear at the top of the list, even when sorting or filtering.
 
 Examples:
-* `list` followed by `pin 2` pins the 2nd person in the address book.
-* `find Betsy` followed by `pin 1` pins the 1st person in the results of the `find` command.
+* `list` followed by `pin 2` pins the 2nd contact in the address book.
+* `find Betsy` followed by `pin 1` pins the 1st contact in the results of the `find` command.
 
-### Unpinning a contact : `unpin`
+### [Unpinning a contact : `unpin`](#toc) <a name="unpin"></a>
 
 Unpins the specified contact, removing it from the pinned position.
 
 Format: `unpin INDEX`
 
-* Unpins the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Unpins the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The person must already be pinned.
+* The contact must already be pinned.
 
 Examples:
-* `list` followed by `unpin 1` unpins the 1st person in the address book.
+* `list` followed by `unpin 1` unpins the 1st contact in the address book.
 
-### Undoing a command : `undo`
+### [Undoing a command : `undo`](#toc) <a name="undo"></a>
 
 * Undo last action
 * Reverts the effects of the following commands:
-  * Add
-  * Delete
-  * Edit
-  * Clear
-  * Pin
-  * Unpin
+    * Add
+    * Delete
+    * Edit
+    * Clear
+    * Pin
+    * Unpin
 
 <div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
         💡 <strong style="color: #000000;">Tip: Useful for any unintentional mistakes </strong>
 </div>
 
-### Redoing a command : `redo`
+### [Redoing a command : `redo`](#toc) <a name="redo"></a>
 
 * Redo last action, reverting state of application to that before previous undo
 * Redo history will be cleared when commands that edit the state of the data are made
 
-### Importing a save file : `import FILE`
+### [Importing a save file : `import`](#toc) <a name="import"></a>
 
 Imports the details stored in the specified file
 
@@ -263,19 +296,25 @@ Format: `import f/FILE`
 
 * Either a `.json` or a `.csv` file can be used.
 
-Example: 
+Example:
 * Importing a json file: `import f/data/addressbook.json`
 * Importing a csv file: `import f/data/addressbook.csv`
 
-### Exporting your save file to .csv : `export`
+### [Exporting your save file to `.json` or `.csv` : `export`](#toc) <a name="export"></a>
 
-Exports your saved data to a `.csv` file.
+Exports your saved data to a `.json` or `.csv` file.
 
-Format: `export`
+Format: `export f/FILE [t/TAG]...`
 
-* The exported file will be saved as `data/addressbook.csv`
+Options:
+* `FILE`: Filepath of export file. File must have extension `.json` or `.csv`.
+* `[TAG]`: Tags to filter the contact list before exporting. Only contacts with all the provided tags will be exported.
 
-## Sorting Contacts: `sort`
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Use relative addresses for easier referencing! </strong>
+</div>
+
+### [Sorting Contacts: `sort`](#toc) <a name="sort"></a>
 Sort contacts via a specific field in a specific order
 
 Format: `sort [f/FIELD] [o/ORDER]`
@@ -294,29 +333,23 @@ Example
 * `sort f/name o/asc` sorts all contacts by name in ascending order
 * `sort f/address o/desc` sorts all contacts by address in descending order
 
-
-### Redoing a command : `redo`
-
-* Reverts application to the state before the last undo command
-* Redo history will clear everytime a new command is made
-
-### Clearing all entries : `clear`
+### [Clearing all entries : `clear`](#toc) <a name="clear"></a>
 
 Clears all entries from the address book.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+### [Exiting the program : `exit`](#toc) <a name="exit"></a>
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
+### [Saving the data](#toc) <a name="savedata"></a>
 
 LinkedUp data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+### [Editing the data file](#toc) <a name="editdata"></a>
 
 LinkedUp data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -325,29 +358,29 @@ If your changes to the data file makes its format invalid, LinkedUp will discard
 Furthermore, certain edits can cause LinkedUp to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v2.0]`
+### [Archiving data files](#toc) <a name="archive"></a>`[coming in v2.0]`
 
 _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## [FAQ](#toc) <a name="faq"></a>
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: 
-1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`)  
+**A**:
+1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`)
 2. Copy your file of choice to your other computer.
 3. Use `import f/FILE` to use your data in your other computer.
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+## [Known issues](#toc) <a name="issues"></a>
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## [Command summary](#toc) <a name="summary"></a>
 
 Action | Format, Examples
 --------|------------------
@@ -362,9 +395,23 @@ Action | Format, Examples
 **List** | `list`
 **Undo** | `undo`
 **Redo** | `redo`
-**Import** | `import f/FILE`<br> e.g., `import f/data/addressbook.json`
-**Export** | `export`
+**Import** | `import f/FILE`<br> e.g., `import f/data/linkedup.json`
+**Export** | `export f/FILE [t/TAG]...` <br> e.g., `export f/data/linkedup.json t/colleagues`
 **Sort** | `sort [f/FIELD] [o/ORDER]`
 **Pin** | `pin INDEX`<br> e.g., `pin 2`
 **Unpin** | `unpin INDEX`<br> e.g., `unpin 1`
 **Help** | `help`
+
+## [Glossary](#toc) <a name="glossary"></a>
+
+Term | Meaning
+--------|------------------
+**Student Leader** | A university student with management responsibilities
+**Vendor** | A provider of resource that student leaders interact with to obtain goods and services (e.g shirt, food)
+**Contact** | A set of details that represents a person as an entity
+**Command** | A specific instruction provided by the user
+**Parameter** | Details provided by the user to alter command behaviours
+**Log** | Remarks on the modification of information of a specific contact with a time attached
+**Note** | Simple comments pertaining to a specifc contact
+
+
