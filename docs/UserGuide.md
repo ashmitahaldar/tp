@@ -59,7 +59,8 @@ LinkedUp is a **desktop app for university student leaders to manage contacts, o
 
     * `list` : Lists all contacts.
 
-    * `add n/Takoyaki Vendor p/98765432 e/takoyakis@gmail.com a/Jane Street, block 24000, #01-01` : Adds a contact named `Takoyaki Vendor` to LinkedUp.
+   * `add n/Sarah Tan p/91234567 tele/@sarahtan_nus e/sarah.tan@u.nus.edu a/21 Lower Kent Ridge Road, #12-08 t/President t/ComputingClub
+` : Adds a contact named `Sarah Tan` to LinkedUp.
 
     * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -103,6 +104,10 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+<div style="margin-top:15px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip : The command line will prompt the correct format when syntax is wrong.</strong>
+</div>
+
 
 ### [Adding a contact: `add`](#toc) <a name="add"></a>
 
@@ -114,15 +119,10 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
         💡 <strong style="color: #000000;">Tip: A contact can have any number of tags (including 0) </strong>
 </div>
 
-<div style="margin-top:15px; border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
-        💡 <strong style="color: #000000;">Tip 2: The command line will prompt the correct format.</strong>
-</div>
+**WARNING**: Email does not check for domains like .com because of unique organisations
 
 
 Example:
-* `add n/Hwang Dowon p/91897095 e/e12345678@nus.edu.sg a/Elm College, 10 College Ave t/computing t/dodgeball`
-
-![Add](images/Add.png)
 
 ### [Listing all contacts : `list`](#toc) <a name="list"></a>
 
@@ -140,9 +140,9 @@ Format: `edit INDEX​`
 * Make changes and press enter again to confirm edits
 
 Example:
-* `edit 7`
+* `edit 3`
 
-The command line will autofill the contact in index 7 as shown below
+The command line will autofill the person in index 3 as shown below without changing actual data
 
 ![Edit](images/Edit.png)
 
@@ -198,8 +198,12 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find mario` returns `Mario Wong` and `Maria`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `find Rile` returns `Riley Tan`<br>
+  ![result for 'find Riley'](images/Find.png)
+
+<div style="border: 2px solid #d4a017; width: 97%; background-color: #fffef0; padding: 12px 16px; border-radius: 6px; display: inline-block; font-size: 14px;">
+        💡 <strong style="color: #000000;">Tip: Use five or more characters to utilize fuzzy search effectively </strong>
+</div>
 
 ### [Filtering contacts by tags: `filter`](#toc) <a name="filter"></a>
 
