@@ -39,9 +39,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_NOTE_AMY = "Like skiing.";
     public static final String VALID_NOTE_BOB = "Favourite pastime: Eating";
-    public static final String VALID_FILEPATH_JOHN = "src/test/data/ImportTest/validSave.json";
     public static final String VALID_FILEPATH_JSON = "src/test/data/ImportTest/validJsonSave.json";
     public static final String VALID_FILEPATH_CSV = "src/test/data/ImportTest/validCsvSave.csv";
+    public static final String VALID_EXPORT_JSON = "src/test/data/ExportTest/validJsonExport.json";
+    public static final String VALID_EXPORT_CSV = "src/test/data/ExportTest/validCsvExport.csv";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -54,7 +55,6 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String FILEPATH_JSON = " " + PREFIX_FILE + VALID_FILEPATH_JSON;
-    public static final String FILEPATH_CSV = " " + PREFIX_FILE + VALID_FILEPATH_CSV;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

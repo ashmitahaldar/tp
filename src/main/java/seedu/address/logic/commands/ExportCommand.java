@@ -7,13 +7,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.NoSuchElementException;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 
@@ -28,11 +32,27 @@ public class ExportCommand extends Command {
             + "Parameters: None\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String OUTPUT_PATH = "data/addressbook.csv";
+    public static final String MESSAGE_SUCCESS = "Save data exported to %1$s";
 
-    public static final String MESSAGE_SUCCESS = "Save data exported to " + OUTPUT_PATH;
+    public static final String INVALID_EXPORT_FORMAT = "Target file should be .csv or .json!";
 
     private PrintWriter printWriter;
+    private Path exportName;
+    private Set<Tag> tags;
+
+    /**
+     * Initializes the export command object.
+     *
+     * @param exportName Relative path of the export file from the working directory.
+     * @param tags Set of tags that all exported contacts should have.
+     */
+    public ExportCommand(Path exportName, Set<Tag> tags) {
+        requireNonNull(exportName);
+        assert(exportName.toString().endsWith(".json") || exportName.toString().endsWith(".csv"));
+
+        this.exportName = exportName;
+        this.tags = tags;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -42,9 +62,17 @@ public class ExportCommand extends Command {
 
         ObservableList<Person> personList = getPersonList(model);
 
-        saveAsCsv(personList);
+        Stream<Person> filteredPersonStream = personList.stream().filter(this::hasTags);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        if (exportName.toString().endsWith(".csv")) {
+            this.saveAsCsv(filteredPersonStream);
+        } else {
+            this.saveAsJson(filteredPersonStream);
+        }
+
+        printWriter.close();
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, exportName));
     }
 
     /**
@@ -53,7 +81,7 @@ public class ExportCommand extends Command {
      */
     private void initializeExport() throws CommandException {
         try {
-            File outputFile = new File(OUTPUT_PATH);
+            File outputFile = exportName.toFile();
             outputFile.createNewFile();
             printWriter = new PrintWriter(outputFile);
         } catch (IOException e) {
@@ -79,11 +107,11 @@ public class ExportCommand extends Command {
     }
 
     /**
-     * Translates the list of people into a .csv file.
-     * @param personList list of people to be saved in the .csv file
+     * Writes a stream of people into the .csv file.
+     * @param people stream of people to be saved in the .csv file
      */
-    private void saveAsCsv(ObservableList<Person> personList) {
-        personList.iterator().forEachRemaining((Person person) -> {
+    private void saveAsCsv(Stream<Person> people) {
+        people.forEach((Person person) -> {
             StringBuilder fieldsString = new StringBuilder();
             person.getFields().forEach((String s) -> {
                 fieldsString.append(s);
@@ -92,7 +120,31 @@ public class ExportCommand extends Command {
             fieldsString.deleteCharAt(fieldsString.length() - 1); // remove trailing comma
             printWriter.println(fieldsString);
         });
-        printWriter.close();
+    }
+
+    /**
+     * Writes a stream of people into the .json file.
+     * @param people stream of people to be saved in the .json file.
+     * @throws CommandException if a write error occurs.
+     */
+    private void saveAsJson(Stream<Person> people) throws CommandException {
+        AddressBook addressBook = new AddressBook();
+        people.forEach(addressBook::addPerson);
+
+        try {
+            new JsonAddressBookStorage(exportName).saveAddressBook(addressBook);
+        } catch (IOException e) {
+            throw new CommandException(e.getMessage());
+        }
+    }
+
+    /**
+     * Checks if a person has all the tags in the tag list
+     * @param person Person to be checked
+     * @return True if person has all tags
+     */
+    private boolean hasTags(Person person) {
+        return tags.stream().allMatch(person::hasTag);
     }
 
     @Override

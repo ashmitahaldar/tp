@@ -14,25 +14,25 @@
               styleClass="background" style="-fx-padding: 12;">
             <Label fx:id="name" styleClass="label-header"/>
             <VBox spacing="8">
-                <Label text="Phone:" styleClass="label-info-type"/>
+                <Label fx:id="phoneLabel" text="Phone:" styleClass="label-info-type"/>
                 <Hyperlink fx:id="phone" styleClass="label-bright" onAction="#onPhoneClick"/>
             </VBox>
             <VBox spacing="8">
-                <Label text="Telegram:" styleClass="label-info-type"/>
+                <Label fx:id="telegramLabel" text="Telegram:" styleClass="label-info-type"/>
                 <Hyperlink fx:id="telegram" styleClass="label-bright" onAction="#onTelegramClick"/>
             </VBox>
             <VBox spacing="8">
-                <Label text="Address:" styleClass="label-info-type"/>
+                <Label fx:id="addressLabel" text="Address:" styleClass="label-info-type"/>
                 <Label fx:id="address" styleClass="label-bright"/>
             </VBox>
             <VBox spacing="8">
-                <Label text="Email:" styleClass="label-info-type"/>
+                <Label fx:id="emailLabel" text="Email:" styleClass="label-info-type"/>
                 <Hyperlink fx:id="email" styleClass="label-bright" onAction="#onEmailClick"/>
             </VBox>
             <FlowPane fx:id="tags" hgap="8" vgap="8" id="tags"/>
             <Separator></Separator>
             <VBox spacing="8" prefHeight="200.0" prefWidth="300.0">
-                <Label text="Notes:" styleClass="label-info-type"/>
+                <Label fx:id="notesLabel" text="Notes:" styleClass="label-info-type"/>
                 <Label fx:id="note" styleClass="label-bright" wrapText="true"/>
             </VBox>
         </VBox>

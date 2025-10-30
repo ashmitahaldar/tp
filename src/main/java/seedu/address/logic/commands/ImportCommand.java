@@ -1,13 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -19,11 +13,12 @@ import java.util.NoSuchElementException;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonBuilder;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 
@@ -105,65 +100,77 @@ public class ImportCommand extends Command {
     private CommandResult importCsv(Model model) throws CommandException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filepath.toFile()));
-            ReadOnlyAddressBook addressBook = new AddressBook();
-            model.setAddressBook(addressBook);
+            AddressBook addressBook = new AddressBook();
             boolean isParsing = true;
             while (isParsing) {
                 String csvLine = reader.readLine();
                 if (csvLine == null) {
                     isParsing = false;
                 } else {
-                    String addInput = createAddInput(csvLine);
-                    new AddressBookParser().parseCommand(addInput).execute(model);
+                    Person newPerson = createNewPerson(csvLine);
+                    addressBook.addPerson(newPerson);
                 }
             }
+            model.setAddressBook(addressBook);
             model.saveAddressBookState();
         } catch (FileNotFoundException e) {
             throw new CommandException(ImportCommand.MESSAGE_INVALID_FILE);
         } catch (ParseException | IOException e) {
-            throw new CommandException(ImportCommand.MESSAGE_PARSE_ERROR);
+            throw new CommandException(e.getMessage());
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, filepath.toString().replace('\\', '/')));
     }
 
     /**
-     * Creates an input for the add command based on the input comma-separated string.
+     * Creates a person based on the input comma-separated string.
      *
      * @param inputString A comma-separated string of text.
-     * @return input string for add command adding the specified person.
+     * @return the person specified in the string.
      */
-    private String createAddInput(String inputString) throws ParseException {
+    private Person createNewPerson(String inputString) throws ParseException {
         requireNonNull(inputString);
 
-        StringBuilder commandString = new StringBuilder("add ");
+        PersonBuilder builder = new PersonBuilder();
 
         String[] fieldArray = inputString.split(",");
         for (String s : fieldArray) {
-            switch (s.substring(0, s.indexOf(":"))) {
-            case "name":
-                commandString.append(PREFIX_NAME).append(s.substring(s.indexOf(":") + 1)).append(" ");
-                break;
-            case "phone":
-                commandString.append(PREFIX_PHONE).append(s.substring(s.indexOf(":") + 1)).append(" ");
-                break;
-            case "address":
-                commandString.append(PREFIX_ADDRESS).append(s.substring(s.indexOf(":") + 1)).append(" ");
-                break;
-            case "email":
-                commandString.append(PREFIX_EMAIL).append(s.substring(s.indexOf(":") + 1)).append(" ");
-                break;
-            case "telegram":
-                commandString.append(PREFIX_TELEGRAM).append(s.substring(s.indexOf(":") + 2)).append(" ");
-                break;
-            case "tag":
-                commandString.append(PREFIX_TAG).append(s.substring(s.indexOf(":") + 2, s.length() - 1)).append(" ");
-                break;
-            default:
-                throw new ParseException("Unknown tag encountered");
-            }
+            addFieldToPerson(builder, s);
         }
 
-        return commandString.toString();
+        return builder.buildPerson();
+    }
+
+    private void addFieldToPerson(PersonBuilder builder, String s) throws ParseException {
+        switch (s.substring(0, s.indexOf(":"))) {
+        case "name":
+            builder.setName(s.substring(s.indexOf(":") + 1));
+            break;
+        case "phone":
+            builder.setPhone(s.substring(s.indexOf(":") + 1));
+            break;
+        case "address":
+            builder.setAddress(s.substring(s.indexOf(":") + 1));
+            break;
+        case "email":
+            builder.setEmail(s.substring(s.indexOf(":") + 1));
+            break;
+        case "telegram":
+            if (s.length() >= s.indexOf(":") + 2) {
+                builder.setTelegramHandle(s.substring(s.indexOf(":") + 2));
+            }
+            break;
+        case "tag":
+            builder.setTag(s.substring(s.indexOf(":") + 2, s.length() - 1));
+            break;
+        case "note":
+            builder.setNote(s.substring(s.indexOf(":") + 1));
+            break;
+        case "isPinned":
+            builder.setPinned(s.substring(s.indexOf(":") + 1));
+            break;
+        default:
+            throw new ParseException("Unknown tag encountered");
+        }
     }
 
     @Override
