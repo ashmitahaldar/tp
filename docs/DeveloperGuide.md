@@ -238,9 +238,52 @@ The following activity diagram summarizes what happens when a user executes a ne
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
+_
+### Find Command with Fuzzy Matching
 
-_{more aspects and alternatives to be added}_
+The `find` command uses three matching strategies to locate contacts:
 
+1. **Full-word match** (case-insensitive): Exact match of keyword to any word in the name
+2. **Fuzzy match**: Uses Levenshtein distance algorithm with threshold of 2 character differences
+3. **Substring match**: Only applied for keywords equal to or longer than 4 characters
+
+#### Implementation:
+- `NameContainsKeywordsPredicate#matchesKeyword()` implements the matching logic
+- Keywords < 4 characters: Only full-word and fuzzy matching applied (prevents noisy results from short queries like "an")
+- Keywords >= 4 characters: All three strategies applied
+- Each word in a person's name is tested independently
+
+#### Design considerations:
+* **Alternative 1 (current)**: Fixed thresholds (4-char cutoff, distance 2)
+    * Pros: Predictable behavior, good balance of precision/recall
+    * Cons: May not suit all use cases (e.g., names in different languages)
+* **Alternative 2**: Configurable thresholds
+    * Pros: Users can tune behavior for their needs
+    * Cons: Adds complexity to UI/config management
+
+#### Sequence Diagrams
+**Find Command Execution Flow:**
+![FindSequenceDiagram](images/FindSequenceDiagram.png)
+
+The sequence diagram above shows how a `find` command is parsed and executed through the Logic and Model components.
+
+**Predicate Matching Logic:**
+![FindPredicateSequenceDiagram](images/FindPredicateSequenceDiagram.png)
+
+The sequence diagram above details how `NameContainsKeywordsPredicate` tests each person against the search keywords, showing the different matching paths for short (≤4 characters) and long (>4 characters) keywords.
+
+#### Class Diagram
+![FindClassDiagram](images/FindClassDiagram.png)
+
+The class diagram shows the relationships between the `FindCommand`, `FindCommandParser`, `NameContainsKeywordsPredicate`, and utility classes.
+
+#### Activity Diagram
+![FindActivityDiagram](images/FindActivityDiagram.png)
+
+The activity diagram illustrates the decision flow for matching a single keyword against a name word, showing how the keyword length determines which matching strategies are applied.
+
+=======
+=======
 ### Interaction Log feature
 
 The interaction log feature allows users to record interactions with contacts. Each log entry contains a message, an optional type, and a timestamp. The `log` command is used to add new log entries.
@@ -262,7 +305,6 @@ The implementation of this feature is divided into three main classes: `LogComma
     6.  Finally, it replaces the old `Person` object in the model with the new one.
 
 This entire process ensures that the data remains consistent and that the application state is managed in a predictable way. The use of immutable objects for `LogEntry` and `InteractionLog` makes the code more robust and easier to reason about.
-
 
 ### Data importing and exporting
 
