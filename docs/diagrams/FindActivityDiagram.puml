@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+
+start
+:Receive keyword and name word;
+
+if () then (keyword length <= 4)
+  :Check full-word match;
+  if () then (full-word match)
+    :Return TRUE;
+    stop
+  else (no match)
+    :Calculate Levenshtein distance;
+    if () then (distance <= 2)
+      :Return TRUE (fuzzy match);
+      stop
+    else (distance > 2)
+      :Return FALSE;
+      stop
+    endif
+  endif
+else (keyword length > 4)
+  :Check full-word match;
+  if () then (full-word match)
+    :Return TRUE;
+    stop
+  else (no match)
+    :Check substring match;
+    if () then (substring match)
+      :Return TRUE;
+      stop
+    else (no match)
+      :Calculate Levenshtein distance;
+      if () then (distance <= 2)
+        :Return TRUE (fuzzy match);
+        stop
+      else (distance > 2)
+        :Return FALSE;
+        stop
+      endif
+    endif
+  endif
+endif
+
+@enduml

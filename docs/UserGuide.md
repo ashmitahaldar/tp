@@ -183,6 +183,22 @@ Examples:
 * `note 2 note/Prefers email communication` Adds a note about communication preference to the 2nd contact.
 * `note 1 note/` Removes the note from the 1st contact.
 
+### Logging an interaction with a person : `log`
+
+Adds a log entry to document an interaction with an existing contact in the address book.
+
+Format: `log INDEX m/MESSAGE [t/TYPE]`
+
+* Adds a log entry for the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* The `MESSAGE` describes the interaction.
+* The optional `TYPE` specifies the type of interaction (e.g., "call", "meeting", "email").
+
+Examples:
+* `log 1 m/Called about catering quote, they'll email by Friday t/call`
+* `log 2 m/Informed to deliver goods by 29/11/25`
+
 ### [Locating contacts by name: `find`](#toc) <a name="find"></a>
 
 Finds contacts whose names contain any of the given keywords.
@@ -398,6 +414,7 @@ Action | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit autofill** | `edit INDEX ​`<br> e.g.,`edit 2`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Log** | `log INDEX m/MESSAGE [t/TYPE]`<br> e.g., `log 1 m/Called about catering quote t/call` 
 **Note** | `note INDEX note/[NOTE]`<br> e.g., `note 1 note/Likes to swim.`
 **Filter** | `filter TAG [MORE_TAGS]`<br> e.g., `filter friends colleagues`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`

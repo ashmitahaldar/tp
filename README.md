@@ -15,5 +15,5 @@ This project is based on the AddressBook-Level3 project created by the [SE-EDU i
   - It is **written in OOP fashion**. It provides a **reasonably well-written** code base **bigger** (around 7 KLoC) than typical contact applications, without being overwhelmingly big.
   - It comes with a **reasonable level of user and developer documentation**.
 - It is named `LinkedUp` because it we want to achieve the same network system as **Linked**In while **Up**holding simplicity and accessibility in our app.
-- For the detailed documentation of this project, see the **[LinkedUp Developer Guide](https://github.com/AY2526S1-CS2103T-W09-1/tp/blob/master/docs/Documentation.md)**.
+- For the detailed documentation of this project, see the **[LinkedUp Developer Guide](https://ay2526s1-cs2103t-w09-1.github.io/tp/DeveloperGuide.html)**.
   

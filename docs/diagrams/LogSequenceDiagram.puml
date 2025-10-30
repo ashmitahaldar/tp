@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "l:LogCommand" as LogCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "personToEdit:Person" as Person MODEL_COLOR
+participant "editedPerson:Person" as EditedPerson MODEL_COLOR
+participant "newEntry:LogEntry" as LogEntry MODEL_COLOR
+participant "updatedLogs:InteractionLog" as InteractionLog MODEL_COLOR
+end box
+
+[-> LogicManager : execute(l)
+activate LogicManager
+
+LogicManager -> LogCommand : execute(m)
+activate LogCommand
+
+LogCommand -> Model : getFilteredPersonList()
+activate Model
+Model --> LogCommand : lastShownList
+deactivate Model
+
+LogCommand -> Person : getLogs()
+activate Person
+Person --> LogCommand : interactionLog
+deactivate Person
+
+create LogEntry
+LogCommand -> LogEntry : create(message, type)
+activate LogEntry
+LogEntry --> LogCommand
+deactivate LogEntry
+
+LogCommand -> InteractionLog : addLogEntry(newEntry)
+activate InteractionLog
+InteractionLog --> LogCommand : updatedLogs
+deactivate InteractionLog
+
+create EditedPerson
+LogCommand -> EditedPerson : create(..., updatedLogs)
+activate EditedPerson
+EditedPerson --> LogCommand
+deactivate EditedPerson
+
+LogCommand -> Model : setPerson(personToEdit, editedPerson)
+activate Model
+Model --> LogCommand
+deactivate Model
+
+create CommandResult
+LogCommand -> CommandResult : create(result)
+activate CommandResult
+CommandResult --> LogCommand
+deactivate CommandResult
+
+LogCommand --> LogicManager : r
+deactivate LogCommand
+
+[<-- LogicManager
+deactivate LogicManager
+@enduml
