@@ -287,11 +287,15 @@ Exports follow the sequence below:
 9. The `Logic` manager sends the filtered list to the `Storage` object.
 10. The `Storage` object writes the filtered list to the destination file.
 
+##### Design considerations
+
+* `Storage` is initialized before the retrieval of the `AddressBook` to ensure file retrieval `exceptions` are thrown before operations are performed.
+
 #### Compatibility with .csv files
 
-Compatibility with `.csv` files has been added, providing users with an alternative file format for importing and exporting data. 
+Compatibility with `.csv` files has been added, providing users with an alternative file format for `import`ing and `export`ing data. 
 
-`.csv` files can be both exported and imported. Imports follow a similar flow as [importing `.json` files.](#importing-contact-lists)
+`.csv` files can be both exported and imported. `Import`s follow a similar flow as [importing `.json` files.](#importing-contact-lists).
 
 ### \[Proposed\] Data archiving
 
