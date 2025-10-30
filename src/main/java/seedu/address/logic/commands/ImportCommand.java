@@ -29,7 +29,7 @@ public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a specified .json file. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a specified .json or .csv file. "
             + "\nParameters: "
             + PREFIX_FILE + "FILE \n"
             + "Example: " + COMMAND_WORD + " "
@@ -167,6 +167,12 @@ public class ImportCommand extends Command {
             break;
         case "isPinned":
             builder.setPinned(s.substring(s.indexOf(":") + 1));
+            break;
+        case "log":
+            String logTime = s.substring(s.indexOf('[' + 1), s.indexOf(']'));
+            String logType = s.substring(s.indexOf('(' + 1), s.indexOf(')'));
+            String logData = s.substring(s.indexOf(')') + 1);
+            builder.setLog(logTime, logType, logData);
             break;
         default:
             throw new ParseException("Unknown tag encountered");

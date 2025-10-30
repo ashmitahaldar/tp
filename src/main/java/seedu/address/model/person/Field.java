@@ -12,11 +12,12 @@ public class Field {
         NAME,
         PHONE,
         EMAIL,
+        TELEGRAM,
         ADDRESS,
         INVALID
     }
 
-    public static final String MESSAGE_CONSTRAINTS = "Field should be one of (name, phone, email, address)";
+    public static final String MESSAGE_CONSTRAINTS = "Field should be one of (name, phone, email, telegram, address)";
 
     public final FieldValue value;
 
@@ -31,6 +32,8 @@ public class Field {
             value = FieldValue.PHONE;
         } else if (field.equals("email")) {
             value = FieldValue.EMAIL;
+        } else if (field.equals("telegram")) {
+            value = FieldValue.TELEGRAM;
         } else if (field.equals("address")) {
             value = FieldValue.ADDRESS;
         } else {
@@ -64,6 +67,8 @@ public class Field {
             return "phone";
         case EMAIL:
             return "email";
+        case TELEGRAM:
+            return "telegram";
         case ADDRESS:
             return "address";
         default:

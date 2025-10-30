@@ -1,3 +1,18 @@
+/*
+ * Application colour scheme
+ *
+ * Primary:    #63474D  — deep muted maroon (main backgrounds and panels)
+ * Accent 1:   #AA767C  — warm rose (primary interactive elements like buttons and selected states)
+ * Accent 2:   #D6A184  — sand (secondary accents, hover states, subtle highlights)
+ * Accent 3:   #FFA686  — peach (emphasis, tag backgrounds, borders)
+ * Light text: #FEC196  — warm cream (primary text color on dark backgrounds)
+ *
+ * Design notes:
+ * - Rounded corners: 6px for panels and controls (consistent visual language)
+ * - Use primary for large surface areas; use accents to draw attention and indicate state.
+ * - Keep text using Light text (#FEC196) on dark surfaces; check contrast for critical UI elements.
+ * - Prefer component-specific selectors (e.g., #personListPanel, .button) for overrides.
+ */
 
 .error {
     -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
@@ -5,16 +20,34 @@
 
 .list-cell:empty {
     /* Empty cells will not have alternating colours */
-    -fx-background: #383838;
+    -fx-background: #63474D;
+    -fx-background-radius: 6;
 }
 
 .tag-selector {
     -fx-border-width: 1;
-    -fx-border-color: white;
-    -fx-border-radius: 3;
-    -fx-background-radius: 3;
+    -fx-border-color: #AA767C; /* accent1 */
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-background-color: derive(#63474D, 6%);
 }
 
 .tooltip-text {
-    -fx-text-fill: white;
+    -fx-text-fill: #FEC196; /* light */
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #AA767C; /* accent1 */
+    -fx-background-radius: 6;
+}
+
+/* Palette override: match app theme (rounded corners)
+   Palette: primary: #63474D, accent1: #AA767C, accent2: #D6A184, accent3: #FFA686, light: #FEC196
+   Restore rounded corners (6px) for components in Extensions.css
+*/
+
+.root, .background, .stack-pane, .grid-pane, .pane-with-border, .dialog-pane, .table-view, .list-view {
+    -fx-background-color: #63474D;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
 }

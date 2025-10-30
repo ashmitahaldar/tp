@@ -50,6 +50,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
 
     private boolean matchesKeyword(String word, String keyword, int threshold) {
         return StringUtil.containsWordIgnoreCase(word, keyword)
+                || StringUtil.containsSubstringIgnoreCase(word, keyword)
                 || StringUtil.fuzzyMatch(word, keyword, threshold);
     }
 }

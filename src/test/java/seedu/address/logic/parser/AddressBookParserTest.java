@@ -91,7 +91,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_note() throws Exception {
-        assertTrue(parser.parseCommand(NoteCommand.COMMAND_WORD) instanceof NoteCommand);
+        assertTrue(parser.parseCommand(NoteCommand.COMMAND_WORD + " 3 note/") instanceof NoteCommand);
     }
 
     @Test

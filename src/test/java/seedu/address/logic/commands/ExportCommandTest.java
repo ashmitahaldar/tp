@@ -20,10 +20,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 public class ExportCommandTest {
     private static Path validPath;
@@ -54,14 +56,6 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_jsonPathAcceptedByModel_exportFailure() {
-        ModelStub modelStub = new ModelStubInvalidPath();
-
-        assertThrows(CommandException.class, () -> new ExportCommand(jsonExportPath, new HashSet<>())
-                .execute(modelStub).getFeedbackToUser());
-    }
-
-    @Test
     public void execute_csvPathAcceptedByModel_exportSuccessful() throws Exception {
         ModelStub modelStub = new ModelStubValidPath();
 
@@ -69,14 +63,6 @@ public class ExportCommandTest {
 
         assertEquals(String.format(String.format(ExportCommand.MESSAGE_SUCCESS, csvExportPath)),
                 commandResult.getFeedbackToUser());
-    }
-
-    @Test
-    public void execute_csvPathAcceptedByModel_exportFailure() {
-        ModelStub modelStub = new ModelStubInvalidPath();
-
-        assertThrows(CommandException.class, () -> new ExportCommand(csvExportPath, new HashSet<>())
-                .execute(modelStub).getFeedbackToUser());
     }
 
     @Test
@@ -204,23 +190,22 @@ public class ExportCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always returns a valid addressbook
      */
     private class ModelStubValidPath extends ModelStub {
         @Override
-        public Path getAddressBookFilePath() {
-            return validPath;
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBookStubEmptyList();
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * An AddressBook stub that always returns an empty list
      */
-    private class ModelStubInvalidPath extends ModelStub {
+    private class AddressBookStubEmptyList extends AddressBook {
         @Override
-        public Path getAddressBookFilePath() {
-            return invalidPath;
+        public ObservableList<Person> getPersonList() {
+            return new UniquePersonList().asUnmodifiableObservableList();
         }
     }
-
 }

@@ -135,7 +135,9 @@ public class EditCommand extends Command {
                 updatedEmail,
                 updatedAddress,
                 updatedTags,
-                updatedNote);
+                updatedNote,
+                personToEdit.getLogs(),
+                personToEdit.isPinned());
     }
 
     @Override

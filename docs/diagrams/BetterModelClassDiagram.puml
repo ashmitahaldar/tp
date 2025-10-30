@@ -12,14 +12,16 @@ UniqueTagList -[hidden]down- UniquePersonList
 UniqueTagList -right-> "*" Tag
 UniquePersonList -right-> Person
 
-Person {
-  -isPinned: boolean
+object Person {
+    isPinned = boolean
 }
 
-Person -up-> "*" Tag
+Person o--> Tag
 
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person o--> LogEntry
+
 @enduml

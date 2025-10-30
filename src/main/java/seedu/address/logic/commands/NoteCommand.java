@@ -23,16 +23,16 @@ public class NoteCommand extends Command {
             + "Existing note will be overwritten by the input."
             + "The note will be visible on the person info panel. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "note/ [NOTE]\n"
+            + "note/[NOTE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "note/ Likes to swim.";
+            + "note/Likes to swim.";
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Note: %2$s";
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Person: %1$s";
+    public static final String MESSAGE_NO_NOTE = "This person does not have a note.";
 
     private final Index index;
     private final Note note;
-    private final boolean isInitiating;
 
     /**
      * Constructs a NoteCommand with an index and a Note object.
@@ -45,20 +45,6 @@ public class NoteCommand extends Command {
 
         this.index = index;
         this.note = note;
-        this.isInitiating = false;
-    }
-
-    /**
-     * Constructs an initiating NoteCommand used when the user types just the command word.
-     * This variant does not operate on a specific index and is used to trigger interactive behavior.
-     */
-    public NoteCommand() {
-        this.index = null;
-        this.note = new Note("");
-        this.isInitiating = true;
-
-        assert this.note.value.isEmpty() : "initiating NoteCommand must have empty note";
-
     }
 
     /**
@@ -72,7 +58,6 @@ public class NoteCommand extends Command {
 
         this.index = index;
         this.note = new Note(note);
-        this.isInitiating = false;
     }
 
     /**
@@ -85,10 +70,6 @@ public class NoteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         assert model != null : "model must not be null";
-        if (isInitiating) {
-            // Initiating mode: no immediate model changes. Return a neutral result that the UI can handle.
-            return new CommandResult("");
-        }
         List<Person> lastShownList = model.getFilteredPersonList();
 
         assert lastShownList != null : "filtered person list should not be null";
@@ -98,10 +79,18 @@ public class NoteCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
+
+        // If the command is a deletion (empty note), ensure the person actually has a note first.
+        if (note.value.isEmpty() && (personToEdit.getNote() == null || personToEdit.getNote().value.isEmpty())) {
+            throw new CommandException(MESSAGE_NO_NOTE);
+        }
+
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getTelegramHandle(),
-                personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getTags(), note);
+                personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getTags(), note,
+                personToEdit.getLogs(), personToEdit.isPinned());
 
+        model.saveAddressBookState();
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
@@ -139,9 +128,6 @@ public class NoteCommand extends Command {
         }
 
         NoteCommand e = (NoteCommand) other;
-        if (this.isInitiating || e.isInitiating) {
-            return this.isInitiating == e.isInitiating;
-        }
         return index.equals(e.index)
                 && note.equals(e.note);
     }

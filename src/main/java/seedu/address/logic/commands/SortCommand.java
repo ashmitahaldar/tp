@@ -75,6 +75,9 @@ public class SortCommand extends Command {
         case EMAIL:
             base = Comparator.comparing(p -> p.getEmail().value, String.CASE_INSENSITIVE_ORDER);
             break;
+        case TELEGRAM:
+            base = Comparator.comparing(p -> p.getTelegramHandle().value, String.CASE_INSENSITIVE_ORDER);
+            break;
         case ADDRESS:
             base = Comparator.comparing(p -> p.getAddress().value, String.CASE_INSENSITIVE_ORDER);
             break;

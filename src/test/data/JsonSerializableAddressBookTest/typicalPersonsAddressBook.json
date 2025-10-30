@@ -8,6 +8,7 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "tags" : [ "friends" ],
     "note": "She likes aardvarks.",
+    "logs": [],
     "isPinned": false
   }, {
     "name" : "Benson Meier",
@@ -17,6 +18,7 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "tags" : [ "owesMoney", "friends" ],
     "note": "He can't take beer!",
+    "logs": [],
     "isPinned": false
   }, {
     "name" : "Carl Kurz",
@@ -26,6 +28,7 @@
     "address" : "wall street",
     "tags" : [ ],
     "note": "",
+    "logs": [],
     "isPinned": false
   }, {
     "name" : "Daniel Meier",
@@ -35,6 +38,7 @@
     "address" : "10th street",
     "tags" : [ "friends" ],
     "note": "",
+    "logs": [],
     "isPinned": false
   }, {
     "name" : "Elle Meyer",
@@ -44,6 +48,7 @@
     "address" : "michegan ave",
     "tags" : [ ],
     "note": "",
+    "logs": [],
     "isPinned": false
   }, {
     "name" : "Fiona Kunz",
@@ -53,6 +58,7 @@
     "address" : "little tokyo",
     "tags" : [ ],
     "note": "",
+    "logs": [],
     "isPinned": false
   }, {
     "name" : "George Best",
@@ -62,6 +68,7 @@
     "address" : "4th street",
     "tags" : [ ],
     "note": "",
+    "logs": [],
     "isPinned": false
   } ]
 }

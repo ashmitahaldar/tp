@@ -1,30 +1,54 @@
+/*
+ * Application colour scheme
+ *
+ * Primary:    #63474D  — deep muted maroon (main backgrounds and panels)
+ * Accent 1:   #AA767C  — warm rose (primary interactive elements like buttons and selected states)
+ * Accent 2:   #D6A184  — sand (secondary accents, hover states, subtle highlights)
+ * Accent 3:   #FFA686  — peach (emphasis, tag backgrounds, borders)
+ * Light text: #FEC196  — warm cream (primary text color on dark backgrounds)
+ *
+ * Design notes:
+ * - Rounded corners: 6px for panels and controls (consistent visual language)
+ * - Use primary for large surface areas; use accents to draw attention and indicate state.
+ * - Keep text using Light text (#FEC196) on dark surfaces; check contrast for critical UI elements.
+ * - Prefer component-specific selectors (e.g., #personListPanel, .button) for overrides.
+ */
+
 #helpMessage {
-    -fx-text-fill: white;
-    -fx-control-inner-background: derive(#1d1d1d, 20%);
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-text-fill: #FFFFFF;
+    -fx-control-inner-background: derive(#63474D, 20%);
+    -fx-background-color: derive(#63474D, 20%);
+    -fx-background-radius: 8;
+    -fx-padding: 12;
 }
 
 #helpMessage .content {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#63474D, 20%);
+    -fx-background-radius: 6;
 }
 
 #copyButton {
-    -fx-text-fill: white;
-    -fx-background-color: dimgray;
+    -fx-text-fill: #1b0e0f;
+    -fx-background-color: #AA767C;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 6 12 6 12;
 }
 
 #copyButton:hover {
-    -fx-background-color: gray;
+    -fx-background-color: #D6A184;
 }
 
 #copyButton:armed {
-    -fx-background-color: darkgray;
+    -fx-background-color: #FFA686;
 }
 
 #helpMessageContainer {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#63474D, 20%);
+    -fx-background-radius: 8;
+    -fx-padding: 8;
 }
 
 #helpMessageContainer Label {
-    -fx-text-fill: white;
+    -fx-text-fill: #FEC196;
 }
