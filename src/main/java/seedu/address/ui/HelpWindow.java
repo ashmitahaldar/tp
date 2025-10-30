@@ -23,6 +23,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.commands.PinCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatsCommand;
@@ -146,10 +147,11 @@ public class HelpWindow extends UiPart<Stage> {
             ImportCommand.MESSAGE_USAGE,
             ListCommand.MESSAGE_USAGE,
             PinCommand.MESSAGE_USAGE,
+            UnpinCommand.MESSAGE_USAGE,
             SortCommand.MESSAGE_USAGE,
             UndoCommand.MESSAGE_USAGE,
-            StatsCommand.MESSAGE_USAGE,
-            UnpinCommand.MESSAGE_USAGE
+            NoteCommand.MESSAGE_USAGE,
+            StatsCommand.MESSAGE_USAGE
         );
 
         for (int i = 0; i < commandUsages.size(); i++) {

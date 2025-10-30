@@ -23,9 +23,9 @@ public class NoteCommand extends Command {
             + "Existing note will be overwritten by the input."
             + "The note will be visible on the person info panel. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "note/ [NOTE]\n"
+            + "note/[NOTE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + "note/ Likes to swim.";
+            + "note/Likes to swim.";
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Note: %2$s";
     public static final String MESSAGE_ADD_NOTE_SUCCESS = "Added note to Person: %1$s";
     public static final String MESSAGE_DELETE_NOTE_SUCCESS = "Removed note from Person: %1$s";
