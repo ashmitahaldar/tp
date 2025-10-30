@@ -49,19 +49,6 @@ public class NoteCommand extends Command {
     }
 
     /**
-     * Constructs an initiating NoteCommand used when the user types just the command word.
-     * This variant does not operate on a specific index and is used to trigger interactive behavior.
-     */
-    public NoteCommand() {
-        this.index = null;
-        this.note = new Note("");
-        this.isInitiating = true;
-
-        assert this.note.value.isEmpty() : "initiating NoteCommand must have empty note";
-
-    }
-
-    /**
      * Constructs a NoteCommand with an index and a raw note string.
      *
      * @param index the index of the person to edit
