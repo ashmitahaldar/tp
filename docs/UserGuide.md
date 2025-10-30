@@ -160,7 +160,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
   specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
+*  `edit 1 p/91234567 e/queenspants@gmail.com` Edits the phone number and email address of the 1st contact to be `91234567` and `queenspants@gmail.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
 ### [Adding a note to a contact : `note`](#toc) <a name="note"></a>
@@ -335,9 +335,18 @@ Example
 
 ### [Clearing all entries : `clear`](#toc) <a name="clear"></a>
 
+Format: `clear`
+
+A warning will pop up, where you can type `clear confirm` to confirm the deletion.
+
+![clearWarning](images/clearWarning.png)
+
+**WARNING**: Deletes all contact details. Data cannot be retrieved after you clear and exit the app.
+
+Format: `clear confirm`
+
 Clears all entries from the address book.
 
-Format: `clear`
 
 ### [Exiting the program : `exit`](#toc) <a name="exit"></a>
 

@@ -14,7 +14,8 @@ public class ClearCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears all entries from the address book.\n"
             + "Parameters: None\n"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD
+            + "Key in \"clear confirm\" to confirm deleting data.";
 
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
     public static final String MESSAGE_CONFIRM_CLEAR = "Enter 'clear confirm' to confirm deleting all contacts";
