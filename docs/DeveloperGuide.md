@@ -241,6 +241,50 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Find Command with Fuzzy Matching
+
+The `find` command uses three matching strategies to locate contacts:
+
+1. **Full-word match** (case-insensitive): Exact match of keyword to any word in the name
+2. **Fuzzy match**: Uses Levenshtein distance algorithm with threshold of 2 character differences
+3. **Substring match**: Only applied for keywords equal to or longer than 4 characters
+
+#### Implementation:
+- `NameContainsKeywordsPredicate#matchesKeyword()` implements the matching logic
+- Keywords < 4 characters: Only full-word and fuzzy matching applied (prevents noisy results from short queries like "an")
+- Keywords >= 4 characters: All three strategies applied
+- Each word in a person's name is tested independently
+
+#### Design considerations:
+* **Alternative 1 (current)**: Fixed thresholds (4-char cutoff, distance 2)
+    * Pros: Predictable behavior, good balance of precision/recall
+    * Cons: May not suit all use cases (e.g., names in different languages)
+* **Alternative 2**: Configurable thresholds
+    * Pros: Users can tune behavior for their needs
+    * Cons: Adds complexity to UI/config management
+
+#### Sequence Diagrams
+**Find Command Execution Flow:**
+![FindSequenceDiagram](images/FindSequenceDiagram.png)
+
+The sequence diagram above shows how a `find` command is parsed and executed through the Logic and Model components.
+
+**Predicate Matching Logic:**
+![FindPredicateSequenceDiagram](images/FindPredicateSequenceDiagram.png)
+
+The sequence diagram above details how `NameContainsKeywordsPredicate` tests each person against the search keywords, showing the different matching paths for short (≤4 characters) and long (>4 characters) keywords.
+
+#### Class Diagram
+![FindClassDiagram](images/FindClassDiagram.png)
+
+The class diagram shows the relationships between the `FindCommand`, `FindCommandParser`, `NameContainsKeywordsPredicate`, and utility classes.
+
+#### Activity Diagram
+![FindActivityDiagram](images/FindActivityDiagram.png)
+
+The activity diagram illustrates the decision flow for matching a single keyword against a name word, showing how the keyword length determines which matching strategies are applied.
+
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
