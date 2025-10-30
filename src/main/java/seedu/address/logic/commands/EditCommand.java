@@ -57,6 +57,12 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
+    /**
+     * Message shown when a user attempts to edit notes via the edit command.
+     * Notes must be added or removed using the dedicated `note` command.
+     */
+    public static final String MESSAGE_NOTE_FORBIDDEN = "Notes cannot be edited via 'edit'. "
+            + "Use the 'note' command instead.";
     private final boolean isInitiatingEdit;
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -120,6 +126,7 @@ public class EditCommand extends Command {
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
+        Objects.requireNonNull(editPersonDescriptor, "EditPersonDescriptor must not be null");
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
