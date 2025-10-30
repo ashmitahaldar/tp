@@ -24,6 +24,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -210,5 +211,12 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_notePrefixPresent_failure() {
+        // supplying note/ in edit should instruct user to use the note command instead
+        String userInput = "1 " + PREFIX_NOTE + "Some note";
+        assertParseFailure(parser, userInput, EditCommand.MESSAGE_NOTE_FORBIDDEN);
     }
 }

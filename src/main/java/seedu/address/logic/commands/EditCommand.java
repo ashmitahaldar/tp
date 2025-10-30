@@ -125,6 +125,7 @@ public class EditCommand extends Command {
      */
     private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
+        Objects.requireNonNull(editPersonDescriptor, "EditPersonDescriptor must not be null");
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());

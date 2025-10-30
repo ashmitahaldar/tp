@@ -1,21 +1,3 @@
 {
-  "persons" : [ {
-    "name" : "n",
-    "phone" : "12345786",
-    "telegram" : "",
-    "email" : "e@e.com",
-    "address" : "a",
-    "tags" : [ ],
-    "note" : "",
-    "isPinned" : false
-  }, {
-    "name" : "w",
-    "phone" : "12343827",
-    "telegram" : "",
-    "email" : "dfs@sfd.com",
-    "address" : "ds",
-    "tags" : [ ],
-    "note" : "",
-    "isPinned" : false
-  } ]
+  "persons" : [ ]
 }
