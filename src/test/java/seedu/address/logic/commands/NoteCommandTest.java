@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -104,6 +105,13 @@ public class NoteCommandTest {
 
         NoteCommand remarkCommand = new NoteCommand(outOfBoundIndex, new Note(VALID_NOTE_BOB));
         assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_deleteNoteWhenPersonHasNoNote_failure() {
+        // Choose a person who initially has no note (third person in TypicalPersons: CARL)
+        NoteCommand deleteNoteCommand = new NoteCommand(INDEX_THIRD_PERSON, new Note(""));
+        assertCommandFailure(deleteNoteCommand, model, NoteCommand.MESSAGE_NO_NOTE);
     }
 
     @Test
