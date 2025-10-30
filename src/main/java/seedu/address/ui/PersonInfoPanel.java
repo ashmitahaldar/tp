@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -27,6 +28,7 @@ import seedu.address.model.person.Person;
  */
 public class PersonInfoPanel extends UiPart<Region> {
     private static final String FXML = "PersonInfoPanel.fxml";
+    private static final int MAX_NUMBER_OF_TAGS = 3;
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final ReadOnlyAddressBook addressBook;
 
@@ -90,7 +92,7 @@ public class PersonInfoPanel extends UiPart<Region> {
      */
     private void displayStatistics() {
         int totalContacts = this.addressBook.getPersonList().size();
-        List<String[]> topThreeTags = getTopThreeTags(new ArrayList<>(this.addressBook.getPersonList()));
+        List<String[]> topTags = getTopTags(new ArrayList<>(this.addressBook.getPersonList()));
 
         name.setText("LinkedUp Statistics");
         setPersonDisplay(false);
@@ -99,7 +101,7 @@ public class PersonInfoPanel extends UiPart<Region> {
         cardContainer.setPrefHeight(200);
 
         VBox totalSection = totalContactsSection(totalContacts);
-        VBox tagsSection = topTagsSection(topThreeTags);
+        VBox tagsSection = topTagsSection(topTags);
         VBox addressSection = mostCommonLocationSection();
 
         VBox container = new VBox(12);
@@ -121,14 +123,14 @@ public class PersonInfoPanel extends UiPart<Region> {
         return totalSection;
     }
 
-    private VBox topTagsSection(List<String[]> topThreeTags) {
+    private VBox topTagsSection(List<String[]> topTags) {
         VBox tagsSection = new VBox(4);
         Text tagsLabel = new Text("Top tags");
         tagsLabel.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-fill: #ffffff;"
                 + "-fx-background-color: #4a4a4a; -fx-padding: 8 10;");
         FlowPane tagFlow = new FlowPane();
         tagFlow.setStyle("-fx-hgap: 8;");
-        for (String[] tagData : topThreeTags) {
+        for (String[] tagData : topTags) {
             String tagName = tagData[0];
             String count = tagData[1];
             Label tagLabel = new Label(tagName + " (" + count + ")");
@@ -236,13 +238,13 @@ public class PersonInfoPanel extends UiPart<Region> {
         }
     }
 
-    private List<String[]> getTopThreeTags(List<Person> allPersons) {
+    private List<String[]> getTopTags(List<Person> allPersons) {
         return allPersons.stream()
                 .flatMap(person -> person.getTags().stream())
                 .collect(Collectors.groupingBy(tag -> tag.tagName, Collectors.counting()))
                 .entrySet().stream()
                 .sorted((a, b) -> Long.compare(b.getValue(), a.getValue()))
-                .limit(3)
+                .limit(MAX_NUMBER_OF_TAGS)
                 .map(entry -> new String[]{entry.getKey(), String.valueOf(entry.getValue())})
                 .collect(Collectors.toList());
     }
@@ -272,29 +274,15 @@ public class PersonInfoPanel extends UiPart<Region> {
     }
 
     private void setPersonDisplay(boolean bool) {
-        phone.setManaged(bool);
-        phone.setVisible(bool);
-        logContainer.setManaged(bool);
-        logContainer.setVisible(bool);
-        telegram.setManaged(bool);
-        telegram.setVisible(bool);
-        address.setManaged(bool);
-        address.setVisible(bool);
-        email.setManaged(bool);
-        email.setVisible(bool);
-        tags.setManaged(bool);
-        tags.setVisible(bool);
-        phoneLabel.setManaged(bool);
-        phoneLabel.setVisible(bool);
-        telegramLabel.setManaged(bool);
-        telegramLabel.setVisible(bool);
-        addressLabel.setManaged(bool);
-        addressLabel.setVisible(bool);
-        emailLabel.setManaged(bool);
-        emailLabel.setVisible(bool);
-        notesLabel.setManaged(bool);
-        notesLabel.setVisible(bool);
-        logLabel.setManaged(bool);
-        logLabel.setVisible(bool);
+        List<Node> nodes = List.of(
+                phone, logContainer, telegram, address, email, tags,
+                phoneLabel, telegramLabel, addressLabel, emailLabel,
+                notesLabel, logLabel
+        );
+
+        nodes.forEach(node -> {
+            node.setManaged(bool);
+            node.setVisible(bool);
+        });
     }
 }
