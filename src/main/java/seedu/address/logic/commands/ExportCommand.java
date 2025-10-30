@@ -82,6 +82,11 @@ public class ExportCommand extends Command {
     private void initializeExport() throws CommandException {
         try {
             File outputFile = exportName.toFile();
+            // if target file has a parent directory
+            if (!(outputFile.getParentFile() == null)) {
+                // create all missing directories on path specified
+                outputFile.getParentFile().mkdirs();
+            }
             outputFile.createNewFile();
             printWriter = new PrintWriter(outputFile);
         } catch (IOException e) {

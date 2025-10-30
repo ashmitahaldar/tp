@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILEPATH;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_TYPE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPORT_CSV;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPORT_JSON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FILEPATH_JSON;
@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
@@ -29,7 +28,7 @@ import seedu.address.model.person.UniquePersonList;
 
 public class ExportCommandTest {
     private static Path validPath;
-    private static Path invalidPath;
+    private static Path invalidFilePath;
     private static Path jsonExportPath;
     private static Path csvExportPath;
 
@@ -37,7 +36,7 @@ public class ExportCommandTest {
     public static void setup() {
         try {
             validPath = ParserUtil.parsePath(VALID_FILEPATH_JSON);
-            invalidPath = ParserUtil.parsePath(INVALID_FILEPATH);
+            invalidFilePath = ParserUtil.parsePath(INVALID_FILE_TYPE);
             jsonExportPath = ParserUtil.parsePath(VALID_EXPORT_JSON);
             csvExportPath = ParserUtil.parsePath(VALID_EXPORT_CSV);
         } catch (ParseException e) {
@@ -66,11 +65,11 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_invalidPathRejectedByModel_exportFailure() {
+    public void execute_invalidFileTypeRejectedByModel_exportFailure() {
         ModelStub modelStub = new ModelStubValidPath();
 
-        assertThrows(CommandException.class, () -> new ExportCommand(invalidPath, new HashSet<>())
-                .execute(modelStub).getFeedbackToUser());
+        assertThrows(AssertionError.class, () -> new ExportCommand(invalidFilePath, new HashSet<>())
+                .execute(modelStub));
     }
 
     @Test
