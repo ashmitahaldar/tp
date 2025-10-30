@@ -25,6 +25,7 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.commands.PinCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -35,7 +36,7 @@ import seedu.address.logic.commands.UnpinCommand;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://nus-cs2103-ay2526s1.github.io/tp/UserGuide.html";
+    public static final String USERGUIDE_URL = "https://ay2526s1-cs2103t-w09-1.github.io/tp/";
     public static final String USERGUIDE_LABEL = "Refer to the full user guide here: " + USERGUIDE_URL;
     public static final String HELP_MESSAGE = buildHelpMessage();
 
@@ -148,10 +149,12 @@ public class HelpWindow extends UiPart<Stage> {
             ImportCommand.MESSAGE_USAGE,
             ListCommand.MESSAGE_USAGE,
             PinCommand.MESSAGE_USAGE,
+            UnpinCommand.MESSAGE_USAGE,
             SortCommand.MESSAGE_USAGE,
             UndoCommand.MESSAGE_USAGE,
-            StatsCommand.MESSAGE_USAGE,
-            UnpinCommand.MESSAGE_USAGE
+            RedoCommand.MESSAGE_USAGE,
+            NoteCommand.MESSAGE_USAGE,
+            StatsCommand.MESSAGE_USAGE
         );
 
         for (int i = 0; i < commandUsages.size(); i++) {

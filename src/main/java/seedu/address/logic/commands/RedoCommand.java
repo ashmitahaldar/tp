@@ -10,6 +10,11 @@ import seedu.address.model.Model;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the last undone action.\n"
+            + "Parameters: None\n"
+            + "Example: " + COMMAND_WORD;
+
     public static final String MESSAGE_SUCCESS = "Redo successful!";
     public static final String MESSAGE_NO_HISTORY = "Nothing to Redo";
 
