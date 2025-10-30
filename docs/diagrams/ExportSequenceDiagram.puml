@@ -6,16 +6,16 @@ Actor User as user USER_COLOR
 Participant ":UI" as ui UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
-Participant ":File" as file STORAGE_COLOR
+Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "export f/data/addressbook.json"
+user -[USER_COLOR]> ui : "export f/data/addressbook.csv t/tag1 t/tag2"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("export f/data/addressbook.json")
+ui -[UI_COLOR]> logic : execute("export f/data/addressbook.csv t/tag1 t/tag2")
 activate logic LOGIC_COLOR
 
-create file
-logic -[LOGIC_COLOR]> file : new Storage()
+create storage
+logic -[LOGIC_COLOR]> storage : new Storage()
 
 logic -[LOGIC_COLOR]> model : getAddressBook()
 activate model MODEL_COLOR
@@ -23,19 +23,16 @@ activate model MODEL_COLOR
 model -[MODEL_COLOR]-> logic : addressBook
 deactivate model
 
-logic -[LOGIC_COLOR]> file : readAddressBook()
-activate file STORAGE_COLOR_T1
-file -[STORAGE_COLOR]> file: read file
-activate file STORAGE_COLOR_T1
-deactivate file
-file --[STORAGE_COLOR]> logic : newAddressBook
-deactivate file
+logic -[LOGIC_COLOR]> logic : filterAddressBook(tags)
+activate logic LOGIC_COLOR_T1
+deactivate logic
 
-logic -[LOGIC_COLOR]> model : setAddressBook(newAddressBook)
-activate model MODEL_COLOR
-
-model -[MODEL_COLOR]-> logic
-deactivate model
+logic -[LOGIC_COLOR]> storage : saveAddressBook()
+activate storage STORAGE_COLOR
+storage -[STORAGE_COLOR]> storage: write file
+activate storage STORAGE_COLOR_T1
+deactivate storage
+deactivate storage
 
 logic --[LOGIC_COLOR]> ui
 deactivate logic

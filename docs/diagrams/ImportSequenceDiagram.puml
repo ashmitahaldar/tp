@@ -14,17 +14,11 @@ activate ui UI_COLOR
 ui -[UI_COLOR]> logic : execute("import f/data/addressbook.json")
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : setAddressBookFilePath(filepath)
-activate model MODEL_COLOR
-
-model -[MODEL_COLOR]-> logic
-deactivate model
-
 create storage
 logic -[LOGIC_COLOR]> storage : new Storage(filepath)
 
 logic -[LOGIC_COLOR]> storage : readAddressBook()
-activate storage STORAGE_COLOR_T1
+activate storage STORAGE_COLOR
 storage -[STORAGE_COLOR]> storage: read file
 activate storage STORAGE_COLOR_T1
 deactivate storage
@@ -32,6 +26,12 @@ storage --[STORAGE_COLOR]> logic : newAddressBook
 deactivate storage
 
 logic -[LOGIC_COLOR]> model : setAddressBook(newAddressBook)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> model : setAddressBookFilePath(filepath)
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]-> logic

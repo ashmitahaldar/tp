@@ -239,6 +239,50 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Data importing and exporting
+
+The address book is stored in a `.json` file. To facilitate usage across different platforms, import and export features have been incorporated.
+
+The following features have been implemented:
+* `Import`ing address books
+* `Export`ing address books with tag filters
+* Compatibility with `.csv` files
+
+#### Importing address books
+
+The save data is stored by `JsonAddressBookStorage` in a `.json` file. Thus, it would be simple for the user to be able to access a different set of addresses by `import`ing a different `.json` file, which stores a different set of addresses.
+
+`Import`ing contacts is performed as per the sequence diagram below:
+
+![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
+
+1. The command for `import` is given, along with the target file to be imported.
+2. The `UI` calls the `logic` manager to execute the command.
+3. The `logic` manager parses the filepath.
+4. The `logic` manager creates a new `Storage` for that filepath.
+5. The `logic` manager requests the stored data via `readAddressBook`.
+6. The `storage` returns the read `AddressBook`.
+7. The `logic` manager sets the `model`'s `AddressBook` as the read `AddressBook`.
+8. The `logic` manager sets the `model`'s `AddressBook` filepath to the input filepath.
+
+##### Design considerations
+
+* The model is adjusted only after `Storage` has processed the file, confirming that it is a valid storage file.
+
+#### Exporting address books with filters
+
+To `import` files, the user needs to be able to create files that are compatible with the `import` process. The `export` feature serves to facilitate that conversion process, converting the user's cached AddressBook into a compatible file.
+
+Exports follow the sequence below:
+![Export Sequence Diagram](images/ExportSequenceDiagram.png)
+
+#### Compatibility with .csv files
+
+Compatibility with `.csv` files has been added, providing users with an alternative file format for importing and exporting data. 
+
+`.csv` files can be both exported and imported. Imports follow a similar flow as [importing `.json` files.](#importing-contact-lists)
+
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
