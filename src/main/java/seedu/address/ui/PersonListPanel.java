@@ -128,7 +128,10 @@ public class PersonListPanel extends UiPart<Region> {
         }
     }
 
-    // move to a specific list item
+    /**
+     * Scrolls to the list item with the corresponding index.
+     * @param index The index of the item to scroll to
+     */
     private void selectIndex(int index) {
         var items = personListView.getItems();
         if (items == null || items.isEmpty()) {
@@ -144,5 +147,27 @@ public class PersonListPanel extends UiPart<Region> {
         }
         personListView.getSelectionModel().select(bounded);
         personListView.scrollTo(bounded);
+    }
+
+    /**
+     * Scroll the list view to a specific person.
+     *
+     * @param target The person to scroll to
+     */
+    public void selectPerson(Person target) {
+        if (target == null) {
+            return;
+        }
+
+        ObservableList<Person> items = personListView.getItems();
+        if (items == null || items.isEmpty()) {
+            return;
+        }
+
+        int index = items.indexOf(target);
+        if (index >= 0) {
+            personListView.getSelectionModel().select(index);
+            personListView.scrollTo(index);
+        }
     }
 }

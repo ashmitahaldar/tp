@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
@@ -28,6 +29,8 @@ public class CommandResult {
     private final boolean isInlineEdit;
     private final String editData;
 
+    private final Optional<Person> personToSelect;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields with inline edit disabled, stats disabled.
      */
@@ -38,6 +41,7 @@ public class CommandResult {
         this.isInlineEdit = false;
         this.editData = "";
         this.isShowingStats = false;
+        this.personToSelect = Optional.empty();
     }
 
     /**
@@ -50,6 +54,7 @@ public class CommandResult {
         this.isShowingStats = isShowingStats;
         this.isInlineEdit = false;
         this.editData = "";
+        this.personToSelect = Optional.empty();
     }
 
     /**
@@ -72,6 +77,20 @@ public class CommandResult {
         this.isInlineEdit = isInlineEdit;
         this.editData = editData;
         this.isShowingStats = false;
+        this.personToSelect = Optional.empty();
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with a specficic select person.
+     */
+    public CommandResult(String feedbackToUser, Person person) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.isExit = false;
+        this.isShowingStats = false;
+        this.isInlineEdit = false;
+        this.editData = "";
+        this.personToSelect = Optional.ofNullable(person);
     }
 
     private static String formatPersonForEdit(Person person, int index) {
@@ -117,6 +136,10 @@ public class CommandResult {
 
     public boolean isShowStats() {
         return isShowingStats;
+    }
+
+    public Optional<Person> getPersonToSelect() {
+        return personToSelect;
     }
 
     @Override

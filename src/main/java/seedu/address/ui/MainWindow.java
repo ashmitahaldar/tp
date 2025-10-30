@@ -201,6 +201,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            commandResult.getPersonToSelect().ifPresent(personListPanel::selectPerson);
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
