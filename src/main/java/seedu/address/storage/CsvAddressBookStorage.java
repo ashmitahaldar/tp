@@ -9,9 +9,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.CsvUtil;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**
@@ -45,17 +44,13 @@ public class CsvAddressBookStorage implements AddressBookStorage {
     public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataLoadingException {
         requireNonNull(filePath);
 
-        Optional<CsvSerializableAddressBook> csvAddressBook = CsvUtil.readCsvFile(
-                filePath, CsvSerializableAddressBook.class);
-        if (!csvAddressBook.isPresent()) {
-            return Optional.empty();
-        }
-
         try {
-            return Optional.of(csvAddressBook.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataLoadingException(ive);
+            Optional<ReadOnlyAddressBook> csvAddressBook = CsvUtil.readCsvFile(
+                    filePath);
+            return csvAddressBook;
+        } catch (DataLoadingException e) {
+            logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
+            throw new DataLoadingException(e);
         }
     }
 
@@ -74,7 +69,7 @@ public class CsvAddressBookStorage implements AddressBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        CsvUtil.saveCsvFile(new CsvSerializableAddressBook(addressBook), filePath);
+        CsvUtil.saveCsvFile(addressBook, filePath);
     }
 
 }
