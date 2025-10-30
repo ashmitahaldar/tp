@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+
+' Local overrides to improve contrast for this diagram only
+skinparam Class {
+    FontColor #111111
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+}
+skinparam Note {
+    FontColor #111111
+    BackgroundColor #FFFFFF
+    BorderColor #CCCCCC
+}
+skinparam Participant {
+    FontColor #111111
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+}
+skinparam Sequence {
+    BoxFontColor #111111
+}
+
+package "Logic" {
+    class FindCommand {
+        - predicate : NameContainsKeywordsPredicate
+        + FindCommand(predicate)
+        + execute(model) : CommandResult
+    }
+
+    class FindCommandParser {
+        + parse(args) : FindCommand
+    }
+}
+
+package "Model" {
+    class NameContainsKeywordsPredicate {
+        - keywords : List<String>
+        + NameContainsKeywordsPredicate(keywords)
+        + test(person) : boolean
+        - matchesKeyword(word, keyword, threshold) : boolean
+    }
+
+    class Person {
+        - name : Name
+        - phone : Phone
+        - email : Email
+        - address : Address
+        - tags : Set<Tag>
+        + getName() : Name
+    }
+}
+
+package "Commons.Util" {
+    class StringUtil {
+        {static} + containsWordIgnoreCase(sentence, word) : boolean
+        {static} + containsSubstringIgnoreCase(sentence, substring) : boolean
+        {static} + fuzzyMatch(source, keyword, threshold) : boolean
+        {static} - levenshteinDistance(a, b) : int
+    }
+}
+
+FindCommandParser ..> FindCommand : creates
+FindCommandParser ..> NameContainsKeywordsPredicate : creates
+FindCommand --> NameContainsKeywordsPredicate : uses
+NameContainsKeywordsPredicate ..> Person : tests
+NameContainsKeywordsPredicate ..> StringUtil : uses
+
+note right of NameContainsKeywordsPredicate::matchesKeyword
+  **Matching Logic:**
+  If keyword.length <= 4:
+    - Full-word match OR
+    - Fuzzy match (threshold=2)
+
+  If keyword.length > 4:
+    - Full-word match OR
+    - Substring match OR
+    - Fuzzy match (threshold=2)
+end note
+
+note left of StringUtil::levenshteinDistance
+  Calculates minimum edit distance
+  (insertions, deletions, substitutions)
+  between two strings
+end note
+
+@enduml

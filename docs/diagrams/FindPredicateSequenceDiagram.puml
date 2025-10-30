@@ -1,0 +1,101 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+' Local overrides to ensure readable contrast in this diagram only
+skinparam Participant {
+    FontColor #111111
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+}
+skinparam Sequence {
+    BoxFontColor #111111
+}
+skinparam Note {
+    FontColor #111111
+    BackgroundColor #FFFFFF
+    BorderColor #CCCCCC
+}
+
+participant ":NameContainsKeywordsPredicate" as Predicate
+participant "p:Person" as Person
+participant ":StringUtil" as StringUtil
+
+-> Predicate : test(p)
+activate Predicate
+
+Predicate -> Person : getName()
+activate Person
+Person --> Predicate : name
+deactivate Person
+
+note over Predicate : Split name into words:\n["Alice", "Tan"]
+
+loop for each keyword
+    loop for each name word
+        Predicate -> Predicate : matchesKeyword(word, keyword, threshold)
+        activate Predicate #LightBlue
+
+        alt keyword.length <= 4
+            note over Predicate : Short keyword path:\nOnly full-word + fuzzy
+
+            Predicate -> StringUtil : containsWordIgnoreCase(word, keyword)
+            activate StringUtil
+            StringUtil --> Predicate : boolean
+            deactivate StringUtil
+
+            alt if not full-word match
+                Predicate -> StringUtil : fuzzyMatch(word, keyword, 2)
+                activate StringUtil
+
+                StringUtil -> StringUtil : levenshteinDistance(word, keyword)
+                activate StringUtil #LightGray
+                note right : Calculate edit distance
+                StringUtil --> StringUtil : distance
+                deactivate StringUtil
+
+                StringUtil --> Predicate : distance <= threshold
+                deactivate StringUtil
+            end
+
+        else keyword.length > 4
+            note over Predicate : Long keyword path:\nFull-word + substring + fuzzy
+
+            Predicate -> StringUtil : containsWordIgnoreCase(word, keyword)
+            activate StringUtil
+            StringUtil --> Predicate : boolean
+            deactivate StringUtil
+
+            alt if not full-word match
+                Predicate -> StringUtil : containsSubstringIgnoreCase(word, keyword)
+                activate StringUtil
+                StringUtil --> Predicate : boolean
+                deactivate StringUtil
+
+                alt if not substring match
+                    Predicate -> StringUtil : fuzzyMatch(word, keyword, 2)
+                    activate StringUtil
+                    StringUtil -> StringUtil : levenshteinDistance(word, keyword)
+                    activate StringUtil #LightGray
+                    StringUtil --> StringUtil : distance
+                    deactivate StringUtil
+                    StringUtil --> Predicate : distance <= threshold
+                    deactivate StringUtil
+                end
+            end
+        end
+
+        Predicate --> Predicate : matchResult
+        deactivate Predicate
+
+        alt if match found
+            note over Predicate : Return true immediately
+            <-- Predicate : true
+        end
+    end
+end
+
+<-- Predicate : false
+deactivate Predicate
+
+@enduml
