@@ -392,16 +392,16 @@ Furthermore, certain edits can cause LinkedUp to behave in unexpected ways (e.g.
 ## [FAQ](#toc) <a name="faq"></a>
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Follow all instructions below in order <br>
-1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`).
-2. Copy your file of choice to your other computer.
-3. Use `import f/FILE` to use your data in your other computer.
+**A**:
+1. You can either use `export` to create a `.csv` file or use LinkedUp's default `.json` file (found in `data/addressbook.json`)
+1. Copy your file of choice to your other computer.
+1. Use `import f/FILE` to use your data in your other computer.
 --------------------------------------------------------------------------------------------------------------------
 
 ## [Known issues](#toc) <a name="issues"></a>
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+1. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
