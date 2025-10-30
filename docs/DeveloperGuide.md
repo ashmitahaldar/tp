@@ -667,7 +667,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. System validates the new information.
 4. System updates the contact with new information.
 5. System displays the updated contact list.
-4. System scrolls to the newly updated contact.
+6. System scrolls to the newly updated contact.
 
    Use case ends.
 
