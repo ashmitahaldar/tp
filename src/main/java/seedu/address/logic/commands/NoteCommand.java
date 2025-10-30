@@ -89,6 +89,7 @@ public class NoteCommand extends Command {
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getTelegramHandle(),
                 personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getTags(), note);
 
+        model.saveAddressBookState();
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
