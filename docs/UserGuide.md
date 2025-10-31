@@ -394,7 +394,7 @@ Furthermore, certain edits can cause LinkedUp to behave in unexpected ways (e.g.
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Follow all instructions below in order <br>
 1. You can use `export f/FILE` to create either a `.csv` file or a `.json` file.
-2. Copy your file of choice to your other computer, then use `import f/FILE` to use your data in your other computer.
+1. Copy your file of choice to your other computer, then use `import f/FILE` to use your data in your other computer.
 --------------------------------------------------------------------------------------------------------------------
 
 ## [Known issues](#toc) <a name="issues"></a>
