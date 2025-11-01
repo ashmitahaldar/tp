@@ -73,6 +73,7 @@ public class PersonInfoPanel extends UiPart<Region> {
     private Label statsLocationValue;
 
     private String telegramHandle;
+    private Person currentPerson;
 
     /**
      * Creates a {@code PersonInfoPanel} and initializes with placeholder text.
@@ -89,6 +90,7 @@ public class PersonInfoPanel extends UiPart<Region> {
      * @param person The person whose details to display, or {@code null} for statistics.
      */
     public void displayPerson(Person person) {
+        this.currentPerson = person;
         if (person == null) {
             displayStatistics();
         } else {
@@ -246,6 +248,10 @@ public class PersonInfoPanel extends UiPart<Region> {
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElse("");
+    }
+
+    public boolean getCurrentPersonExists() {
+        return currentPerson != null;
     }
 
     private void setPersonDisplay(boolean bool) {
