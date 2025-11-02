@@ -115,7 +115,7 @@ The command line will prompt the correct format when syntax is wrong.
 
 Adds a contact to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER [tele/TELEGRAM] e/EMAIL a/ADDRESS [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
@@ -125,6 +125,8 @@ A contact can have any number of tags (including 0)
 
 
 Example:
+
+- `add n/John Doe p/98765432 tele/@john_doe e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney`
 
 ### [Listing all contacts : `list`](#toc) <a name="list"></a>
 
@@ -339,11 +341,17 @@ Sort contacts via a specific field in a specific order
 
 Format: `sort [f/FIELD] [o/ORDER]`
 
+- If `FIELD` is not specified, the default is `name`
+- If `ORDER` is not specified, the default is `asc`
+- Pinned contacts are sorted separately from unpinned contacts and will remain pinned to the top
+- Sorting is not persistent when LinkedUp is relaunched
+
 Options:
 * `[FIELD]`: One of:
     * `name`
     * `phone`
     * `email`
+    * `telegram`
     * `address`
 * `[ORDER]`: One of:
     * `asc`
@@ -439,6 +447,6 @@ Term | Meaning
 **Command** | A specific instruction provided by the user
 **Parameter** | Details provided by the user to alter command behaviours
 **Log** | Remarks on the modification of information of a specific contact with a time attached
-**Note** | Simple comments pertaining to a specifc contact
+**Note** | Simple comments pertaining to a specific contact
 
 
