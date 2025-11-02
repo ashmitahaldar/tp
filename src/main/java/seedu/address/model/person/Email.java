@@ -19,7 +19,7 @@ public class Email {
             + "separated by periods.\n"
             + "The domain name must:\n"
             + "    - contain at least one period (.)\n"
-            + "    - end with a top-level domain (TLD) at least 2 letters long\n"
+            + "    - end with a top-level domain (TLD) at least 2 alphanumeric characters long\n"
             + "    - have each domain label start and end with alphanumeric characters\n"
             + "    - have each domain label consist of alphanumeric characters, separated only by hyphens, if any.";
     // alphanumeric and special characters
@@ -28,8 +28,8 @@ public class Email {
             + ALPHANUMERIC_NO_UNDERSCORE + ")*";
     private static final String DOMAIN_PART_REGEX = ALPHANUMERIC_NO_UNDERSCORE
             + "(-" + ALPHANUMERIC_NO_UNDERSCORE + ")*";
-    // Require at least one dot in the domain and a final alphabetic TLD with >= 2 letters (multi-level supported)
-    private static final String DOMAIN_REGEX = DOMAIN_PART_REGEX + "(\\." + DOMAIN_PART_REGEX + ")*" + "\\.[A-Za-z]{2,}";
+    // Require at least one dot in the domain and a final alphanumeric TLD with >= 2 characters (multi-level supported)
+    private static final String DOMAIN_REGEX = DOMAIN_PART_REGEX + "(\\." + DOMAIN_PART_REGEX + ")*" + "\\.[A-Za-z0-9]{2,}";
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX + "$";
 
     public final String value;
