@@ -24,9 +24,9 @@ public class ImportCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a specified .json or .csv file. "
             + "\nParameters: "
-            + PREFIX_FILE + "FILE \n"
+            + PREFIX_FILE + "FILEPATH \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FILE + "data/addressbook.json";
+            + PREFIX_FILE + "data/linkedup.json";
 
     public static final String MESSAGE_SUCCESS = "Save data imported: %1$s";
     public static final String MESSAGE_PARSE_ERROR = "Error occurred when parsing file."

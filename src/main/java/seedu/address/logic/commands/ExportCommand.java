@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +28,9 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the address book to a .csv file.\n"
-            + "Parameters: None\n"
-            + "Example: " + COMMAND_WORD;
+            + "Parameters: " + PREFIX_FILE + "FILEPATH [" + PREFIX_TAG + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + PREFIX_FILE + "data/linkedup.json "
+            + PREFIX_TAG + "tag1 " + PREFIX_TAG + "tag2";
 
     public static final String MESSAGE_SUCCESS = "Save data exported to %1$s";
 
