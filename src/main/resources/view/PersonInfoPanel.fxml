@@ -12,7 +12,7 @@
     <content>
         <VBox fx:id="infoBox" spacing="8" alignment="TOP_LEFT" fillWidth="true"
               styleClass="background" style="-fx-padding: 12;">
-            <Label fx:id="name" styleClass="label-header"/>
+            <Label fx:id="name" styleClass="label-header" wrapText="true"/>
             <VBox spacing="8">
                 <Label fx:id="phoneLabel" text="Phone:" styleClass="label-info-type"/>
                 <Hyperlink fx:id="phone" styleClass="label-bright" onAction="#onPhoneClick"/>
