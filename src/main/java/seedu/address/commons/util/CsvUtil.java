@@ -59,7 +59,7 @@ public class CsvUtil {
         csvFile.getPersonList().forEach((Person person) -> {
             StringBuilder fieldsString = new StringBuilder();
             person.getFields().forEach((String s) -> {
-                fieldsString.append(s.replaceAll(",", "\",\""));
+                fieldsString.append("\"" + s.replaceAll("\"", "\"\"") + "\"");
                 fieldsString.append(',');
             });
             fieldsString.deleteCharAt(fieldsString.length() - 1); // remove trailing comma
@@ -121,9 +121,9 @@ public class CsvUtil {
 
         PersonBuilder builder = new PersonBuilder();
 
-        String[] fieldArray = inputString.split(",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
+        String[] fieldArray = inputString.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
         for (String s : fieldArray) {
-            addFieldToPerson(builder, s);
+            addFieldToPerson(builder, s.substring(1, s.length() - 1).replace("\"\"", "\""));
         }
 
         return builder.buildPerson();
@@ -145,7 +145,7 @@ public class CsvUtil {
             break;
         case "telegram":
             if (s.length() >= s.indexOf(":") + 2) {
-                builder.setTelegramHandle(s.substring(s.indexOf(":") + 2));
+                builder.setTelegramHandle(s.substring(s.indexOf(":") + 1));
             }
             break;
         case "tag":
