@@ -48,14 +48,14 @@
             </VBox>
             <Separator/>
             <VBox spacing="8" prefWidth="300.0">
-                <Label fx:id="logLabel" text="Interaction History:" styleClass="label-info-type"/>
-                <VBox fx:id="logContainer" spacing="4" maxWidth="Infinity" fillWidth="true"/>
-            </VBox>
-            <Separator/>
-            <VBox spacing="8" prefWidth="300.0">
                 <Label fx:id="notesLabel" text="Notes:" styleClass="label-info-type"/>
                 <Label fx:id="note" styleClass="label-bright" wrapText="true"
                        maxWidth="Infinity" maxHeight="Infinity" VBox.vgrow="ALWAYS"/>
+            </VBox>
+            <Separator></Separator>
+            <VBox spacing="8" prefWidth="300.0">
+                <Label fx:id="logLabel" text="Interaction History:" styleClass="label-info-type"/>
+                <VBox fx:id="logContainer" spacing="4" maxWidth="Infinity" fillWidth="true"/>
             </VBox>
         </VBox>
     </content>
