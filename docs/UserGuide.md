@@ -115,7 +115,7 @@ The command line will prompt the correct format when syntax is wrong.
 
 Adds a contact to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER [tele/TELEGRAM] e/EMAIL a/ADDRESS [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
@@ -125,6 +125,8 @@ A contact can have any number of tags (including 0)
 
 
 Example:
+
+- `add n/John Doe p/98765432 tele/@john_doe e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney`
 
 ### [Listing all contacts : `list`](#toc) <a name="list"></a>
 
