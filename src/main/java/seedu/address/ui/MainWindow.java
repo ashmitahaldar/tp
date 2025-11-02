@@ -185,6 +185,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
+            var selectedPerson = personListPanel.getPersonListView().getSelectionModel().getSelectedItem();
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
@@ -194,6 +195,12 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowStats()) {
+                personListPanel.getPersonListView().getSelectionModel().clearSelection();
+                personInfoPanel.displayPerson(null);
+            }
+
+            if (!personInfoPanel.getCurrentPersonExists()) {
+                personListPanel.getPersonListView().getSelectionModel().clearSelection();
                 personInfoPanel.displayPerson(null);
             }
 
@@ -202,6 +209,12 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             commandResult.getPersonToSelect().ifPresent(personListPanel::selectPerson);
+
+            if (commandText.trim().equalsIgnoreCase("undo")
+                    || commandText.trim().equalsIgnoreCase("redo")
+                    && selectedPerson != null) {
+                personListPanel.selectPerson(selectedPerson);
+            }
 
             return commandResult;
         } catch (CommandException | ParseException e) {

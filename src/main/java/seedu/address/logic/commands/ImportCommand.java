@@ -81,7 +81,8 @@ public class ImportCommand extends Command {
             throw new CommandException(ImportCommand.MESSAGE_INVALID_FILE);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, filepath.toString().replace('\\', '/')));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, filepath.toString().replace('\\',
+                '/'), false, false, true));
     }
 
     /**
