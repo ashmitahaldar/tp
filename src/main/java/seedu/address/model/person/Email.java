@@ -28,8 +28,8 @@ public class Email {
             + ALPHANUMERIC_NO_UNDERSCORE + ")*";
     private static final String DOMAIN_PART_REGEX = ALPHANUMERIC_NO_UNDERSCORE
             + "(-" + ALPHANUMERIC_NO_UNDERSCORE + ")*";
-    // Require at least one dot in the domain and a final alphanumeric TLD with >= 2 characters (multi-level supported)
-    private static final String DOMAIN_REGEX = DOMAIN_PART_REGEX + "(\\." + DOMAIN_PART_REGEX + ")*" + "\\.[A-Za-z0-9]{2,}";
+    private static final String DOMAIN_REGEX = DOMAIN_PART_REGEX + "(\\." + DOMAIN_PART_REGEX + ")*"
+            + "\\.[A-Za-z0-9]{2,}";
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX + "$";
 
     public final String value;
