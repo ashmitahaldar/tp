@@ -121,12 +121,11 @@ Format: `add n/NAME p/PHONE_NUMBER [tele/TELEGRAM] e/EMAIL a/ADDRESS [t/TAG]â€¦â
 A contact can have any number of tags (including 0)
 </div>
 
-**WARNING**: Email does not check for domains like .com because of unique organisations
-
+**WARNING**: Email requires a valid format with a top-level domain (e.g., .com, .org). It must not be empty and should follow the general rules for email addresses. Ensure the domain and top-level domain are correct. Multi-level domains (e.g., co.uk) and alphanumeric top-level domains (e.g., .museum) are supported. Examples of valid emails: `example@domain.com`, `user.name@sub.domain.co.uk`.
 
 Example:
 
-- `add n/John Doe p/98765432 tele/@john_doe e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney`
+- `add n/John Doe p/98765432 tele/@john_doe e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` : Adds a contact named `John Doe` with phone number `98765432`, telegram handle `@john_doe`, email `johnd@example.com`, address `311, Clementi Ave 2, #02-25`, and tags `friends` and `owesMoney` to LinkedUp.
 
 ### [Listing all contacts : `list`](#toc) <a name="list"></a>
 
@@ -448,5 +447,3 @@ Term | Meaning
 **Parameter** | Details provided by the user to alter command behaviours
 **Log** | Remarks on the modification of information of a specific contact with a time attached
 **Note** | Simple comments pertaining to a specific contact
-
-
