@@ -447,6 +447,6 @@ Term | Meaning
 **Command** | A specific instruction provided by the user
 **Parameter** | Details provided by the user to alter command behaviours
 **Log** | Remarks on the modification of information of a specific contact with a time attached
-**Note** | Simple comments pertaining to a specifc contact
+**Note** | Simple comments pertaining to a specific contact
 
 
