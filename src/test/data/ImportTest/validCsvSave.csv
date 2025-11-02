@@ -1,1 +1,8 @@
-name:John Computing,phone:81234567,address:1 Computing Lane,email:E1234567@u.nus.edu,telegram:@john_computing,note:
+"name:Queensway Shirt Vendor","phone:97110393","address:Qu, "" eensway Shopping Centre","email:qs@gmail","telegram:@queenshirts","tag:[Shirt]","isPinned:false","note:"
+"name:Riley Tan","phone:93838383","address:123 Serangoon Road","email:osa@nus.sg","telegram:@rileyy","tag:[Coordinator]","isPinned:false","note:Approves of NUSync events."
+"name:Sarah Tan","phone:91234567","address:21 Lower Kent Ridge Road, #12-08","email:sarah.tan@u.nus.edu","telegram:@sarahtan_nus","tag:[President]","tag:[ComputingClub]","isPinned:false","log:[02 Nov 2025 15:05] (meeting) Met to discuss CS2103T","log:[30 Sep 2025 20:45] (meeting) Met to discuss CS2103T","note:"
+"name:Rajesh Kumar","phone:92345678","address:35 Prince George's Park, #05-12","email:rajesh.k@u.nus.edu","telegram:@rajesh_vp","tag:[VicePresident]","tag:[BusinessClub]","isPinned:false","log:[02 Nov 2025 15:05] (meeting) Met to discuss CS2103T","log:[30 Sep 2025 20:45] (meeting) Met to discuss CS2103T","note:Can't stop petting Snowy (my cat)."
+"name:Emily Wong","phone:93456789","address:119 Clementi Road, #07-03","email:emily.wong@u.nus.edu","telegram:@emilywong","tag:[Treasurer]","tag:[DanceTeam]","isPinned:false","note:"
+"name:Marcus Lim","phone:94567890","address:82 Jurong West Stree 65 , #10-15","email:marcus.lim@u.nus.edu","telegram:@marcuslim_sec","tag:[Secretary]","tag:[DebateSociety]","isPinned:false","note:"
+"name:Stationary Shop at KR","phone:84567890","address:10 Kent Ridge Crescent, #B1-03","email:lisa.stationary@mail.com","telegram:@lisastation","tag:[Vendor]","tag:[Stationery]","isPinned:false","note:"
+"name:Uncle Tan","phone:81234567","address:2 Science Drive 2, #01-01","email:tanfood@gmail.com","telegram:@uncletanfood","tag:[Vendor]","tag:[FavouriteCanteen]","isPinned:false","note:"
