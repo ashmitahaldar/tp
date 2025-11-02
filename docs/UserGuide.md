@@ -368,7 +368,7 @@ Example
 
 Format: `clear`
 
-A warning will pop up, where you can type `clear confirm` to confirm the deletion.
+A warning will pop up, where you can type `clear confirm` to confirm the deletion. The `clear confirm` command will execute, regardless of any text following it
 
 ![clearWarning](images/clearWarning.png)
 
