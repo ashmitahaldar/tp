@@ -339,11 +339,16 @@ Sort contacts via a specific field in a specific order
 
 Format: `sort [f/FIELD] [o/ORDER]`
 
+- If `FIELD` is not specified, the default is `name`
+- If `ORDER` is not specified, the default is `asc`
+- Note that pinned contacts are sorted separately from unpinned contacts
+
 Options:
 * `[FIELD]`: One of:
     * `name`
     * `phone`
     * `email`
+    * `telegram`
     * `address`
 * `[ORDER]`: One of:
     * `asc`
