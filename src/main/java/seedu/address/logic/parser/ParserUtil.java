@@ -215,4 +215,34 @@ public class ParserUtil {
     public static boolean parseConfirmation(String input) throws ParseException {
         return input.equals(CLEAR_CONFIRMATION_MESSAGE);
     }
+
+    /**
+     * Parses a {@code String logMessage} into a log message string.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code logMessage} is empty.
+     */
+    public static String parseLogMessage(String logMessage) throws ParseException {
+        requireNonNull(logMessage);
+        String trimmedLogMessage = logMessage.trim();
+        if (trimmedLogMessage.isEmpty()) {
+            throw new ParseException("Log message cannot be empty");
+        }
+        return trimmedLogMessage;
+    }
+
+    /**
+     * Parses a {@code String logType} into a log type string.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code logType} is empty.
+     */
+    public static String parseLogType(String logType) throws ParseException {
+        requireNonNull(logType);
+        String trimmedLogType = logType.trim();
+        if (trimmedLogType.isEmpty()) {
+            throw new ParseException("Log type cannot be empty");
+        }
+        return trimmedLogType;
+    }
 }
