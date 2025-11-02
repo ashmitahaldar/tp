@@ -117,6 +117,8 @@ Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 
+- Accepts international format phone numbers as well, for example (+65-9123-4567, +62 812 5555 1234) which use +, -, ()
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
 </div>
