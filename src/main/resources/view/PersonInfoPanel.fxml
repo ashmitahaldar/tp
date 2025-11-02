@@ -46,7 +46,7 @@
                     <Label fx:id="statsLocationValue" styleClass="label-bright"/>
                 </VBox>
             </VBox>
-            
+
             <Separator/>
             <VBox spacing="8" prefWidth="300.0">
                 <Label fx:id="notesLabel" text="Notes:" styleClass="label-info-type"/>
