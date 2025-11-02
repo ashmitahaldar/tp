@@ -27,7 +27,7 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the address book to a .csv file.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports the address book to a .json or .csv file.\n"
             + "Parameters: " + PREFIX_FILE + "FILEPATH [" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + PREFIX_FILE + "data/linkedup.json "
             + PREFIX_TAG + "tag1 " + PREFIX_TAG + "tag2";
