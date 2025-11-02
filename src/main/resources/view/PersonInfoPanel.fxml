@@ -42,8 +42,12 @@
                     <FlowPane fx:id="statTagFlow" hgap="8" vgap="8" id="tags"/>
                 </VBox>
                 <VBox spacing="4">
-                    <Label text="Most common location" styleClass="label-info-type"/>
-                    <Label fx:id="statsLocationValue" styleClass="label-bright"/>
+                    <Label text="Most common email domain" styleClass="label-info-type"/>
+                    <Label fx:id="statsEmailValue" styleClass="label-bright"/>
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="Person with most logs" styleClass="label-info-type"/>
+                    <Label fx:id="statsLogValue" styleClass="label-bright"/>
                 </VBox>
             </VBox>
 

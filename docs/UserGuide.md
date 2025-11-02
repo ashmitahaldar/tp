@@ -15,6 +15,7 @@ title: User Guide
   * [Viewing help](#view)
   * [Adding a contact](#add)
   * [Listing all contacts](#list)
+  * [Statistics table](#stats)
   * [Editing a contact](#edit)
   * [Adding a note to a contact](#note)
   * [Locating contacts by name](#find)
@@ -128,9 +129,19 @@ Example:
 
 ### [Listing all contacts : `list`](#toc) <a name="list"></a>
 
-Shows a list of all contacts in the address book.
+Shows a list of all contacts in the address book. Also pulls up statistics dashboard.
 
 Format: `list`
+
+### [Pulling up statistics : `stats`](#toc) <a name="stats"></a>
+
+Shows a statistical summary of all the contacts inside LinkedUp.
+The details displayed will reflect the overall information and will not change unless core data is changed.
+E.g `filter`, `find` will not update the stats, but for `delete`, `tag` etc will cause statistics to update.
+
+For user optimisation, we have also configured `add` and `edit` (not the shortcut) to switch the display to the target contact instead of the stats to allow users to track their major changes.
+
+Format: `stats`
 
 ### [Editing a contact : `edit`](#toc) <a name="edit"></a>
 
@@ -157,7 +168,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing set of tags will be replaced by the new ones i.e adding of tags is not cumulative.
 * You can remove all the contact’s tags by typing `t/` without
   specifying any tags after it.
 
@@ -412,6 +423,7 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
+**Stats** | `stats`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit autofill** | `edit INDEX ​`<br> e.g.,`edit 2`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
