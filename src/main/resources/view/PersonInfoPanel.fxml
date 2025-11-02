@@ -55,7 +55,7 @@
             </VBox>
             <Separator></Separator>
             <VBox spacing="8" prefWidth="300.0">
-                <Label fx:id="logLabel" text="Interaction History:" styleClass="label-info-type"/>
+                <Label fx:id="logLabel" text="Interaction Log:" styleClass="label-info-type"/>
                 <VBox fx:id="logContainer" spacing="4" maxWidth="Infinity" fillWidth="true"/>
             </VBox>
         </VBox>
