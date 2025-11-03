@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
@@ -45,6 +46,8 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+
+    private boolean hasLoadedSaveCorrectly = true;
 
     @Override
     public void init() throws Exception {
@@ -89,10 +92,12 @@ public class MainApp extends Application {
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty AddressBook.");
             initialData = new AddressBook();
+            hasLoadedSaveCorrectly = false;
         } catch (IOException e) {
             logger.warning("Initial data could not be saved at " + storage.getAddressBookFilePath()
                     + " Will be starting with an empty AddressBook");
             initialData = new AddressBook();
+            hasLoadedSaveCorrectly = false;
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -177,6 +182,10 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
+        if (!hasLoadedSaveCorrectly) {
+            ui.showAlertDialogAndWait(Alert.AlertType.INFORMATION, "Notification: Improper Load",
+                    "A problem occurred while loading your save file.", "An empty contact list will be used.");
+        }
     }
 
     @Override
