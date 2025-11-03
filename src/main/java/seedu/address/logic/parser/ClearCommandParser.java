@@ -17,7 +17,7 @@ public class ClearCommandParser implements Parser<ClearCommand> {
      */
     public ClearCommand parse(String args) throws ParseException {
         try {
-            boolean isConfirmed = ParserUtil.parseConfirmation(args);
+            boolean isConfirmed = ParserUtil.parseConfirmation(args.trim().split(" "));
             if (isConfirmed) {
                 return new ClearCommand(true);
             } else {

@@ -30,7 +30,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     /** The confirmation keyword required from the user to proceed with destructive operations like clear. */
-    public static final String CLEAR_CONFIRMATION_MESSAGE = " confirm";
+    public static final String CLEAR_CONFIRMATION_MESSAGE = "confirm";
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -214,7 +214,7 @@ public class ParserUtil {
     }
 
     /** Checks if user input starts with the confirmation keyword to confirm destructive operations. */
-    public static boolean parseConfirmation(String input) throws ParseException {
-        return input.startsWith(CLEAR_CONFIRMATION_MESSAGE);
+    public static boolean parseConfirmation(String[] input) throws ParseException {
+        return input.length > 0 && input[0].equals(CLEAR_CONFIRMATION_MESSAGE);
     }
 }
