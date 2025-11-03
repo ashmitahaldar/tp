@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -70,7 +69,9 @@ public class PersonInfoPanel extends UiPart<Region> {
     @FXML
     private FlowPane statTagFlow;
     @FXML
-    private Label statsLocationValue;
+    private Label statsEmailValue;
+    @FXML
+    private Label statsLogValue;
 
     private String telegramHandle;
     private Person currentPerson;
@@ -118,8 +119,10 @@ public class PersonInfoPanel extends UiPart<Region> {
             statTagFlow.getChildren().add(tagLabel);
         }
 
-        String mostCommonWord = getMostCommonAddressWord();
-        statsLocationValue.setText(mostCommonWord.isEmpty() ? "N/A" : mostCommonWord);
+        String mostCommonWord = getMostCommonEmailDomain();
+        statsEmailValue.setText(mostCommonWord.isEmpty() ? "-" : mostCommonWord);
+        statsLogValue.setText(getPersonMostLogs(this.addressBook.getPersonList()).isEmpty()
+                ? "no logs" : getPersonMostLogs(this.addressBook.getPersonList()));
 
         // ensure statsBox is visible and managed so it occupies layout space
         if (statsBox != null) {
@@ -226,28 +229,29 @@ public class PersonInfoPanel extends UiPart<Region> {
                 .collect(Collectors.toList());
     }
 
-    public String getMostCommonAddressWord() {
-        Map<String, Integer> wordCount = new HashMap<>();
-        Set<String> addressWords = Set.of(
-                "avenue", "ave", "street", "str", "road", "rd", "lane", "ln", "drive", "dr", "court", "ct"
-        );
+    private String getMostCommonEmailDomain() {
+        Map<String, Integer> domainCount = new HashMap<>();
 
         for (Person person : addressBook.getPersonList()) {
-            String[] words = person.getAddress().value.toLowerCase().split("[\\s,.-]+");
-
-            for (String word : words) {
-                if (word.matches(".*\\d.*")
-                        || addressWords.contains(word)) {
-                    continue;
-                }
-                wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+            String email = person.getEmail().value;
+            int atIdx = email.indexOf('@');
+            if (atIdx != -1) {
+                String domain = email.substring(atIdx + 1);
+                domainCount.put(domain, domainCount.getOrDefault(domain, 0) + 1);
             }
         }
 
-        return wordCount.entrySet().stream()
+        return domainCount.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElse("");
+    }
+
+    private String getPersonMostLogs(List<Person> allPersons) {
+        return allPersons.stream()
+                .filter(p -> !p.getLogs().isEmpty())
+                .max(Comparator.comparingInt(p -> p.getLogs().size()))
+                .map(p -> p.getName().fullName + " (" + p.getLogs().size() + ")").orElse("");
     }
 
     public boolean getCurrentPersonExists() {
