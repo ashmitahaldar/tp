@@ -122,6 +122,10 @@ Format: `add n/NAME p/PHONE_NUMBER [tele/TELEGRAM] e/EMAIL a/ADDRESS [t/TAG]â€¦â
 A contact can have any number of tags (including 0)
 </div>
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+Tags are automatically converted to lowercase for consistency. For example, `t/Friends` will be stored as `friends`. This prevents duplicate tags with different capitalizations.
+</div>
+
 **WARNING**: Email requires a valid format with a top-level domain (e.g., .com, .org). It must not be empty and should follow the general rules for email addresses. Ensure the domain and top-level domain are correct. Multi-level domains (e.g., co.uk) and alphanumeric top-level domains (e.g., .museum) are supported. Examples of valid emails: `example@domain.com`, `user.name@sub.domain.co.uk`.
 
 Example:
