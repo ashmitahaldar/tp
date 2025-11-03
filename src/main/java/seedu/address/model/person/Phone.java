@@ -11,8 +11,9 @@ public class Phone {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should only contain numbers, and it should be at least 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{3,}";
+            "Phone numbers may be short codes or international numbers "
+                    + "with an optional +, and may include digits, parentheses, dashes, or dots.";
+    public static final String VALIDATION_REGEX = "^(?:\\d{3,4}|\\+?\\(?\\d[\\d()\\-\\.]{3,18}\\d)$";
     public final String value;
 
     /**
@@ -30,7 +31,7 @@ public class Phone {
      * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidPhone(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.replaceAll("\\s+", "").matches(VALIDATION_REGEX);
     }
 
     @Override

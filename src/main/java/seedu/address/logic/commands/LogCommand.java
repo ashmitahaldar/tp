@@ -66,6 +66,8 @@ public class LogCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
 
+        model.saveAddressBookState();
+
         // Create new log entry
         LogEntry newEntry = new LogEntry(message, type);
 

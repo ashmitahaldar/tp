@@ -15,6 +15,7 @@ title: User Guide
   * [Viewing help](#view)
   * [Adding a contact](#add)
   * [Listing all contacts](#list)
+  * [Statistics table](#stats)
   * [Editing a contact](#edit)
   * [Adding a note to a contact](#note)
   * [Locating contacts by name](#find)
@@ -128,8 +129,17 @@ If you need to store multiple people with the same name, ensure they have distin
 Matching is done case-insensitively for names, so `ALICE` and `alice` are treated as the same name for duplicate detection. Phone numbers must match exactly.
 </div>
 
+- Names should only contain letters, numbers, spaces, and these symbols: ', `, ’, ., -, @, (, ) or a literal comma.
+- They should not start with a symbol and must not be blank.
+
+- Accepts international format phone numbers as well, for example (+65-9123-4567, +62 812 5555 1234) which use +, -, ()
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
+</div>
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+Tags are automatically converted to lowercase for consistency. For example, `t/Friends` will be stored as `friends`. This prevents duplicate tags with different capitalizations.
 </div>
 
 **WARNING**: Email requires a valid format with a top-level domain (e.g., .com, .org). It must not be empty and should follow the general rules for email addresses. Ensure the domain and top-level domain are correct. Multi-level domains (e.g., co.uk) and alphanumeric top-level domains (e.g., .museum) are supported. Examples of valid emails: `example@domain.com`, `user.name@sub.domain.co.uk`.
@@ -140,9 +150,19 @@ Example:
 
 ### [Listing all contacts : `list`](#toc) <a name="list"></a>
 
-Shows a list of all contacts in the address book.
+Shows a list of all contacts in the address book. Also pulls up statistics dashboard.
 
 Format: `list`
+
+### [Pulling up statistics : `stats`](#toc) <a name="stats"></a>
+
+Shows a statistical summary of all the contacts inside LinkedUp.
+The details displayed will reflect the overall information and will not change unless core data is changed.
+E.g `filter`, `find` will not update the stats, but for `delete`, `tag` etc will cause statistics to update.
+
+For user optimisation, we have also configured `add` and `edit` (not the shortcut) to switch the display to the target contact instead of the stats to allow users to track their major changes.
+
+Format: `stats`
 
 ### [Editing a contact : `edit`](#toc) <a name="edit"></a>
 
@@ -169,7 +189,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing set of tags will be replaced by the new ones i.e adding of tags is not cumulative.
 * You can remove all the contact’s tags by typing `t/` without
   specifying any tags after it.
 
@@ -217,23 +237,23 @@ Finds contacts whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Fuzzy matching is supported: minor typos are tolerated (e.g. \`find Jhn\` will match \`John\`).
-* contacts matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
+* Only the name is searched. The name is split into whitespace-separated words, and each keyword is tested against each name word.
+* Matching rules applied to each keyword:
+  - Full-word match (case-insensitive): a name word exactly equals the keyword.
+  - Substring match (case-insensitive): a name word contains the keyword as a substring. This is only allowed when the keyword length is 3 or more characters to reduce noisy matches for very short keywords.
+  - Fuzzy match: minor typos are tolerated using Levenshtein distance. By default the fuzzy threshold supplied is 2 edits; however, when the name word being compared is very short (fewer than 4 characters), only up to 1 edit is allowed to avoid overly-permissive matches.
+* Keywords are combined with OR semantics: a person is returned if at least one keyword matches at least one word in their name under the rules above.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find mario` returns `Mario Wong` and `Maria`
-* `find Rile` returns `Riley Tan`<br>
-  ![result for 'find Riley'](images/Find.png)
-
+* `find John` returns `john` and `John Doe`.
+* `find mario` returns `Mario Wong` and `Maria` (substring/fuzzy may apply).
+* `find Han` (length 3) can match `Hans` because substring matching is enabled for keywords of length 3 or more.
+* `find Jhn` demonstrates fuzzy matching: a small typo in the keyword can still match `John`.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use five or more characters to utilize fuzzy search effectively
+Use three or more characters for a keyword when you want substring matching to be available; for very short keywords (1-2 characters) only full-word and fuzzy matching are considered to avoid noisy results.
 </div>
 
 ### [Filtering contacts by tags: `filter`](#toc) <a name="filter"></a>
@@ -306,6 +326,8 @@ Examples:
     * Clear
     * Pin
     * Unpin
+    * Note
+    * Log
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Useful for any unintentional mistakes
@@ -326,11 +348,19 @@ Format: `import f/FILE`
 Use relative addresses for easier referencing!
 </div>
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If you move your save file, LinkedUp will not be able to find it anymore. You should re-import the save file with the new filepath. 
+</div>
+
 * Either a `.json` or a `.csv` file can be used.
 
 Example:
 * Importing a json file: `import f/data/addressbook.json`
 * Importing a csv file: `import f/data/addressbook.csv`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+After importing a .json file, any functions will be saved on the imported .json file. However, importing a csv file will not changed the autosave's destination.
+</div>
 
 ### [Exporting your save file to `.json` or `.csv` : `export`](#toc) <a name="export"></a>
 
@@ -375,7 +405,7 @@ Example
 
 Format: `clear`
 
-A warning will pop up, where you can type `clear confirm` to confirm the deletion.
+A warning will pop up, where you can type `clear confirm` to confirm the deletion. The `clear confirm` command will execute, regardless of any text following it
 
 ![clearWarning](images/clearWarning.png)
 
@@ -430,6 +460,7 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
+**Stats** | `stats`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit autofill** | `edit INDEX ​`<br> e.g.,`edit 2`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
