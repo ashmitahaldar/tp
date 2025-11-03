@@ -306,6 +306,8 @@ Examples:
     * Clear
     * Pin
     * Unpin
+    * Note
+    * Log
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Useful for any unintentional mistakes
