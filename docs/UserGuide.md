@@ -128,10 +128,6 @@ If you need to store multiple people with the same name, ensure they have distin
 Matching is done case-insensitively for names, so `ALICE` and `alice` are treated as the same name for duplicate detection. Phone numbers must match exactly.
 </div>
 
-* The search is case-insensitive. e.g `hans` will match `Hans`.
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
-* Only the name is searched. The name is split into whitespace-separated words, and each keyword is tested against each name word.
-
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
 </div>
