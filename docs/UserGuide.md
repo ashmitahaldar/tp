@@ -320,6 +320,10 @@ Example:
 * Importing a json file: `import f/data/addressbook.json`
 * Importing a csv file: `import f/data/addressbook.csv`
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+After importing a .json file, any functions will be saved on the imported .json file. However, importing a csv file will not changed the autosave's destination.
+</div>
+
 ### [Exporting your save file to `.json` or `.csv` : `export`](#toc) <a name="export"></a>
 
 Exports your saved data to a `.json` or `.csv` file.
