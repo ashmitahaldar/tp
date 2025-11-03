@@ -61,6 +61,7 @@ public class HelpWindow extends UiPart<Stage> {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
         userGuideLabel.setText(USERGUIDE_LABEL);
+        root.setAlwaysOnTop(true);
     }
 
     /**
@@ -91,6 +92,9 @@ public class HelpWindow extends UiPart<Stage> {
     public void show() {
         logger.fine("Showing help page about the application.");
         getRoot().show();
+        getRoot().setAlwaysOnTop(true);
+        getRoot().setIconified(false);
+        getRoot().toFront();
         getRoot().centerOnScreen();
     }
 
@@ -112,6 +116,8 @@ public class HelpWindow extends UiPart<Stage> {
      * Focuses on the help window.
      */
     public void focus() {
+        getRoot().setIconified(false);
+        getRoot().toFront();
         getRoot().requestFocus();
     }
 
