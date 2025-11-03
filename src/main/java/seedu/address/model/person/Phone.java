@@ -13,7 +13,7 @@ public class Phone {
     public static final String MESSAGE_CONSTRAINTS =
             "Phone numbers may be short codes or international numbers "
                     + "with an optional +, and may include digits, parentheses, dashes, or dots.";
-    public static final String VALIDATION_REGEX = "^(?:\\d{3,4}|\\+?\\d[\\d().-]{1,18}\\d)$";
+    public static final String VALIDATION_REGEX = "^(?:\\d{3,4}|\\+?\\(?\\d[\\d()\\-\\.]{1,18}\\d)$";
     public final String value;
 
     /**
