@@ -12,6 +12,8 @@ import java.util.Arrays;
  */
 public class StringUtil {
 
+    private static final int THRESHOLD_SHORT_KEYWORD = 1;
+
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case, but a full word match is required.
@@ -105,6 +107,9 @@ public class StringUtil {
         source = source.toLowerCase();
         keyword = keyword.toLowerCase();
         int distance = levenshteinDistance(source, keyword);
+        if (source.length() < 4) {
+            return distance <= THRESHOLD_SHORT_KEYWORD;
+        }
         return distance <= threshold;
     }
 
