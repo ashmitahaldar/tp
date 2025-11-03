@@ -29,6 +29,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INPUT = "Invalid input syntax - please refer to the syntax below.";
     /** The confirmation keyword required from the user to proceed with destructive operations like clear. */
     public static final String CLEAR_CONFIRMATION_MESSAGE = "confirm";
     /**
@@ -38,6 +39,11 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+        try {
+            Integer.parseInt(trimmedIndex);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_INPUT);
+        }
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
@@ -216,5 +222,35 @@ public class ParserUtil {
     /** Checks if user input starts with the confirmation keyword to confirm destructive operations. */
     public static boolean parseConfirmation(String[] input) throws ParseException {
         return input.length > 0 && input[0].equals(CLEAR_CONFIRMATION_MESSAGE);
+    }
+
+    /**
+     * Parses a {@code String logMessage} into a log message string.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code logMessage} is empty.
+     */
+    public static String parseLogMessage(String logMessage) throws ParseException {
+        requireNonNull(logMessage);
+        String trimmedLogMessage = logMessage.trim();
+        if (trimmedLogMessage.isEmpty()) {
+            throw new ParseException("Log message cannot be empty");
+        }
+        return trimmedLogMessage;
+    }
+
+    /**
+     * Parses a {@code String logType} into a log type string.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code logType} is empty.
+     */
+    public static String parseLogType(String logType) throws ParseException {
+        requireNonNull(logType);
+        String trimmedLogType = logType.trim();
+        if (trimmedLogType.isEmpty()) {
+            throw new ParseException("Log type cannot be empty");
+        }
+        return trimmedLogType;
     }
 }
