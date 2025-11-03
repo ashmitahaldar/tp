@@ -5,10 +5,29 @@ title: User Guide
 
 ## LinkedUp User Guide
 
-**LinkedUp is designed for university student leaders** including club presidents, society executives, event organizers, student council members, and committee heads who manage extensive networks of contacts across campus and beyond. These users typically manage 50-500+ contacts including fellow students, faculty advisors, alumni mentors, corporate sponsors, venue coordinators, and partner organization representatives. **The application assumes users are comfortable with typing and prefer keyboard-based workflows** over mouse-driven interfaces, valuing speed and efficiency in data entry and retrieval. Users are expected to be familiar with basic command syntax similar to using search bars or messaging apps, and need categorization and tagging capabilities to organize contacts by role, project, or affiliation without complex navigation.
+**LinkedUp is designed for university student leaders** including club presidents, society executives, event organizers, student council members, and committee heads who manage extensive networks of contacts across campus and beyond. These users typically manage 50-500+ contacts including fellow students, faculty advisors, alumni mentors, corporate sponsors, venue coordinators, and partner organization representatives.
+**LinkedUp empowers student leaders to organize their professional networks efficiently through fast, typing-based commands.**
 
-**LinkedUp empowers student leaders to organize their professional networks efficiently through fast, typing-based commands.** Instead of clicking through multiple menus, users simply type short commands to add contacts, search for specific people, categorize relationships, and retrieve information instantly. The application displays all contact information, search results, and organized lists visually while letting users work at typing speed, combining the speed of text-based input with the clarity of visual presentation. Whether you're a club president tracking member information, an event organizer managing vendor contacts, or a society executive coordinating with sponsors, **LinkedUp helps you maintain your network without slowing you down**, making it ideal for users who need quick access to their contacts during busy coordination work.
+![Ui](images/Ui.png)
 
+Instead of clicking through multiple menus, users simply type short commands to add contacts, search for specific people, categorize relationships, and retrieve information instantly. 
+
+The application displays all contact information, search results, and organized lists visually while letting users work at typing speed, combining the speed of text-based input with the clarity of visual presentation. 
+
+Whether you're a club president tracking member information, an event organizer managing vendor contacts, or a society executive coordinating with sponsors, **LinkedUp helps you maintain your network without slowing you down**, making it ideal for users who need quick access to their contacts during busy coordination work.
+
+Expectations:
+- **The application assumes users are comfortable with typing and prefer keyboard-based workflows** over mouse-driven interfaces, valuing speed and efficiency in data entry and retrieval.
+- Users are expected to be familiar with basic command syntax similar to using search bars or messaging apps, and need categorization and tagging capabilities to organize contacts by role, project, or affiliation without complex navigation.
+
+Assumptions about user skills:
+- Basic command-line familiarity: opening a terminal, navigating folders (e.g., `cd`), and running the application (e.g., `java -jar linkedup.jar`). Able to copy/paste multi-line commands correctly.
+- Understanding of simple data concepts used by the app: 1-based indexes, tags, and contact fields (name, phone, email, telegram, address).
+- Comfortable reading short on-screen prompts and help text, and able to edit autofilled commands (e.g., `edit`) before confirming.
+- Basic English literacy sufficient to interpret command keywords and UI labels.
+- Basic awareness of data privacy and backup practices: avoid storing sensitive credentials in notes, and back up the `data/addressbook.json` file before manual edits.
+
+# Table of Contents
 - [Setup](#setup)
 - [QuickStart](#quickstart)
 - [Features](#features)
@@ -52,7 +71,8 @@ title: User Guide
   - Save the file to the folder you want to use as the _home folder_ for your LinkedUp installation.
 
 - Running LinkedUp
-  - Open a command terminal, `cd` into the folder you put the jar file in (e.g `cd linkedupfolder`), and use the `java -jar linkedup.jar` command to run the application.<br>
+  - Open a command terminal and enter `cd` commands to navigate to the folder you put the jar file in (e.g enter `cd linkedupfolder`)
+  - Use the `java -jar linkedup.jar` command to run the application.<br>
      A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
      ![Ui](images/Ui.png)
 
