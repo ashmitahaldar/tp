@@ -311,7 +311,11 @@ The following features have been implemented:
 
 The save data is stored by `JsonAddressBookStorage` in a `.json` file. Thus, it would be simple for the user to be able to access a different set of addresses by `import`ing a different `.json` file, which stores a different set of addresses.
 
-`Import`ing contacts is performed as per the sequence diagram below:
+An overview of the `import` process is shown as per the activity diagram below:
+
+![ImportActivityDiagram](images/ImportActivityDiagram.png)
+
+How the `import` function is coordinated across the various components is shown in the sequence diagram below:
 
 ![ImportSequenceDiagram](images/ImportSequenceDiagram.png)
 
@@ -332,8 +336,13 @@ The save data is stored by `JsonAddressBookStorage` in a `.json` file. Thus, it 
 
 To `import` files, the user needs to be able to create files that are compatible with the `import` process. The `export` feature serves to facilitate that conversion process, converting the user's cached AddressBook into a compatible file.
 
-Exports follow the sequence below:
-![Export Sequence Diagram](images/ExportSequenceDiagram.png)
+An overview of the `export` process is shown as per the activity diagram below:
+
+![ExportActivityDiagram](images/ExportActivityDiagram.png)
+
+How the `export` function is coordinated across the various components is shown in the sequence diagram below:
+
+![ExportSequenceDiagram](images/ExportSequenceDiagram.png)
 
 1. The command for `export` is given, along with output destination and any tags.
 2. The `UI` calls the `Logic` manager to execute the command.
@@ -354,7 +363,7 @@ Exports follow the sequence below:
 
 Compatibility with `.csv` files has been added, providing users with an alternative file format for `import`ing and `export`ing data. 
 
-`.csv` files can be both exported and imported. `Import`s follow a similar flow as [importing `.json` files.](#importing-contact-lists).
+`.csv` files can be both exported and imported. 
 
 
 --------------------------------------------------------------------------------------------------------------------
