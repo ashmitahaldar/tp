@@ -201,6 +201,11 @@ Examples:
 
 Adds or edits a freeform note for an existing contact in the address book. The note will be displayed in the contact info panel.
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use `note` to add contextual information about a contact useful to student leaders 
+(e.g., role reminders, special requirements, availability, or important personal details).
+</div>
+
 Format: `note INDEX note/[NOTE]`
 
 * Adds or edits the note of the contact at the specified `INDEX`.
@@ -217,7 +222,12 @@ Examples:
 
 ### Logging an interaction with a person : `log`
 
-Adds a log entry to document an interaction with an existing contact in the address book.
+Adds a log entry to document an interaction with an existing contact in the address book. 
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use `log` to log calls, meetings, emails, and similar information with a contact to track follow-ups, commitments, and 
+interaction history for event coordination and handovers.
+</div>
 
 Format: `log INDEX m/MESSAGE [t/TYPE]`
 
