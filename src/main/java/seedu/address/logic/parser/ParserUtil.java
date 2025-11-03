@@ -29,6 +29,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INPUT = "Invalid input syntax - please refer to the syntax below.";
     /** The confirmation keyword required from the user to proceed with destructive operations like clear. */
     public static final String CLEAR_CONFIRMATION_MESSAGE = "confirm";
     /**
@@ -38,6 +39,11 @@ public class ParserUtil {
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+        try {
+            Integer.parseInt(trimmedIndex);
+        } catch (NumberFormatException e) {
+            throw new ParseException(MESSAGE_INVALID_INPUT);
+        }
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }

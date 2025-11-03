@@ -31,7 +31,7 @@ public class LogCommandParser implements Parser<LogCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(ive.getMessage() + "\n" + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     LogCommand.MESSAGE_USAGE), ive);
         }
 
