@@ -21,7 +21,7 @@ public class LogCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Logs an interaction with the contact identified "
             + "by the index number used in the last person listing. "
-            + "The log entry will be added to the interaction history.\n"
+            + "The log entry will be added to the interaction log.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "m/MESSAGE [t/TYPE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -33,7 +33,7 @@ public class LogCommand extends Command {
     private final String type;
 
     /**
-     * Constructs a LogCommand to add a log entry to a person's interaction history.
+     * Constructs a LogCommand to add a log entry to a person's interaction log.
      *
      * @param index the index of the person in the filtered person list
      * @param message the log message describing the interaction
@@ -48,7 +48,7 @@ public class LogCommand extends Command {
     }
 
     /**
-     * Executes the command and adds a log entry to the person's interaction history.
+     * Executes the command and adds a log entry to the person's interaction log.
      *
      * @param model the model which the command should operate on
      * @return the result of command execution containing a success message
@@ -65,6 +65,8 @@ public class LogCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
+
+        model.saveAddressBookState();
 
         // Create new log entry
         LogEntry newEntry = new LogEntry(message, type);

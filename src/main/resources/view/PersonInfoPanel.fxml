@@ -8,11 +8,11 @@
 
 <?import javafx.scene.control.Separator?>
 <ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fitToWidth="true" fitToHeight="true" styleClass="background">
+            fitToWidth="true" fitToHeight="false" vbarPolicy="ALWAYS" styleClass="background">
     <content>
         <VBox fx:id="infoBox" spacing="8" alignment="TOP_LEFT" fillWidth="true"
               styleClass="background" style="-fx-padding: 12;">
-            <Label fx:id="name" styleClass="label-header"/>
+            <Label fx:id="name" styleClass="label-header" wrapText="true"/>
             <VBox spacing="8">
                 <Label fx:id="phoneLabel" text="Phone:" styleClass="label-info-type"/>
                 <Hyperlink fx:id="phone" styleClass="label-bright" onAction="#onPhoneClick"/>
@@ -42,20 +42,25 @@
                     <FlowPane fx:id="statTagFlow" hgap="8" vgap="8" id="tags"/>
                 </VBox>
                 <VBox spacing="4">
-                    <Label text="Most common location" styleClass="label-info-type"/>
-                    <Label fx:id="statsLocationValue" styleClass="label-bright"/>
+                    <Label text="Most common email domain" styleClass="label-info-type"/>
+                    <Label fx:id="statsEmailValue" styleClass="label-bright"/>
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="Person with most logs" styleClass="label-info-type"/>
+                    <Label fx:id="statsLogValue" styleClass="label-bright"/>
                 </VBox>
             </VBox>
 
             <Separator/>
-            <VBox spacing="8" prefHeight="200.0" prefWidth="300.0">
+            <VBox spacing="8" prefWidth="300.0">
                 <Label fx:id="notesLabel" text="Notes:" styleClass="label-info-type"/>
-                <Label fx:id="note" styleClass="label-bright" wrapText="true"/>
+                <Label fx:id="note" styleClass="label-bright" wrapText="true"
+                       maxWidth="Infinity" maxHeight="Infinity" VBox.vgrow="ALWAYS"/>
             </VBox>
             <Separator></Separator>
-            <VBox spacing="8" prefHeight="200.0" prefWidth="300.0">
-                <Label fx:id="logLabel" text="Interaction History:" styleClass="label-info-type"/>
-                <VBox fx:id="logContainer" spacing="4"/>
+            <VBox spacing="8" prefWidth="300.0">
+                <Label fx:id="logLabel" text="Interaction Log:" styleClass="label-info-type"/>
+                <VBox fx:id="logContainer" spacing="4" maxWidth="Infinity" fillWidth="true"/>
             </VBox>
         </VBox>
     </content>

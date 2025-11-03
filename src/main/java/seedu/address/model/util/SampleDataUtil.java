@@ -32,7 +32,7 @@ public class SampleDataUtil {
                 .addLogEntry(new LogEntry("Met to discuss CS2103T", "meeting"));
         return new Person[] {
             new Person(new Name("Queensway Shirt Vendor"), new Phone("97110393"), new TelegramHandle("@queenshirts"),
-                    new Email("qs@gmail"), new Address("Queensway Shopping Centre"),
+                    new Email("qs@gmail.com"), new Address("Queensway Shopping Centre"),
                     getTagSet("Shirt"), EMPTY_NOTE, EMPTY_LOGS),
             new Person(new Name("Riley Tan"), new Phone("93838383"), new TelegramHandle("@rileyy"),
                     new Email("osa@nus.sg"), new Address("123 Serangoon Road"),

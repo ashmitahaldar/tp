@@ -15,6 +15,7 @@ title: User Guide
   * [Viewing help](#view)
   * [Adding a contact](#add)
   * [Listing all contacts](#list)
+  * [Statistics table](#stats)
   * [Editing a contact](#edit)
   * [Adding a note to a contact](#note)
   * [Locating contacts by name](#find)
@@ -115,7 +116,10 @@ The command line will prompt the correct format when syntax is wrong.
 
 Adds a contact to the address book.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER [tele/TELEGRAM] e/EMAIL a/ADDRESS [t/TAG]…​`
+
+- Names should only contain letters, numbers, spaces, and these symbols: ', `, ’, ., -, @, (, ) or a literal comma.
+- They should not start with a symbol and must not be blank.
 
 - Accepts international format phone numbers as well, for example (+65-9123-4567, +62 812 5555 1234) which use +, -, ()
 
@@ -123,16 +127,31 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 A contact can have any number of tags (including 0)
 </div>
 
-**WARNING**: Email does not check for domains like .com because of unique organisations
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+Tags are automatically converted to lowercase for consistency. For example, `t/Friends` will be stored as `friends`. This prevents duplicate tags with different capitalizations.
+</div>
 
+**WARNING**: Email requires a valid format with a top-level domain (e.g., .com, .org). It must not be empty and should follow the general rules for email addresses. Ensure the domain and top-level domain are correct. Multi-level domains (e.g., co.uk) and alphanumeric top-level domains (e.g., .museum) are supported. Examples of valid emails: `example@domain.com`, `user.name@sub.domain.co.uk`.
 
 Example:
 
+- `add n/John Doe p/98765432 tele/@john_doe e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` : Adds a contact named `John Doe` with phone number `98765432`, telegram handle `@john_doe`, email `johnd@example.com`, address `311, Clementi Ave 2, #02-25`, and tags `friends` and `owesMoney` to LinkedUp.
+
 ### [Listing all contacts : `list`](#toc) <a name="list"></a>
 
-Shows a list of all contacts in the address book.
+Shows a list of all contacts in the address book. Also pulls up statistics dashboard.
 
 Format: `list`
+
+### [Pulling up statistics : `stats`](#toc) <a name="stats"></a>
+
+Shows a statistical summary of all the contacts inside LinkedUp.
+The details displayed will reflect the overall information and will not change unless core data is changed.
+E.g `filter`, `find` will not update the stats, but for `delete`, `tag` etc will cause statistics to update.
+
+For user optimisation, we have also configured `add` and `edit` (not the shortcut) to switch the display to the target contact instead of the stats to allow users to track their major changes.
+
+Format: `stats`
 
 ### [Editing a contact : `edit`](#toc) <a name="edit"></a>
 
@@ -159,7 +178,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 * Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing set of tags will be replaced by the new ones i.e adding of tags is not cumulative.
 * You can remove all the contact’s tags by typing `t/` without
   specifying any tags after it.
 
@@ -296,6 +315,8 @@ Examples:
     * Clear
     * Pin
     * Unpin
+    * Note
+    * Log
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Useful for any unintentional mistakes
@@ -316,11 +337,19 @@ Format: `import f/FILE`
 Use relative addresses for easier referencing!
 </div>
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If you move your save file, LinkedUp will not be able to find it anymore. You should re-import the save file with the new filepath. 
+</div>
+
 * Either a `.json` or a `.csv` file can be used.
 
 Example:
 * Importing a json file: `import f/data/addressbook.json`
 * Importing a csv file: `import f/data/addressbook.csv`
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+After importing a .json file, any functions will be saved on the imported .json file. However, importing a csv file will not changed the autosave's destination.
+</div>
 
 ### [Exporting your save file to `.json` or `.csv` : `export`](#toc) <a name="export"></a>
 
@@ -341,11 +370,17 @@ Sort contacts via a specific field in a specific order
 
 Format: `sort [f/FIELD] [o/ORDER]`
 
+- If `FIELD` is not specified, the default is `name`
+- If `ORDER` is not specified, the default is `asc`
+- Pinned contacts are sorted separately from unpinned contacts and will remain pinned to the top
+- Sorting is not persistent when LinkedUp is relaunched
+
 Options:
 * `[FIELD]`: One of:
     * `name`
     * `phone`
     * `email`
+    * `telegram`
     * `address`
 * `[ORDER]`: One of:
     * `asc`
@@ -359,7 +394,7 @@ Example
 
 Format: `clear`
 
-A warning will pop up, where you can type `clear confirm` to confirm the deletion.
+A warning will pop up, where you can type `clear confirm` to confirm the deletion. The `clear confirm` command will execute, regardless of any text following it
 
 ![clearWarning](images/clearWarning.png)
 
@@ -414,6 +449,7 @@ Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **Clear** | `clear`
+**Stats** | `stats`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit autofill** | `edit INDEX ​`<br> e.g.,`edit 2`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
@@ -441,6 +477,4 @@ Term | Meaning
 **Command** | A specific instruction provided by the user
 **Parameter** | Details provided by the user to alter command behaviours
 **Log** | Remarks on the modification of information of a specific contact with a time attached
-**Note** | Simple comments pertaining to a specifc contact
-
-
+**Note** | Simple comments pertaining to a specific contact
