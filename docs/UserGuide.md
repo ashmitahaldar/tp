@@ -117,6 +117,21 @@ Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER [tele/TELEGRAM] e/EMAIL a/ADDRESS [t/TAG]…​`
 
+<!-- duplicate detection note -->
+**Duplicate detection:** The address book enforces uniqueness. Two entries are considered duplicates if they share the same name (case-insensitive) AND the same phone number. If you try to add a duplicate using `add`, the command will fail with an error. Similarly, `edit` will be rejected if the resulting person would duplicate another existing entry. Imports also detect duplicates and will reject or report them during the import process.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+If you need to store multiple people with the same name, ensure they have distinct phone numbers; otherwise consider appending a distinguishing token to the name (e.g., `John Doe (work)`).
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Matching is done case-insensitively for names, so `ALICE` and `alice` are treated as the same name for duplicate detection. Phone numbers must match exactly.
+</div>
+
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
+* Only the name is searched. The name is split into whitespace-separated words, and each keyword is tested against each name word.
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
 </div>
