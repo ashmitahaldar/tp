@@ -118,6 +118,9 @@ Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER [tele/TELEGRAM] e/EMAIL a/ADDRESS [t/TAG]…​`
 
+- Names should only contain letters, numbers, spaces, and these symbols: ', `, ’, ., -, @, (, ) or a literal comma.
+- They should not start with a symbol and must not be blank.
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
 </div>
