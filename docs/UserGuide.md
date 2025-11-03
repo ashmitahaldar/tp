@@ -206,23 +206,23 @@ Finds contacts whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Fuzzy matching is supported: minor typos are tolerated (e.g. \`find Jhn\` will match \`John\`).
-* contacts matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
+* Only the name is searched. The name is split into whitespace-separated words, and each keyword is tested against each name word.
+* Matching rules applied to each keyword:
+  - Full-word match (case-insensitive): a name word exactly equals the keyword.
+  - Substring match (case-insensitive): a name word contains the keyword as a substring. This is only allowed when the keyword length is 3 or more characters to reduce noisy matches for very short keywords.
+  - Fuzzy match: minor typos are tolerated using Levenshtein distance. By default the fuzzy threshold supplied is 2 edits; however, when the name word being compared is very short (fewer than 4 characters), only up to 1 edit is allowed to avoid overly-permissive matches.
+* Keywords are combined with OR semantics: a person is returned if at least one keyword matches at least one word in their name under the rules above.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find mario` returns `Mario Wong` and `Maria`
-* `find Rile` returns `Riley Tan`<br>
-  ![result for 'find Riley'](images/Find.png)
-
+* `find John` returns `john` and `John Doe`.
+* `find mario` returns `Mario Wong` and `Maria` (substring/fuzzy may apply).
+* `find Han` (length 3) can match `Hans` because substring matching is enabled for keywords of length 3 or more.
+* `find Jhn` demonstrates fuzzy matching: a small typo in the keyword can still match `John`.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use five or more characters to utilize fuzzy search effectively
+Use three or more characters for a keyword when you want substring matching to be available; for very short keywords (1-2 characters) only full-word and fuzzy matching are considered to avoid noisy results.
 </div>
 
 ### [Filtering contacts by tags: `filter`](#toc) <a name="filter"></a>
