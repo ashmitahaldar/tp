@@ -63,8 +63,8 @@ title: User Guide
 
     * `list` : Lists all contacts.
 
-   * `add n/Sarah Tan p/91234567 tele/@sarahtan_nus e/sarah.tan@u.nus.edu a/21 Lower Kent Ridge Road, #12-08 t/President t/ComputingClub
-` : Adds a contact named `Sarah Tan` to LinkedUp.
+   * `add n/Jackson Santoso p/9234567 tele/@jacksonS e/jackson@gmail.com a/Clementi Ave 2 Blk 555 t/Vice President t/ComputingClub
+` : Adds a contact named `Jackson Santoso` to LinkedUp.
 
     * `delete 3` : Deletes the 3rd contact shown in the current list.
 

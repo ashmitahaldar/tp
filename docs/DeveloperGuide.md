@@ -22,7 +22,7 @@ title: Developer Guide
 
 ### Architecture
 
-<img src="images/ArchitectureSequenceDiagram.png" width="280" />
+<img src="images/ArchitectureDiagram.jpg" width="280" />
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
