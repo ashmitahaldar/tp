@@ -41,14 +41,13 @@ public class LogCommandParser implements Parser<LogCommand> {
                     LogCommand.MESSAGE_USAGE));
         }
 
-        String message = argMultimap.getValue(PREFIX_MESSAGE).get().trim();
-        if (message.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    LogCommand.MESSAGE_USAGE));
-        }
+        String message = ParserUtil.parseLogMessage(argMultimap.getValue(PREFIX_MESSAGE).get());
 
         // Type is optional, defaults to empty string
-        String type = argMultimap.getValue(PREFIX_TYPE).orElse("").trim();
+        String type = "";
+        if (argMultimap.getValue(PREFIX_TYPE).isPresent()) {
+            type = ParserUtil.parseLogType(argMultimap.getValue(PREFIX_TYPE).get());
+        }
 
         return new LogCommand(index, message, type);
     }
