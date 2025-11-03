@@ -314,6 +314,10 @@ Format: `import f/FILE`
 Use relative addresses for easier referencing!
 </div>
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+If you move your save file, LinkedUp will not be able to find it anymore. You should re-import the save file with the new filepath. 
+</div>
+
 * Either a `.json` or a `.csv` file can be used.
 
 Example:
