@@ -235,18 +235,19 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 _
+
 ### Find Command with Fuzzy Matching
 
 The `find` command uses three matching strategies to locate contacts:
 
 1. **Full-word match** (case-insensitive): Exact match of keyword to any word in the name
 2. **Fuzzy match**: Uses Levenshtein distance algorithm with threshold of 2 character differences
-3. **Substring match**: Only applied for keywords equal to or longer than 4 characters
+3. **Substring match**: Only applied for keywords equal to or longer than 3 characters
 
 #### Implementation:
 - `NameContainsKeywordsPredicate#matchesKeyword()` implements the matching logic
-- Keywords < 4 characters: Only full-word and fuzzy matching applied (prevents noisy results from short queries like "an")
-- Keywords >= 4 characters: All three strategies applied
+- Keywords < 3 characters: Only full-word and substring matching applied (prevents noisy results from short queries like "an")
+- Keywords >= 3 characters: All three strategies applied
 - Each word in a person's name is tested independently
 
 #### Design considerations:
