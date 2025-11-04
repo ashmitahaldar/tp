@@ -4,6 +4,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INPUT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
@@ -35,9 +36,11 @@ public class NoteCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteCommand.MESSAGE_USAGE);
 
         // no parameters
-        assertParseFailure(parser, NoteCommand.COMMAND_WORD, expectedMessage);
+        assertParseFailure(parser, NoteCommand.COMMAND_WORD, MESSAGE_INVALID_INPUT + "\n"
+                + expectedMessage);
 
         // no index
-        assertParseFailure(parser, NoteCommand.COMMAND_WORD + " " + nonEmptyNote, expectedMessage);
+        assertParseFailure(parser, NoteCommand.COMMAND_WORD + " " + nonEmptyNote,
+                MESSAGE_INVALID_INPUT + "\n" + expectedMessage);
     }
 }

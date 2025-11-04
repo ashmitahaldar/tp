@@ -4,42 +4,36 @@
 start
 :Receive keyword and name word;
 
-if () then (keyword length <= 4)
+if () then ([keyword length <= 4])
   :Check full-word match;
-  if () then (full-word match)
+  if () then ([full-word match])
     :Return TRUE;
-    stop
-  else (no match)
+  else ([no match])
     :Calculate Levenshtein distance;
-    if () then (distance <= 2)
+    if () then ([distance <= 2])
       :Return TRUE (fuzzy match);
-      stop
-    else (distance > 2)
+    else ([distance > 2])
       :Return FALSE;
-      stop
     endif
   endif
-else (keyword length > 4)
+else ([keyword length > 4])
   :Check full-word match;
-  if () then (full-word match)
+  if () then ([full-word match])
     :Return TRUE;
-    stop
-  else (no match)
+  else ([no match])
     :Check substring match;
-    if () then (substring match)
+    if () then ([substring match])
       :Return TRUE;
-      stop
-    else (no match)
+    else ([no match])
       :Calculate Levenshtein distance;
-      if () then (distance <= 2)
+      if () then ([distance <= 2])
         :Return TRUE (fuzzy match);
-        stop
-      else (distance > 2)
+      else ([distance > 2])
         :Return FALSE;
-        stop
       endif
     endif
   endif
 endif
 
+stop
 @enduml
