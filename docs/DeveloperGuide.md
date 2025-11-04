@@ -10,11 +10,14 @@ title: Developer Guide
 ## **Acknowledgements**
 
 * This project is based on the AddressBook-Level3 project created by the SE-EDU initiative. Source code can be found at https://github.com/nus-cs2103-AY2526S1/tp
-* **AI Generation** Team member Kho Wei Fong used Google Gemini to generate the icon replacing AB3's default icon.
+* **AI Generation**: Team member Kho Wei Fong used **Google Gemini** to generate the icon replacing AB3's default icon.
 * **AI Assistance**: Team member Kulkarni Venugopal Vasant utilized **Claude Code** as a development aid during this project. The tool was used in the following specific ways:
   * **Software Design Consultation**: Claude Code was used as a discussion partner to explore different approaches and design patterns for features such as the `InteractionLog` system. This involved asking questions about data structure choices, class relationships, and implementation trade-offs (e.g. making InteractionLog immutable). The AI helped think through design decisions, but all final design choices and implementations were made and coded by the team member.
   * **JavaDoc Documentation**: Claude Code assisted in drafting JavaDoc comments based on already-written code to ensure proper documentation formatting and completeness. These generated comments were reviewed and often modified to match our specific implementation details and be consistent with the codebase.
   * **Unit Test Generation**: Claude Code was used to generate some unit tests, primarily for the `PinCommand` and `UnpinCommand`. All generated tests were thoroughly reviewed, modified where necessary, and verified to ensure correctness and meaningful test coverage for our specific implementation.
+* **AI Assistance**: Team member Tan Peng Kiang used **Claude** to suggest dashboard metrics and identify outdated/overly-technical sections in `docs/UserGuide.md`. Outputs were reviewed and edited before being applied.
+* **AI Assistance**: Team member Ng Mun Hin used **ChatGPT** to create and refine phone number and name regular expressions. Outputs were reviewed and edited before being applied.
+* **AI Assistance**: Team member Ashmita Haldar used **GitHub Copilot** as a development aid, to draft and refine JavaDoc documentation, and to generate unit tests. Outputs were reviewed and edited before being applied.
 
 --------------------------------------------------------------------------------------------------------------------
 
