@@ -11,6 +11,10 @@ title: Developer Guide
 
 * This project is based on the AddressBook-Level3 project created by the SE-EDU initiative. Source code can be found at https://github.com/nus-cs2103-AY2526S1/tp
 * **AI Generation** Team member Kho Wei Fong used Google Gemini to generate the icon replacing AB3's default icon.
+* **AI Assistance**: Team member Kulkarni Venugopal Vasant utilized **Claude Code** as a development aid during this project. The tool was used in the following specific ways:
+  * **Software Design Consultation**: Claude Code was used as a discussion partner to explore different approaches and design patterns for features such as the `InteractionLog` system. This involved asking questions about data structure choices, class relationships, and implementation trade-offs (e.g. making InteractionLog immutable). The AI helped think through design decisions, but all final design choices and implementations were made and coded by the team member.
+  * **JavaDoc Documentation**: Claude Code assisted in drafting JavaDoc comments based on already-written code to ensure proper documentation formatting and completeness. These generated comments were reviewed and often modified to match our specific implementation details and be consistent with the codebase.
+  * **Unit Test Generation**: Claude Code was used to generate some unit tests, primarily for the `PinCommand` and `UnpinCommand`. All generated tests were thoroughly reviewed, modified where necessary, and verified to ensure correctness and meaningful test coverage for our specific implementation.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -50,7 +54,7 @@ The bulk of the app's work is done by the following five components:
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-<img src="images/ArchitectureSequenceDiagram.jpg" width="574" />
+<img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
@@ -124,12 +128,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.jpg" width="450" />
-
-</div>
-
 
 ### Storage component
 
@@ -166,27 +164,27 @@ These operations are exposed in the `Model` interface as `Model#saveAddressBookS
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The `AddressBookVersionHistory` is initialized with the current address book state pushed onto the `undoStack`, while the `redoStack` is empty.
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The delete command calls `Model#saveAddressBookState()`, which pushes the modified address book state onto the `undoStack` and clears the `redoStack`.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `AddressBookVersionHistory`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `AddressBookVersionHistory`.
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The undo command pops the latest state from the `undoStack` and pushes it onto the `redoStack`, restoring the previous address book state from the new top of the `undoStack`.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `undoStack` is empty then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </div>
@@ -203,17 +201,17 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 ![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which pops the latest state from the `redoStack` and pushes it back onto the `undoStack`, restoring that state as the current address book.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** If the `redoStack` is empty then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </div>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `AddressBookVersionHistory` remains unchanged.
 
 ![UndoRedoState4](images/UndoRedoState4.png)
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since there are states stored in the `redoStack` (representing redo history), executing a new command clears the `redoStack` — consistent with standard undo/redo behavior.
 
 ![UndoRedoState5](images/UndoRedoState5.png)
 
@@ -366,6 +364,17 @@ Compatibility with `.csv` files has been added, providing users with an alternat
 
 `.csv` files can be both exported and imported. 
 
+
+### Sort Command and Comparators
+
+- The `sort` command allows users to reorder their contact list by a specified field and order.
+- Possible fields include `name`, `email`, `phone`, `telegram`, or `address`.
+- Possible orders include `asc` or `desc`.
+- Note that contacts are sorted by pinned status before the second comparator is applied.
+
+When executed, the `SortCommand` constructs a `Comparator<Person>` based on the selected field and order to be composed on the pinned status comparator by the `Model`.
+
+The default sorting comparator applied on program startup sorts by pinned status first before name in ascending order.
 
 --------------------------------------------------------------------------------------------------------------------
 

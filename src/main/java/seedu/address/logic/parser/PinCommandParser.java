@@ -22,7 +22,8 @@ public class PinCommandParser implements Parser<PinCommand> {
             return new PinCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE), pe);
+                    String.format(pe.getMessage() + "\n" + MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE),
+                    pe);
         }
     }
 

@@ -83,8 +83,8 @@ Assumptions about user skills:
 
     * `list` : Lists all contacts.
 
-   * `add n/Sarah Tan p/91234567 tele/@sarahtan_nus e/sarah.tan@u.nus.edu a/21 Lower Kent Ridge Road, #12-08 t/President t/ComputingClub
-` : Adds a contact named `Sarah Tan` to LinkedUp.
+   * `add n/Jackson Santoso p/9234567 tele/@jacksonS e/jackson@gmail.com a/Clementi Ave 2 Blk 555 t/Vice President t/ComputingClub
+` : Adds a contact named `Jackson Santoso` to LinkedUp.
 
     * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -138,8 +138,28 @@ Adds a contact to the address book.
 
 Format: `add n/NAME p/PHONE_NUMBER [tele/TELEGRAM] e/EMAIL a/ADDRESS [t/TAG]…​`
 
+<!-- duplicate detection note -->
+**Duplicate detection:** The address book enforces uniqueness. Two entries are considered duplicates if they share the same name (case-insensitive) AND the same phone number. If you try to add a duplicate using `add`, the command will fail with an error. Similarly, `edit` will be rejected if the resulting person would duplicate another existing entry. Imports also detect duplicates and will reject or report them during the import process.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+If you need to store multiple people with the same name, ensure they have distinct phone numbers; otherwise consider appending a distinguishing token to the name (e.g., `John Doe (work)`).
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Matching is done case-insensitively for names, so `ALICE` and `alice` are treated as the same name for duplicate detection. Phone numbers must match exactly.
+</div>
+
+- Names should only contain letters, numbers, spaces, and these symbols: ', `, ’, ., -, @, (, ) or a literal comma.
+- They should not start with a symbol and must not be blank.
+
+- Accepts international format phone numbers as well, for example (+65-9123-4567, +62 812 5555 1234) which use +, -, ()
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A contact can have any number of tags (including 0)
+</div>
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:**
+Tags are automatically converted to lowercase for consistency. For example, `t/Friends` will be stored as `friends`. This prevents duplicate tags with different capitalizations.
 </div>
 
 **WARNING**: Email requires a valid format with a top-level domain (e.g., .com, .org). It must not be empty and should follow the general rules for email addresses. Ensure the domain and top-level domain are correct. Multi-level domains (e.g., co.uk) and alphanumeric top-level domains (e.g., .museum) are supported. Examples of valid emails: `example@domain.com`, `user.name@sub.domain.co.uk`.
@@ -241,29 +261,33 @@ Examples:
 * `log 1 m/Called about catering quote, they'll email by Friday t/call`
 * `log 2 m/Informed to deliver goods by 29/11/25`
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+Once a log entry is added, it cannot be edited or deleted. Please ensure the information is accurate before creating the log. You can use the `undo` command immediately after logging if you need to remove the most recent log entry.
+</div>
+
 ### [Locating contacts by name: `find`](#toc) <a name="find"></a>
 
 Finds contacts whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Fuzzy matching is supported: minor typos are tolerated (e.g. \`find Jhn\` will match \`John\`).
-* contacts matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
+* Only the name is searched. The name is split into whitespace-separated words, and each keyword is tested against each name word.
+* Matching rules applied to each keyword:
+  - Full-word match (case-insensitive): a name word exactly equals the keyword.
+  - Substring match (case-insensitive): a name word contains the keyword as a substring. This is only allowed when the keyword length is 3 or more characters to reduce noisy matches for very short keywords.
+  - Fuzzy match: minor typos are tolerated using Levenshtein distance. By default the fuzzy threshold supplied is 2 edits; however, when the name word being compared is very short (fewer than 4 characters), only up to 1 edit is allowed to avoid overly-permissive matches.
+* Keywords are combined with OR semantics: a person is returned if at least one keyword matches at least one word in their name under the rules above.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find mario` returns `Mario Wong` and `Maria`
-* `find Rile` returns `Riley Tan`<br>
-  ![result for 'find Riley'](images/Find.png)
-
+* `find John` returns `john` and `John Doe`.
+* `find mario` returns `Mario Wong` and `Maria` (substring/fuzzy may apply).
+* `find Han` (length 3) can match `Hans` because substring matching is enabled for keywords of length 3 or more.
+* `find Jhn` demonstrates fuzzy matching: a small typo in the keyword can still match `John`.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use five or more characters to utilize fuzzy search effectively
+Use three or more characters for a keyword when you want substring matching to be available; for very short keywords (1-2 characters) only full-word and fuzzy matching are considered to avoid noisy results.
 </div>
 
 ### [Filtering contacts by tags: `filter`](#toc) <a name="filter"></a>
@@ -455,6 +479,21 @@ Furthermore, certain edits can cause LinkedUp to behave in unexpected ways (e.g.
 
 1. You can use `export f/FILE` to create either a `.csv` file or a `.json` file.
 1. Copy your file of choice to your other computer, then use `import f/FILE` to use your data in your other computer.
+
+**Q**: What is the maximum number of undo operations I can perform?<br>
+**A**: You can undo up to 50 operations. Each time you perform an action that edits contact details directly, a new state is saved to the undo history. Once the history reaches 50 states, the oldest state is automatically removed when a new state is added, allowing the system to maintain a fixed memory usage.
+
+**Q**: What happens when I exceed the 50 undo limit?<br>
+**A**: When you perform your 51st undoable action, the oldest saved state is automatically removed from the undo history to maintain the limit of 50 states. This means you can no longer undo beyond the 50 most recent actions. Additionally, any redo history is cleared whenever you perform a new action that edits contact details.
+
+**Q**: Which actions trigger undo functionality?<br>
+**A**: Only actions that directly edit contact details are recorded in the undo history. These include:
+
+Adding a new contact
+Deleting an existing contact
+Editing contact information (name, phone, email, address, tags, etc.)
+
+Actions that do not trigger undo include viewing contacts, searching, filtering, or other display-related operations.
 
 --------------------------------------------------------------------------------------------------------------------
 

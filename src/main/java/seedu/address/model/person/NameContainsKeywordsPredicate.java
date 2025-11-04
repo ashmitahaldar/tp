@@ -54,10 +54,10 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         }
 
-        // For short keywords (length < 4) do NOT perform substring matching to avoid noisy matches.
-        if (trimmed.length() < 4) {
+        // For short keywords (length < 3) do NOT perform substring matching to avoid noisy matches.
+        if (trimmed.length() < 3) {
             return StringUtil.containsWordIgnoreCase(word, trimmed)
-                    || StringUtil.fuzzyMatch(word, trimmed, threshold);
+                    || StringUtil.containsSubstringIgnoreCase(word, trimmed);
         }
 
         // For longer keywords allow substring matching in addition to full-word and fuzzy matches.
