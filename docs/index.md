@@ -8,10 +8,12 @@ title: AddressBook Level-3
 
 ![Ui](images/Ui.png)
 
-**AddressBook is a desktop application for managing your contact details.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
+**LinkedUp is designed for university student leaders** including club presidents, society executives, event organizers, student council members, and committee heads who manage extensive networks of contacts across campus and beyond. These users typically manage 50-500+ contacts including fellow students, faculty advisors, alumni mentors, corporate sponsors, venue coordinators, and partner organization representatives.
 
-* If you are interested in using AddressBook, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* If you are interested about developing AddressBook, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
+**LinkedUp empowers student leaders to organize their professional networks efficiently through fast, typing-based commands.**
+
+* If you are interested in using LinkedUp, head over to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
+* If you are interested about developing LinkedUp, the [**Developer Guide**](DeveloperGuide.html) is a good place to start.
 
 
 **Acknowledgements**
