@@ -231,6 +231,10 @@ Examples:
 * `log 1 m/Called about catering quote, they'll email by Friday t/call`
 * `log 2 m/Informed to deliver goods by 29/11/25`
 
+<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+Once a log entry is added, it cannot be edited or deleted. Please ensure the information is accurate before creating the log. You can use the `undo` command immediately after logging if you need to remove the most recent log entry.
+</div>
+
 ### [Locating contacts by name: `find`](#toc) <a name="find"></a>
 
 Finds contacts whose names contain any of the given keywords.

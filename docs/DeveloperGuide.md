@@ -10,6 +10,10 @@ title: Developer Guide
 ## **Acknowledgements**
 
 * This project is based on the AddressBook-Level3 project created by the SE-EDU initiative. Source code can be found at https://github.com/nus-cs2103-AY2526S1/tp
+* **AI Assistance**: Team member Kulkarni Venugopal Vasant utilized **Claude Code** as a development aid during this project. The tool was used in the following specific ways:
+  * **Software Design Consultation**: Claude Code was used as a discussion partner to explore different approaches and design patterns for features such as the `InteractionLog` system. This involved asking questions about data structure choices, class relationships, and implementation trade-offs (e.g. making InteractionLog immutable). The AI helped think through design decisions, but all final design choices and implementations were made and coded by the team member.
+  * **JavaDoc Documentation**: Claude Code assisted in drafting JavaDoc comments based on already-written code to ensure proper documentation formatting and completeness. These generated comments were reviewed and often modified to match our specific implementation details and be consistent with the codebase.
+  * **Unit Test Generation**: Claude Code was used to generate some unit tests, primarily for the `PinCommand` and `UnpinCommand`. All generated tests were thoroughly reviewed, modified where necessary, and verified to ensure correctness and meaningful test coverage for our specific implementation.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -122,12 +126,6 @@ The `Model` component,
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.jpg" width="450" />
-
-</div>
 
 
 ### Storage component
