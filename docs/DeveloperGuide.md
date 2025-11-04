@@ -357,6 +357,17 @@ Compatibility with `.csv` files has been added, providing users with an alternat
 `.csv` files can be both exported and imported. `Import`s follow a similar flow as [importing `.json` files.](#importing-contact-lists).
 
 
+### Sort Command and Comparators
+
+- The `sort` command allows users to reorder their contact list by a specified field and order.
+- Possible fields include `name`, `email`, `phone`, `telegram`, or `address`.
+- Possible orders include `asc` or `desc`.
+- Note that contacts are sorted by pinned status before the second comparator is applied.
+
+When executed, the `SortCommand` constructs a `Comparator<Person>` based on the selected field and order to be composed on the pinned status comparator by the `Model`.
+
+The default sorting comparator applied on program startup sorts by pinned status first before name in ascending order.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
