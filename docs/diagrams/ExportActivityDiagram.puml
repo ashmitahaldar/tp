@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+
+start
+:Receive export filepath and tags;
+:filter address book by tags;
+if () then ([filepath suffix is ".csv"])
+  while () is ([person in address book])
+    :retrieve person fields;
+    :format fields;
+    :write field to csv;
+  endwhile ([no unexported persons left])
+else ([filepath suffix is ".json"])
+  while () is ([person in address book])
+    :retrieve person fields;
+    :write person and fields to json;
+  endwhile ([no unparsed rows remaining])
+endif
+stop
+
+@enduml

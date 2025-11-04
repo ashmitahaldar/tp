@@ -5,10 +5,29 @@ title: User Guide
 
 ## LinkedUp User Guide
 
-**LinkedUp is designed for university student leaders** including club presidents, society executives, event organizers, student council members, and committee heads who manage extensive networks of contacts across campus and beyond. These users typically manage 50-500+ contacts including fellow students, faculty advisors, alumni mentors, corporate sponsors, venue coordinators, and partner organization representatives. **The application assumes users are comfortable with typing and prefer keyboard-based workflows** over mouse-driven interfaces, valuing speed and efficiency in data entry and retrieval. Users are expected to be familiar with basic command syntax similar to using search bars or messaging apps, and need categorization and tagging capabilities to organize contacts by role, project, or affiliation without complex navigation.
+**LinkedUp is designed for university student leaders** including club presidents, society executives, event organizers, student council members, and committee heads who manage extensive networks of contacts across campus and beyond. These users typically manage 50-500+ contacts including fellow students, faculty advisors, alumni mentors, corporate sponsors, venue coordinators, and partner organization representatives.
+**LinkedUp empowers student leaders to organize their professional networks efficiently through fast, typing-based commands.**
 
-**LinkedUp empowers student leaders to organize their professional networks efficiently through fast, typing-based commands.** Instead of clicking through multiple menus, users simply type short commands to add contacts, search for specific people, categorize relationships, and retrieve information instantly. The application displays all contact information, search results, and organized lists visually while letting users work at typing speed, combining the speed of text-based input with the clarity of visual presentation. Whether you're a club president tracking member information, an event organizer managing vendor contacts, or a society executive coordinating with sponsors, **LinkedUp helps you maintain your network without slowing you down**, making it ideal for users who need quick access to their contacts during busy coordination work.
+![Ui](images/Ui.png)
 
+Instead of clicking through multiple menus, users simply type short commands to add contacts, search for specific people, categorize relationships, and retrieve information instantly. 
+
+The application displays all contact information, search results, and organized lists visually while letting users work at typing speed, combining the speed of text-based input with the clarity of visual presentation. 
+
+Whether you're a club president tracking member information, an event organizer managing vendor contacts, or a society executive coordinating with sponsors, **LinkedUp helps you maintain your network without slowing you down**, making it ideal for users who need quick access to their contacts during busy coordination work.
+
+Expectations:
+- **The application assumes users are comfortable with typing and prefer keyboard-based workflows** over mouse-driven interfaces, valuing speed and efficiency in data entry and retrieval.
+- Users are expected to be familiar with basic command syntax similar to using search bars or messaging apps, and need categorization and tagging capabilities to organize contacts by role, project, or affiliation without complex navigation.
+
+Assumptions about user skills:
+- Basic command-line familiarity: opening a terminal, navigating folders (e.g., `cd`), and running the application (e.g., `java -jar linkedup.jar`). Able to copy/paste multi-line commands correctly.
+- Understanding of simple data concepts used by the app: 1-based indexes, tags, and contact fields (name, phone, email, telegram, address).
+- Comfortable reading short on-screen prompts and help text, and able to edit autofilled commands (e.g., `edit`) before confirming.
+- Basic English literacy sufficient to interpret command keywords and UI labels.
+- Basic awareness of data privacy and backup practices: avoid storing sensitive credentials in notes, and back up the `data/addressbook.json` file before manual edits.
+
+# Table of Contents
 - [Setup](#setup)
 - [QuickStart](#quickstart)
 - [Features](#features)
@@ -52,7 +71,8 @@ title: User Guide
   - Save the file to the folder you want to use as the _home folder_ for your LinkedUp installation.
 
 - Running LinkedUp
-  - Open a command terminal, `cd` into the folder you put the jar file in (e.g `cd linkedupfolder`), and use the `java -jar linkedup.jar` command to run the application.<br>
+  - Open a command terminal and enter `cd` commands to navigate to the folder you put the jar file in (e.g enter `cd linkedupfolder`)
+  - Use the `java -jar linkedup.jar` command to run the application.<br>
      A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
      ![Ui](images/Ui.png)
 
@@ -88,13 +108,13 @@ title: User Guide
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
+* Items with `…`​ after them means you can repeat that parameter any number of times (including none)<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extra parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -176,7 +196,7 @@ Format: `edit INDEX​`
 Example:
 * `edit 3`
 
-The command line will autofill the person in index 3 as shown below without changing actual data
+The command line will autofill the contact in index 3 as shown below without changing actual data
 
 ![Edit](images/Edit.png)
 
@@ -201,6 +221,11 @@ Examples:
 
 Adds or edits a freeform note for an existing contact in the address book. The note will be displayed in the contact info panel.
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use `note` to add contextual information about a contact useful to student leaders 
+(e.g., role reminders, special requirements, availability, or important personal details).
+</div>
+
 Format: `note INDEX note/[NOTE]`
 
 * Adds or edits the note of the contact at the specified `INDEX`.
@@ -215,14 +240,19 @@ Examples:
 * `note 2 note/Prefers email communication` Adds a note about communication preference to the 2nd contact.
 * `note 1 note/` Removes the note from the 1st contact.
 
-### Logging an interaction with a person : `log`
+### Logging an interaction with a contact : `log`
 
-Adds a log entry to document an interaction with an existing contact in the address book.
+Adds a log entry to document an interaction with an existing contact in the address book. 
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use `log` to log calls, meetings, emails, and similar information with a contact to track follow-ups, commitments, and 
+interaction history for event coordination and handovers.
+</div>
 
 Format: `log INDEX m/MESSAGE [t/TYPE]`
 
-* Adds a log entry for the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Adds a log entry for the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The `MESSAGE` describes the interaction.
 * The optional `TYPE` specifies the type of interaction (e.g., "call", "meeting", "email").
@@ -340,7 +370,7 @@ Useful for any unintentional mistakes
 ### [Redoing a command : `redo`](#toc) <a name="redo"></a>
 
 * Redo last action, reverting state of application to that before previous undo
-* Redo history will be cleared when commands that edit the state of the data are made
+* Redo history will be cleared when commands that edit the state of the data are made, a.k.a new changes clear the redo history.
 
 ### [Importing a save file : `import`](#toc) <a name="import"></a>
 
@@ -363,7 +393,8 @@ Example:
 * Importing a csv file: `import f/data/addressbook.csv`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-After importing a .json file, any functions will be saved on the imported .json file. However, importing a csv file will not changed the autosave's destination.
+After importing a .json file, any functions will be saved on the imported .json file. 
+However, importing a csv file will not change the autosave's destination.
 </div>
 
 ### [Exporting your save file to `.json` or `.csv` : `export`](#toc) <a name="export"></a>
@@ -388,7 +419,7 @@ Format: `sort [f/FIELD] [o/ORDER]`
 - If `FIELD` is not specified, the default is `name`
 - If `ORDER` is not specified, the default is `asc`
 - Pinned contacts are sorted separately from unpinned contacts and will remain pinned to the top
-- Sorting is not persistent when LinkedUp is relaunched
+- Sort order resets when you restart the app.
 
 Options:
 * `[FIELD]`: One of:
@@ -506,5 +537,19 @@ Term | Meaning
 **Contact** | A set of details that represents a person as an entity
 **Command** | A specific instruction provided by the user
 **Parameter** | Details provided by the user to alter command behaviours
-**Log** | Remarks on the modification of information of a specific contact with a time attached
+**Log** | Remarks on the modification of information, or communication with a specific contact with a time attached
 **Note** | Simple comments pertaining to a specific contact
+**Tag** | A user-defined label attached to a contact to group or filter contacts (e.g., `t/friends`).
+**Index** | The 1-based number shown beside a contact in a displayed list used to reference that contact in commands.
+**Autosave** | The feature that writes changes to the current save file automatically after any data-changing command.
+**Save file** | The file where LinkedUp stores data (default: `data/addressbook.json`). Can be exported or imported as `.json` or `.csv`.
+**JSON** | A structured text format used by LinkedUp to store contact data (`.json`).
+**CSV** | A comma-separated values file used for exporting/importing contact lists (`.csv`).
+**Pinned contact** | A contact marked to always appear at the top of the list regardless of sorting.
+**Fuzzy match** | A search method that tolerates minor typos to find likely matches (works better with longer keywords).
+**Exact match** | A search method that matches only identical words or tags (no partial or fuzzy matching).
+**Autofill** | The edit shortcut that populates the command box with a contact's current details for quick editing.
+**Preference file** | Application settings stored locally (e.g., window position). Deleting it can reset GUI position.
+**Undo/Redo stack** | Internal history of changes allowing reversal (`undo`) and re-application (`redo`) of recent edits.
+**Command box** | The text input area in the visual interface where users type commands.
+**Home folder** | The folder where the `.jar` and default `data` folder are stored and where LinkedUp saves `addressbook.json`.

@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+
+start
+:Receive import filepath;
+
+if () then ([filepath suffix is ".csv"])
+  :read file;
+  :split by rows;
+  while () is ([unparsed rows remaining])
+    :create PersonBuilder;
+    :split by commas;
+    while () is ([fields remaining])
+      :split by colon;
+      :add field to PersonBuilder;
+    endwhile ([no fields remaining])
+    :add Person to AddressBook;
+  endwhile ([no unparsed rows remaining])
+else ([filepath suffix is ".json"])
+  :read file;
+  while () is ([unparsed Persons remaining])
+    :parse field details;
+    :create Person with stored field details;
+    :add Person to AddressBook;
+  endwhile ([no unparsed rows remaining])
+endif
+stop
+
+@enduml
