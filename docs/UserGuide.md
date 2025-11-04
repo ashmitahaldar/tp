@@ -63,8 +63,8 @@ title: User Guide
 
     * `list` : Lists all contacts.
 
-   * `add n/Sarah Tan p/91234567 tele/@sarahtan_nus e/sarah.tan@u.nus.edu a/21 Lower Kent Ridge Road, #12-08 t/President t/ComputingClub
-` : Adds a contact named `Sarah Tan` to LinkedUp.
+   * `add n/Jackson Santoso p/9234567 tele/@jacksonS e/jackson@gmail.com a/Clementi Ave 2 Blk 555 t/Vice President t/ComputingClub
+` : Adds a contact named `Jackson Santoso` to LinkedUp.
 
     * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -444,6 +444,21 @@ Furthermore, certain edits can cause LinkedUp to behave in unexpected ways (e.g.
 
 1. You can use `export f/FILE` to create either a `.csv` file or a `.json` file.
 1. Copy your file of choice to your other computer, then use `import f/FILE` to use your data in your other computer.
+
+**Q**: What is the maximum number of undo operations I can perform?<br>
+**A**: You can undo up to 50 operations. Each time you perform an action that edits contact details directly, a new state is saved to the undo history. Once the history reaches 50 states, the oldest state is automatically removed when a new state is added, allowing the system to maintain a fixed memory usage.
+
+**Q**: What happens when I exceed the 50 undo limit?<br>
+**A**: When you perform your 51st undoable action, the oldest saved state is automatically removed from the undo history to maintain the limit of 50 states. This means you can no longer undo beyond the 50 most recent actions. Additionally, any redo history is cleared whenever you perform a new action that edits contact details.
+
+**Q**: Which actions trigger undo functionality?<br>
+**A**: Only actions that directly edit contact details are recorded in the undo history. These include:
+
+Adding a new contact
+Deleting an existing contact
+Editing contact information (name, phone, email, address, tags, etc.)
+
+Actions that do not trigger undo include viewing contacts, searching, filtering, or other display-related operations.
 
 --------------------------------------------------------------------------------------------------------------------
 
