@@ -13,12 +13,11 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/ashmitahaldar.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/ashmitahaldar)]
 [[portfolio](https://ashmitahaldar.com)]
 
-* Role: Project Advisor & Developer
-* Responsibilities: Coding
+* Role: Developer
+* Responsibilities: Software Development
 
 ### Kulkarni Venugopal Vasant
 
