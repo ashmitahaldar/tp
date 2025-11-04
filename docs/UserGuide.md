@@ -163,7 +163,9 @@ A contact can have any number of tags (including 0)
 Tags are automatically converted to lowercase for consistency. For example, `t/Friends` will be stored as `friends`. This prevents duplicate tags with different capitalizations.
 </div>
 
-**WARNING**: Email requires a valid format with a top-level domain (e.g., .com, .org). It must not be empty and should follow the general rules for email addresses. Ensure the domain and top-level domain are correct. Multi-level domains (e.g., co.uk) and alphanumeric top-level domains (e.g., .museum) are supported. Examples of valid emails: `example@domain.com`, `user.name@sub.domain.co.uk`.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Email requires a valid format with a top-level domain (e.g., .com, .org). It must not be empty and should follow the general rules for email addresses. Ensure the domain and top-level domain are correct. Multi-level domains (e.g., co.uk) and alphanumeric top-level domains (e.g., .museum) are supported. Examples of valid emails: `example@domain.com`, `user.name@sub.domain.co.uk`.
+</div>
 
 Example:
 
@@ -262,7 +264,7 @@ Examples:
 * `log 1 m/Called about catering quote, they'll email by Friday t/call`
 * `log 2 m/Informed to deliver goods by 29/11/25`
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Warning:**
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 Once a log entry is added, it cannot be edited or deleted. Please ensure the information is accurate before creating the log. You can use the `undo` command immediately after logging if you need to remove the most recent log entry.
 </div>
 
@@ -445,7 +447,9 @@ A warning will pop up, where you can type `clear confirm` to confirm the deletio
 
 ![clearWarning](images/clearWarning.png)
 
-**WARNING**: Deletes all contact details. Data cannot be retrieved after you clear and exit the app.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+Deletes all contact details. Data cannot be retrieved after you clear and exit the app.
+</div>
 
 Format: `clear confirm`
 
