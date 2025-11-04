@@ -108,7 +108,7 @@ Assumptions about user skills:
 * Items in square brackets are optional.<br>
   e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
+* Items with `…`​ after them means you can repeat that parameter any number of times (including none)<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
 * Parameters can be in any order.<br>
@@ -346,7 +346,7 @@ Useful for any unintentional mistakes
 ### [Redoing a command : `redo`](#toc) <a name="redo"></a>
 
 * Redo last action, reverting state of application to that before previous undo
-* Redo history will be cleared when commands that edit the state of the data are made
+* Redo history will be cleared when commands that edit the state of the data are made, a.k.a new changes clear the redo history.
 
 ### [Importing a save file : `import`](#toc) <a name="import"></a>
 
@@ -369,7 +369,8 @@ Example:
 * Importing a csv file: `import f/data/addressbook.csv`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-After importing a .json file, any functions will be saved on the imported .json file. However, importing a csv file will not changed the autosave's destination.
+After importing a .json file, any functions will be saved on the imported .json file. 
+However, importing a csv file will not change the autosave's destination.
 </div>
 
 ### [Exporting your save file to `.json` or `.csv` : `export`](#toc) <a name="export"></a>
@@ -394,7 +395,7 @@ Format: `sort [f/FIELD] [o/ORDER]`
 - If `FIELD` is not specified, the default is `name`
 - If `ORDER` is not specified, the default is `asc`
 - Pinned contacts are sorted separately from unpinned contacts and will remain pinned to the top
-- Sorting is not persistent when LinkedUp is relaunched
+- Sort order resets when you restart the app.
 
 Options:
 * `[FIELD]`: One of:
