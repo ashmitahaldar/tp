@@ -27,7 +27,7 @@ Assumptions about user skills:
 - Basic English literacy sufficient to interpret command keywords and UI labels.
 - Basic awareness of data privacy and backup practices: avoid storing sensitive credentials in notes, and back up the `data/addressbook.json` file before manual edits.
 
-# Table of Contents
+# Table of Contents <a name="toc"></a>
 - [Setup](#setup)
 - [QuickStart](#quickstart)
 - [Features](#features)
