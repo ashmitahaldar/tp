@@ -498,5 +498,19 @@ Term | Meaning
 **Contact** | A set of details that represents a person as an entity
 **Command** | A specific instruction provided by the user
 **Parameter** | Details provided by the user to alter command behaviours
-**Log** | Remarks on the modification of information of a specific contact with a time attached
+**Log** | Remarks on the modification of information, or communication with a specific contact with a time attached
 **Note** | Simple comments pertaining to a specific contact
+**Tag** | A user-defined label attached to a contact to group or filter contacts (e.g., `t/friends`).
+**Index** | The 1-based number shown beside a contact in a displayed list used to reference that contact in commands.
+**Autosave** | The feature that writes changes to the current save file automatically after any data-changing command.
+**Save file** | The file where LinkedUp stores data (default: `data/addressbook.json`). Can be exported or imported as `.json` or `.csv`.
+**JSON** | A structured text format used by LinkedUp to store contact data (`.json`).
+**CSV** | A comma-separated values file used for exporting/importing contact lists (`.csv`).
+**Pinned contact** | A contact marked to always appear at the top of the list regardless of sorting.
+**Fuzzy match** | A search method that tolerates minor typos to find likely matches (works better with longer keywords).
+**Exact match** | A search method that matches only identical words or tags (no partial or fuzzy matching).
+**Autofill** | The edit shortcut that populates the command box with a contact's current details for quick editing.
+**Preference file** | Application settings stored locally (e.g., window position). Deleting it can reset GUI position.
+**Undo/Redo stack** | Internal history of changes allowing reversal (`undo`) and re-application (`redo`) of recent edits.
+**Command box** | The text input area in the visual interface where users type commands.
+**Home folder** | The folder where the `.jar` and default `data` folder are stored and where LinkedUp saves `addressbook.json`.
