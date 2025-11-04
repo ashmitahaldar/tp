@@ -27,7 +27,7 @@ Assumptions about user skills:
 - Basic English literacy sufficient to interpret command keywords and UI labels.
 - Basic awareness of data privacy and backup practices: avoid storing sensitive credentials in notes, and back up the `data/addressbook.json` file before manual edits.
 
-# Table of Contents
+# Table of Contents <a name="toc"></a>
 - [Setup](#setup)
 - [QuickStart](#quickstart)
 - [Features](#features)
@@ -37,6 +37,7 @@ Assumptions about user skills:
   * [Statistics table](#stats)
   * [Editing a contact](#edit)
   * [Adding a note to a contact](#note)
+  * [Logging an interaction with a contact](#log)
   * [Locating contacts by name](#find)
   * [Filtering contacts by tags](#filter)
   * [Deleting a contact](#delete)
@@ -240,7 +241,7 @@ Examples:
 * `note 2 note/Prefers email communication` Adds a note about communication preference to the 2nd contact.
 * `note 1 note/` Removes the note from the 1st contact.
 
-### Logging an interaction with a contact : `log`
+### [Logging an interaction with a contact : `log`](#toc) <a name="log"></a> 
 
 Adds a log entry to document an interaction with an existing contact in the address book. 
 
