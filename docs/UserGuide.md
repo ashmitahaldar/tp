@@ -196,7 +196,7 @@ Format: `edit INDEX​`
 Example:
 * `edit 3`
 
-The command line will autofill the person in index 3 as shown below without changing actual data
+The command line will autofill the contact in index 3 as shown below without changing actual data
 
 ![Edit](images/Edit.png)
 
@@ -240,7 +240,7 @@ Examples:
 * `note 2 note/Prefers email communication` Adds a note about communication preference to the 2nd contact.
 * `note 1 note/` Removes the note from the 1st contact.
 
-### Logging an interaction with a person : `log`
+### Logging an interaction with a contact : `log`
 
 Adds a log entry to document an interaction with an existing contact in the address book. 
 
@@ -251,8 +251,8 @@ interaction history for event coordination and handovers.
 
 Format: `log INDEX m/MESSAGE [t/TYPE]`
 
-* Adds a log entry for the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Adds a log entry for the contact at the specified `INDEX`.
+* The index refers to the index number shown in the displayed contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * The `MESSAGE` describes the interaction.
 * The optional `TYPE` specifies the type of interaction (e.g., "call", "meeting", "email").
